@@ -1,0 +1,10 @@
+{
+  "name": "panda-suite",
+  "version": "1.7.2",
+  "description": "Standalone Panda Suite skills installer",
+  "license": "MIT",
+  "repository": "https://github.com/refactorroom/panda-suite",
+  "engines": { "node": ">=20" },
+  "bin": { "panda-suite": "bin/panda-suite.js" },
+  "files": ["bin", "skills", "LICENSE", "SOURCE_NOTICES.md"]
+}

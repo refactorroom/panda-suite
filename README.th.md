@@ -105,6 +105,26 @@ Standalone Codex ใช้ `$panda-spec`; Claude Code ที่ติดตั�
 `$HOME/.claude/skills` ใช้ `/panda-spec` รายละเอียดการติดตั้งทุกแบบอยู่ใน
 [คู่มือภาษาอังกฤษ](README.md)
 
+## ติดตั้งและอัปเดต standalone skills ผ่าน npm
+
+CLI ต้องใช้ Node.js 20 ขึ้นไป หลังเผยแพร่แพ็กเกจแล้ว ใช้คำสั่งต่อไปนี้:
+
+```sh
+npx panda-suite@latest install --skill panda-plan --skill panda-execute
+npx panda-suite@latest update
+```
+
+ใช้ `--all` แทน `--skill` เพื่อติดตั้งทั้งหมด ค่าเริ่มต้นคือ
+`~/.agents/skills` หากใช้ตำแหน่งอื่นให้เพิ่ม `--destination /path/to/skills`
+ในทั้งสองคำสั่ง แล้วรีสตาร์ตหรือรีเฟรช host เมื่ออัปเดตเสร็จ `@latest`
+เลือกแพ็กเกจล่าสุดที่เผยแพร่แล้ว และ skills มาจากแพ็กเกจเวอร์ชันนั้น
+
+CLI เก็บรายการไฟล์ที่จัดการใน `.panda-suite-state.json` และจะไม่ทับโฟลเดอร์
+ที่มีอยู่หรือไฟล์ที่ผู้ใช้แก้ไข หากเคยติดตั้งด้วย Python ให้สำรองและย้าย
+โฟลเดอร์ skill เดิมออกก่อนติดตั้งด้วย CLI การติดตั้งผ่าน plugin ยังคงใช้คำสั่ง
+อัปเดต plugin ตามด้านล่าง หากคำสั่งถูกขัดจังหวะ ให้สำรอง destination ทั้งหมด
+และทำตามขั้นตอนกู้คืนในหัวข้อ npm CLI ของ README ภาษาอังกฤษก่อนลองอีกครั้ง
+
 ## อัปเดต skills ที่ติดตั้งแล้ว
 
 สำหรับ Codex ที่ใช้ Git marketplace ให้อัปเดต marketplace และ plugin:

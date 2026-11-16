@@ -147,6 +147,49 @@ actual Codex app-server. Standalone discovery below was also tested. Persistent
 plugin installation and interactive invocation were not exercised, and no global
 user configuration was changed during validation.
 
+### npm CLI for standalone skills
+
+The npm CLI requires Node.js 20 or newer. After the package has been published,
+install selected skills and later update the managed copies with:
+
+```sh
+npx panda-suite@latest install --skill panda-plan --skill panda-execute
+npx panda-suite@latest update
+```
+
+Use `--all` instead of the `--skill` options to install all bundled skills. The
+default destination is `~/.agents/skills`; append `--destination /path/to/skills`
+to both commands to manage a different host or project directory. Restart or
+refresh the host after changes. `@latest` requests the latest published CLI;
+the skill contents come from that package version.
+
+The CLI records managed files in `.panda-suite-state.json` in the destination.
+It refuses existing directories and stops the entire update if managed files were
+changed, added, deleted, or replaced by symlinks. Restore the original managed
+files from a backup before retrying. To migrate a Python-installed skill, first
+back up and remove its existing directory, then install it through the CLI. Keep
+unrelated skills and the state file intact. Plugin installations use their own
+update commands below.
+
+If a process is interrupted, preserve a copy of the whole destination before
+recovery. Check that no CLI process is running. The `.panda-suite-transaction`
+directory contains `manifest.json`, any original `state.before`, staged files,
+and original directories under `backup`. Inspect those alongside the current
+files: restore the original directories from `backup`, remove any new directories
+created by the interrupted install, and restore `state.before` (or remove the
+state file if `hadState` is false). If a backup is absent, retain the original
+current directory; do not discard changes you cannot identify. Once the files
+and state are consistent, remove `.panda-suite-transaction` and the stale
+`.panda-suite-lock` directory, then retry. A lock without a transaction can be
+removed after confirming no process is running. If rollback reports an error,
+keep the transaction and recover from its backups before retrying.
+
+For maintainers: align `package.json`, `plugin.json`, and
+`.claude-plugin/plugin.json` versions, run the tests, inspect `npm pack --dry-run`
+and the actual tarball, and smoke-test that tarball before publishing a new
+version. Verify package name ownership and all bundled redistribution rights;
+see `SOURCE_NOTICES.md`. Publishing requires separate authorization.
+
 ### Standalone skills and compatible hosts
 
 The copy utility uses Python 3.10+ and the standard library. Choose your host's
