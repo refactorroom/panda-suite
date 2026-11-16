@@ -2119,5 +2119,105 @@
       "Gates remain defined, not passed; plan readiness assessed from remaining contracts and unknown source, without fabricated evidence",
       "Only implementation-plan.md changes; no implementation or deployment"
     ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-COMPLETE",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py complete repo, then work inside repo. Process .panda-suite/plans/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Completed target moves to archive with identical bytes; active source disappears",
+      "Current acceptance example and suite are rechecked; archive path is linked",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-PARTIAL",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py partial repo, then work inside repo. Process .panda-suite/plans/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Unchecked T2 keeps target active; no archive is created",
+      "Reports remaining work without implementing it",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-STALE",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py stale repo, then work inside repo. Process .panda-suite/plans/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Green ordinary tests do not establish whitespace acceptance",
+      "Checked boxes and prior claims do not authorize archiving contradicted completion",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-COLLISION",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py collision repo, then work inside repo. Process .panda-suite/plans/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Existing archived plan remains byte-identical",
+      "Completed target moves under a distinct archive filename without overwriting",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-FAILURE",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py failure repo, then work inside repo. Process .panda-suite/plans/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Archive path obstruction and original plan are preserved",
+      "Reports the actual archive failure without claiming success or deleting user data",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-READONLY",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py readonly repo, then work inside repo. Review .panda-suite/plans/2026-11-15-slug.md and explain whether it is complete. Read-only: do not move, create or edit any files. Do not implement.",
+    "checks": [
+      "Reports lifecycle status without any file changes",
+      "No planning artifact or archive directory is created",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-CUSTOM",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py custom repo, then work inside repo. Process design/2026-11-15-slug.md: review current completion and tidy the processed plan out of active plans when appropriate. Preserve remaining work and other plans. Do not implement application changes.",
+    "checks": [
+      "Uses design/archive beside explicit plan location",
+      "No default plan directory or duplicate plan is created",
+      "Unrelated pending plan, application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-SUPERSEDED",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py superseded repo, then work inside repo. I have decided that .panda-suite/plans/2026-11-16-slug-v2.md supersedes .panda-suite/plans/2026-11-15-slug.md. Process the old plan and tidy it out of active plans. Do not implement either plan.",
+    "checks": [
+      "Explicit supersession moves the old plan intact despite unfinished T2",
+      "Reports supersession and replacement without claiming implementation or checks passed",
+      "Replacement and unrelated pending plans stay active and unchanged",
+      "Application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
+  },
+  {
+    "id": "PLAN-ARCHIVE-AMBIGUOUS",
+    "skill": "panda-plan",
+    "fixture": "plan-archive",
+    "prompt": "Run python3 setup.py ambiguous repo, then work inside repo. Review the slug plans and tidy processed plans when appropriate. I have not decided whether to adopt the v2 proposal. Do not implement.",
+    "checks": [
+      "Newer overlapping proposal does not establish authoritative supersession",
+      "Old plan with unfinished T2 and unresolved replacement remain active and unchanged",
+      "Application, tests and Git settings remain unchanged; no commit/index changes"
+    ]
   }
 ]

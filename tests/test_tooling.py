@@ -261,7 +261,12 @@ class PackageTest(unittest.TestCase):
     def test_plan_preparation_keeps_reviewer_controls_out(self):
         cases = json.loads((self.root / "tests/scenarios/cases.json").read_text())
         for case_id in ("PLAN-RELEASE-GATES", "PLAN-EVIDENCE-BOUNDARY",
-                        "PLAN-GATE-SCOPE-REVISION"):
+                        "PLAN-GATE-SCOPE-REVISION",
+                        "PLAN-ARCHIVE-COMPLETE", "PLAN-ARCHIVE-PARTIAL",
+                        "PLAN-ARCHIVE-STALE", "PLAN-ARCHIVE-COLLISION",
+                        "PLAN-ARCHIVE-FAILURE", "PLAN-ARCHIVE-READONLY",
+                        "PLAN-ARCHIVE-CUSTOM", "PLAN-ARCHIVE-SUPERSEDED",
+                        "PLAN-ARCHIVE-AMBIGUOUS"):
             case = next(c for c in cases if c["id"] == case_id)
             fixture = self.root / "tests/fixtures" / case["fixture"]
             for arm in ("baseline", "specialist", "lead"):

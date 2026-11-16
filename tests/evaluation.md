@@ -257,3 +257,27 @@ same fixtures/prompts and fresh contexts. Score actual plans for discriminating
 assertions, source accuracy, dependency/interface coherence, evidence boundaries,
 proportionality and preserved handoff. A valid fixture, discovered skill or saved
 plan establishes neither behavioral improvement nor release readiness.
+
+## Processed-plan archiving
+
+Nine `PLAN-ARCHIVE-*` cases cover verified completion, unfinished tasks, stale
+completion claims despite a green suite, filename collisions, an obstructed archive
+path, read-only scope, an explicit plan location, explicit supersession of an
+unfinished plan, and ambiguous replacement by a newer proposal. The prepared workspace
+contains only `setup.py` and `TASK.txt`; run the task's setup command to create
+its isolated repository. Reviewer keys and controls are not distributed.
+
+```sh
+python3 scripts/prepare-evaluation.py --case PLAN-ARCHIVE-COMPLETE --arm specialist --destination /tmp/plan-archive-specialist
+python3 -B tests/reviewer/check_plan_archive.py
+python3 -B tests/reviewer/check_plan_archive.py --scenario complete --workspace /tmp/plan-archive-specialist/repo
+```
+
+The second command validates the oracle with positive and negative controls;
+the third scores a real task workspace after its run. The oracle requires a move,
+byte-preserved plan evidence, no overwritten archive, and unchanged unrelated
+files/directories. Inspect task transcripts separately for current acceptance
+checks, truthful failure reporting, response links and Git-index preservation.
+Reuse `PLAN-NONTRIGGER` in the Lead arm for focused-question routing.
+See [contract, protocol and results](../docs/panda-plan-archive.md). Local controls
+are not model trials; fresh-context behavioral comparison remains **Not Run**.
