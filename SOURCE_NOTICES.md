@@ -14,11 +14,11 @@ Suite instructions and references: `skills/panda-debugger/`. Remaining tracked
 files, including README, manifests, fixtures, and evaluation instructions:
 `skills/panda-debugger/`.
 
-The inspected revision contains no LICENSE file. No license grant is inferred or
-added by Panda Suite. The Suite MIT license excludes these files. This local
-integration implements the repository owner's request; public redistribution
-terms remain unresolved until an upstream license or explicit grant is supplied.
-No package has been published by this implementation.
+The inspected revision contains no LICENSE file. The copyright owner confirmed
+on 2026-11-16 that they own the rights and authorized redistribution of Panda
+Debugger as part of the public Panda Suite npm package. This authorization does
+not assign a license for other uses or further redistribution. The Suite MIT
+license excludes these files.
 
 ## Buddhist Method
 

@@ -2,7 +2,7 @@
   "name": "panda-suite",
   "version": "1.7.2",
   "description": "Standalone Panda Suite skills installer",
-  "license": "MIT",
+  "license": "SEE LICENSE IN SOURCE_NOTICES.md",
   "repository": "https://github.com/refactorroom/panda-suite",
   "engines": { "node": ">=20" },
   "bin": { "panda-suite": "bin/panda-suite.js" },

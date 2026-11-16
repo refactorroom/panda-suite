@@ -107,7 +107,7 @@ Standalone Codex ใช้ `$panda-spec`; Claude Code ที่ติดตั�
 
 ## ติดตั้งและอัปเดต standalone skills ผ่าน npm
 
-CLI ต้องใช้ Node.js 20 ขึ้นไป หลังเผยแพร่แพ็กเกจแล้ว ใช้คำสั่งต่อไปนี้:
+CLI ต้องใช้ Node.js 20 ขึ้นไป ใช้คำสั่งต่อไปนี้:
 
 ```sh
 npx panda-suite@latest install --skill panda-plan --skill panda-execute
@@ -224,8 +224,8 @@ Research และ Write ผ่าน structural validation และ Codex disc
 โดยเก็บ revision และ SHA-256 ของทั้งสองสกิลใน `upstream-lock.json`
 
 ไฟล์ที่เขียนใหม่ของ Suite ใช้ MIT ส่วน Buddhist Method เก็บ MIT เดิมไว้
-revision ของ Panda Debugger ที่ตรวจสอบไม่มีไฟล์ LICENSE จึงยังไม่มีข้อสรุป
-สิทธิ์สำหรับเผยแพร่ไฟล์ส่วนนั้นต่อ และไม่อยู่ใน MIT ของ Suite
+revision ของ Panda Debugger ที่ตรวจสอบไม่มีไฟล์ LICENSE เจ้าของอนุญาตให้
+แจกจ่ายในแพ็กเกจ npm ของ Panda Suite แล้ว และไฟล์ส่วนนั้นไม่อยู่ใน MIT ของ Suite
 ดู [รายละเอียด attribution และ license](SOURCE_NOTICES.md)
 
 ## ส่วนขยายที่จำเป็น

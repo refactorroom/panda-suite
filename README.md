@@ -99,12 +99,11 @@ cd panda-suite
 ```
 
 Run the commands below from that checkout. All source files are included; no
-recursive checkout or bootstrap is needed. This is source distribution, not a
-published package-registry release.
+recursive checkout or bootstrap is needed. This command installs from source.
 
 **License status:** original Suite files use MIT; Buddhist Method retains its MIT
-license. The pinned Panda Debugger revision has no LICENSE file. Its public
-redistribution terms remain unresolved; the Suite license does not cover it.
+license. The pinned Panda Debugger revision has no LICENSE file. Its owner authorized
+redistribution in the Panda Suite npm package; the Suite license does not cover it.
 See [source notices](SOURCE_NOTICES.md).
 
 ### Claude Code
@@ -149,8 +148,8 @@ user configuration was changed during validation.
 
 ### npm CLI for standalone skills
 
-The npm CLI requires Node.js 20 or newer. After the package has been published,
-install selected skills and later update the managed copies with:
+The npm CLI requires Node.js 20 or newer. Install selected skills and later
+update the managed copies with:
 
 ```sh
 npx panda-suite@latest install --skill panda-plan --skill panda-execute
