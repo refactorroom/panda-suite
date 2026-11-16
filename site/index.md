@@ -10,7 +10,7 @@ Start with **Panda Lead** when you want help choosing a workflow. Go straight to
 
 Panda Plan links requirements, implementation tasks, verification and expected
 evidence. It reports execution readiness and defines release gates when the
-requested scope needs them. The suite contains 25 independent skills.
+requested scope needs them. The suite contains 27 independent skills.
 Read the [release notes](../docs/v1.7.2.md) and [Plan guide](panda-plan.html).
 
 ## Your first request

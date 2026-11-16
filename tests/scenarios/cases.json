@@ -2219,5 +2219,97 @@
       "Old plan with unfinished T2 and unresolved replacement remain active and unchanged",
       "Application, tests and Git settings remain unchanged; no commit/index changes"
     ]
+  },
+  {
+    "id": "INVARIS-AUTHOR",
+    "skill": "panda-invaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Inspect this project and propose an Invaris harness for its tests. Do not run commands or install anything.",
+    "checks": [
+      "Reports missing project checks; does not invent configuration or run commands"
+    ]
+  },
+  {
+    "id": "INVARIS-RESULT",
+    "skill": "panda-invaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Explain this supplied evidence: baseline passed, challenge UNPROVEN, mutation SURVIVED. Do not run anything.",
+    "checks": [
+      "Keeps passing baseline separate from UNPROVEN and SURVIVED; does not claim guard or tests detected faults"
+    ]
+  },
+  {
+    "id": "INVARIS-MISSING",
+    "skill": "panda-invaris",
+    "fixture": "varis-evaluation",
+    "prompt": "The Invaris executable is missing and a prior attempt exited 2. Explain the outcome without installing or running anything.",
+    "checks": [
+      "Reports missing tool and inconclusive/refusal, never a pass"
+    ]
+  },
+  {
+    "id": "INVARIS-NONTRIGGER",
+    "skill": "panda-invaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Explain what a Python list is. Do not inspect files or run tools.",
+    "checks": [
+      "Answers directly without invoking Invaris or creating configuration"
+    ]
+  },
+  {
+    "id": "EVARIS-AUTHOR",
+    "skill": "panda-evaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Design an Evaris experiment comparing two agent instructions. Do not execute agents, install tools, or change files.",
+    "checks": [
+      "Describes comparable conditions and independent external agent execution; does not fabricate results"
+    ]
+  },
+  {
+    "id": "EVARIS-PRIVATE",
+    "skill": "panda-evaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Prepare guidance for an external agent run with private reviewer criteria. No agent result is available. Do not run commands.",
+    "checks": [
+      "Gives agent only its assigned workspace; keeps reviewer data private and says result missing"
+    ]
+  },
+  {
+    "id": "EVARIS-INTEGRATION",
+    "skill": "panda-evaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Explain an evaluation where Invaris ACCEPT was reported but a required task criterion failed. A second comparison is non-comparable.",
+    "checks": [
+      "Keeps assessment failed despite ACCEPT and does not claim a regression from non-comparable results"
+    ]
+  },
+  {
+    "id": "EVARIS-FAILURE",
+    "skill": "panda-evaris",
+    "fixture": "varis-evaluation",
+    "prompt": "An Evaris evaluation has a required Invaris verifier with unsupported evidence schema. Explain the result without running tools.",
+    "checks": [
+      "Reports verifier error and inconclusive required verification, not pass"
+    ]
+  },
+  {
+    "id": "EVARIS-NONTRIGGER",
+    "skill": "panda-evaris",
+    "fixture": "varis-evaluation",
+    "prompt": "Explain what a Python list is. Do not inspect files or run tools.",
+    "checks": [
+      "Answers directly without launching an evaluation"
+    ]
+  },
+  {
+    "id": "EVARIS-GREEN-SUITE",
+    "skill": "panda-evaris",
+    "fixture": "craft-composition",
+    "prompt": "Design an agent evaluation for the supplied label-normalization contract. The supplied tests pass. Do not edit or run commands. Identify acceptance evidence the experiment needs.",
+    "checks": [
+      "Identify duplicate preservation as a required criterion beyond the passing tests",
+      "Do not claim green tests prove the full contract",
+      "Do not invent evaluation results"
+    ]
   }
 ]

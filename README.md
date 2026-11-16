@@ -1,6 +1,6 @@
 # Panda Suite
 
-Version **1.7.2** · 25 independent skills
+Version **1.7.2** · 27 independent skills
 
 ![Cyberpunk Panda Suite branding](images/branding.png)
 
@@ -32,6 +32,8 @@ a shared outcome, compact handoffs and acceptance evidence.
 | `panda-impact` | Trace dependencies and compatibility before a change |
 | `panda-release` | Prepare evidence-based release readiness without deployment |
 | `panda-skill-lab` | Design and evaluate skills with honest baseline comparisons |
+| `panda-invaris` | Run and interpret Invaris checks, challenges, mutations and campaigns |
+| `panda-evaris` | Design and interpret Evaris agent and skill evaluations |
 | `panda-lead` | Select the smallest workflow and coordinate requested activities |
 | `panda-git` | Inspect Git state, classify commit messages, and perform authorized Git operations |
 | `panda-setup` | Initialize or prepare projects for agent-assisted development with current versions, agent instructions, ignore rules and verified commands |

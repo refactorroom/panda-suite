@@ -281,3 +281,19 @@ checks, truthful failure reporting, response links and Git-index preservation.
 Reuse `PLAN-NONTRIGGER` in the Lead arm for focused-question routing.
 See [contract, protocol and results](../docs/panda-plan-archive.md). Local controls
 are not model trials; fresh-context behavioral comparison remains **Not Run**.
+
+## Invaris and Evaris cases
+
+`INVARIS-*` and `EVARIS-*` cover read-only authoring, actual-result distinctions,
+missing tools, privacy, unsupported integration, comparisons and nonactivation.
+Prepare each arm with `scripts/prepare-evaluation.py` and a new destination; the
+case prompts are copied without the reviewer checks. The cases are supplied
+scenarios, not measurements of model behavior. Baseline and specialist runs:
+**Not Run**. A future comparison needs fresh contexts and matching settings;
+record actual responses and actions without exposing reviewer checks to agents.
+The target failure modes are hypotheses, not recorded failures of a baseline.
+
+`EVARIS-GREEN-SUITE` uses the existing label contract fixture. Run
+`python3 -B tests/reviewer/check_craft.py` to confirm the faulty implementation
+and correct control both pass supplied tests while only the control preserves
+duplicates. This verifies fixture discrimination, not agent performance.

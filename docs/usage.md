@@ -586,3 +586,35 @@ then verifies the hash and reports remaining changes. Push, history rewrite,
 tag and release authority are separate. Conflicts and recovery use conditional
 skill-local references. No parent coordinator or separate agent is required.
 See [contract and evaluation](panda-git.md).
+
+## Invaris and Evaris
+
+### Panda Invaris
+
+Use for an Invaris harness, guardrail challenge, mutation, or campaign. Provide
+the project and harness, the desired verification, and whether edits or commands
+are authorized. An installed compatible Invaris CLI is needed to execute checks.
+
+```text
+$panda-invaris Inspect .invaris/invaris.json and explain which guard checks
+access control. Run the authorized challenge and report its actual evidence.
+```
+
+Expect the chosen action, actual report and limitations; a passing baseline does
+not prove detection. Inspect commands and external dependencies before running.
+
+### Panda Evaris
+
+Use for evaluating agents or skills with Evaris. Supply the experiment, cases,
+comparison conditions, and permissions. A compatible Evaris CLI is needed for
+execution; real agent runs require a separate authorized host.
+
+```text
+$panda-evaris Inspect my experiment, validate it, and prepare a baseline and
+specialist evaluation. Keep reviewer evidence private; report what remains.
+```
+
+Expect separate preparation, external agent execution, import, grading and
+comparison evidence. Never share private reviewer material with the task agent.
+Optional Invaris verification uses Evaris's documented restricted compatibility
+profile; its verdict does not replace the Evaris task assessment.
