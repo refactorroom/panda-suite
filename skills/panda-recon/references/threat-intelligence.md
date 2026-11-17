@@ -10,7 +10,7 @@ state a "latest" version, CVE, KEV entry or incident without a retrieved source.
 
 | Agent cue | Answer with |
 | --- | --- |
-| `$panda-recon intel latest [--ecosystem go/npm/pypi] [--severity S]` | Recently modified NVD records with KEV/EPSS enrichment, plus project exposure when an inventory is supplied. Results are not ranked; highlight KEV-listed and locally affected items first. `--severity` keeps records at or above the publisher CVSS severity and always keeps records without CVSS. |
+| `$panda-recon intel latest [--ecosystem go/npm/pypi] [--severity S]` | NVD records changed in the window (default 1 day) with KEV/EPSS enrichment, plus project exposure when an inventory is supplied. Ranked KEV-listed first, then severity, EPSS and recency; the report shows the top 50. `--severity` keeps records at or above the publisher CVSS severity and always keeps records without CVSS. |
 | `$panda-recon intel update` | Refresh enabled sources; report per-source success/failure and retained snapshots. |
 | `$panda-recon intel status` | Enabled sources, last successful sync, data age, freshness, failures, offline availability. |
 | `$panda-recon intel owasp` | Current released version per OWASP project (Top 10, API, ASVS), checked independently; drafts/RCs are not releases. |
@@ -62,11 +62,13 @@ general news never creates a `PROJECT_EXPOSURE.md` row.
 
 ## Freshness, network and privacy
 
-Known limit: one helper run reads at most 300 changed NVD records (3 pages of
-100). Real NVD activity is often higher, so `latest` and `update` usually report
-NVD Unavailable against the live service. Say so; do not present the missing
-NVD data as "no new CVEs". `intel cve`, KEV, EPSS, OSV, OWASP and MITRE are
-not affected.
+NVD volume: `latest` and `update` read NVD changes for the last day by default
+(`--days N`, up to 120). About 1,400 records change per day. One run reads at most
+8,000 records in pages of 1,000, 6 seconds apart; a larger window is reported as
+`NVD_WINDOW_TOO_LARGE`, never silently cut short. Use a shorter window, or run
+`update` daily so it only fetches changes since the last success. Results are
+ranked: KEV-listed first, then publisher severity, EPSS and recency; the report
+shows the top 50 and `intelligence.json` keeps all of them.
 
 
 Live retrieval needs explicit network permission (`--allow-network` in the helper,

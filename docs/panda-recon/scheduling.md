@@ -19,8 +19,8 @@ still fresh. To check OWASP and ATT&CK only weekly, schedule them separately wit
 `--source`.
 
 Missed runs catch up: NVD resumes from the last successful sync (minus two
-minutes). A gap longer than 120 days is refused and needs a manual partitioned
-refresh. A failed source keeps its previous snapshot, and the run exits 3.
+minutes). If the gap holds more than 8,000 changes it is refused; see the NVD
+note under Known limits for the one-command restart. A failed source keeps its previous snapshot, and the run exits 3.
 
 ## Local scheduler (cron)
 
@@ -67,12 +67,13 @@ Panda Suite ships no such workflow.
 
 ## Known limits
 
-- **NVD change volume:** the helper reads at most 3 pages of 100 changed NVD
-  records per run. Real NVD activity is often far higher (1,440 records changed in
-  one day on 2026-11-17), so NVD in `intel update` and `intel latest` is usually
-  reported Unavailable against the live service. KEV, EPSS, OWASP, MITRE and
-  single `intel cve` lookups are not affected. Until this is fixed, schedule
-  `--source kev` and use `intel cve` for specific CVEs.
+- **NVD change volume:** about 1,400 NVD records change per day. One run reads at
+  most 8,000 (8 pages of 1,000, 6 seconds apart). A daily `update` stays well
+  inside that. After roughly five or more missed days the catch-up is refused
+  with `NVD_WINDOW_TOO_LARGE`, and the previous snapshot is kept. To recover,
+  run `intel update --source nvd --days 1 --allow-network` once. That restarts
+  the sync one day back, and the output says that older changes were not
+  fetched. Later default runs resume from there. Nothing is silently truncated.
 - Duplicate alert suppression is not provided because no alerts are sent.
 - Unauthenticated NVD requests are rate limited; the helper retries with backoff
   and respects Retry-After, but frequent schedules make failures more likely.
