@@ -186,6 +186,26 @@ class IntelligenceTest(unittest.TestCase):
         osv = fixture('osv'); osv['vulns'][0]['withdrawn'] = '2026-11-17T08:00:00Z'
         self.assertEqual('Not affected', COMPONENTS.affected(fixture('components')[0], osv['vulns'][0])[0])
 
+    def test_latest_severity_filter_keeps_unknown_and_states_what_was_hidden(self):
+        nvd = fixture('nvd'); base = nvd['vulnerabilities'][0]
+        rows = []
+        for cve_id, severity, score in (('CVE-2099-20001', 'CRITICAL', 9.8), ('CVE-2099-20002', 'MEDIUM', 5.0), ('CVE-2099-20003', None, None)):
+            row = copy.deepcopy(base); row['cve']['id'] = cve_id
+            if severity: row['cve']['metrics']['cvssMetricV31'][0]['cvssData'].update(baseSeverity=severity, baseScore=score)
+            else: row['cve']['metrics'] = {}
+            rows.append(row)
+        nvd.update(vulnerabilities=rows, totalResults=3)
+        self.mock.responses['nvd'] = (json.dumps(nvd).encode(), 'application/json')
+        unfiltered = self.run_intel('latest', '--allow-network')
+        self.assertEqual({'CVE-2099-20001', 'CVE-2099-20002', 'CVE-2099-20003'}, {r['id'] for r in unfiltered['records']})
+        data = self.run_intel('latest', '--allow-network', '--severity', 'high')
+        # Missing NVD enrichment is not low severity: the unknown record stays visible.
+        self.assertEqual({'CVE-2099-20001', 'CVE-2099-20003'}, {r['id'] for r in data['records']})
+        note = next(v for v in data['limitations'] if 'Severity filter' in v)
+        self.assertIn('1 record', note); self.assertIn('without CVSS', note)
+        self.assertIn('Severity filter', INTEL.markdown(data))
+        self.assertEqual({'CVE-2099-20001'}, {r['id'] for r in self.run_intel('latest', '--allow-network', '--severity', 'critical')['records']} - {'CVE-2099-20003'})
+
     def test_missing_nvd_enrichment_is_not_unaffected(self):
         self.mock.fail['nvd'] = 'HTTP_403'
         data = self.run_intel('cve', 'CVE-2099-10001', '--allow-network')

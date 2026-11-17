@@ -332,8 +332,12 @@ def run(args, api, transport=None, sleep=None, now=None):
     if args.topic == 'incidents':
         threshold = datetime.fromisoformat(now) - timedelta(days=args.days)
         records = [r for r in records if any(c['source']['publishedAt'] is None or datetime.fromisoformat(c['source']['publishedAt']) >= threshold for c in r['claims'])]
+    exposure = exposures(records, components, api)  # Before filtering: an affected component never disappears.
+    severity_note = []
+    if args.severity:
+        records, severity_note = severity_filter(records, args.severity)
     return {'schemaVersion': 'panda-recon.intelligence/v1', 'generatedAt': now, 'topic': args.topic,
-            'records': records, 'sourceStatus': statuses, 'projectExposure': exposures(records, components, api),
+            'records': records, 'sourceStatus': statuses, 'projectExposure': exposure,
             'requests': client.requests, 'networkAvailability': 'Network permitted for fixed sources' if client.allow_network else 'Offline or not authorized',
             'limitations': ['External intelligence is not a local incident or proof of exploit reachability.',
                 'TTL measures retrieval age, not provider publication completeness; outages preserve prior snapshots.',
@@ -342,7 +346,33 @@ def run(args, api, transport=None, sleep=None, now=None):
                 'OWASP projects are interpreted separately; incident feed items are leads, not confirmed breaches.',
                 'No daemon, scheduler, package upgrade, target probe or alert delivery was activated.',
                 'Package matching supports exact versions and npm/Go SEMVER only; other ranges/backports remain uncertain.',
-                'NVD latest is a bounded modification window, not a complete all-time catalog; publication/modification dates remain distinct.']}
+                'NVD latest is a bounded modification window, not a complete all-time catalog; publication/modification dates remain distinct.'] + severity_note}
+
+
+SEVERITY_ORDER = ['informational', 'low', 'medium', 'high', 'critical']
+
+
+def record_severity(record):
+    """Highest publisher severity across claims, or None when no CVSS severity was published."""
+    ranks = [SEVERITY_ORDER.index('informational' if s == 'none' else s)
+             for claim in record['claims'] for metric in claim.get('cvss', [])
+             for s in [str(metric.get('severity') or '').lower()] if s in SEVERITY_ORDER or s == 'none']
+    return SEVERITY_ORDER[max(ranks)] if ranks else None
+
+
+def severity_filter(records, minimum):
+    """Display filter on publisher CVSS severity. Records without CVSS stay: missing enrichment is not low."""
+    floor = SEVERITY_ORDER.index(minimum)
+    kept, hidden, unknown = [], 0, 0
+    for record in records:
+        severity = record_severity(record)
+        if severity is None: unknown += 1; kept.append(record)
+        elif SEVERITY_ORDER.index(severity) >= floor: kept.append(record)
+        else: hidden += 1
+    note = (f'Severity filter {minimum} and above: {hidden} record{"" if hidden == 1 else "s"} below it omitted; '
+            f'{unknown} record{"" if unknown == 1 else "s"} without CVSS severity kept because missing enrichment is not low severity. '
+            'Project exposure is computed before filtering.')
+    return kept, [note]
 
 
 def markdown(data):
@@ -358,7 +388,6 @@ def markdown(data):
               '', '## Vulnerabilities, guidance and reported leads', '']
     urls = []
     for record in data['records']:
-        if data.get('visibleRecordIds') is not None and record['id'] not in data['visibleRecordIds']: continue
         lines += ['### ' + safe(record['id']), '', 'Type: ' + safe(record['recordType'])]
         for claim in record['claims']:
             source = claim['source']; urls.append(source['url'])
