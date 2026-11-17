@@ -113,7 +113,10 @@ function run(options) {
         } else {
           // Reserve exclusively so a late collision cannot be replaced by rename.
           fs.mkdirSync(target); movedNew.push(name);
-          fs.cpSync(path.join(staged, name), target, { recursive: true, errorOnExist: true, force: false });
+          // Copy entries, not the directory: Node 26.13+ cpSync rejects an existing destination root.
+          for (const entry of fs.readdirSync(path.join(staged, name))) {
+            fs.cpSync(path.join(staged, name, entry), path.join(target, entry), { recursive: true, errorOnExist: true, force: false });
+          }
         }
       }
       state.packageVersion = version;
