@@ -12,7 +12,7 @@ verification, documentation, and delivery handoff. It is Markdown instructions
 plus small maintenance tools. It does not run an agent service or require
 multi-agent execution.
 
-[Documentation site](https://akkaraponph.github.io/panda-suite/) · [ภาษาไทย](README.th.md) · [Architecture](docs/architecture.md) ·
+[Documentation site](https://refactorroom.github.io/panda-suite/) · [ภาษาไทย](README.th.md) · [Architecture](docs/architecture.md) ·
 [Verification and limitations](docs/verification.md)
 
 Start with the [complete usage guide](docs/usage.md): invocation syntax, inputs,
@@ -110,7 +110,7 @@ documentation; Spec defines proposed contracts and design.
 Use one method to avoid duplicate skill names. Check out the versioned release:
 
 ```sh
-git clone --branch v1.8.0 https://github.com/akkaraponph/panda-suite.git
+git clone --branch v1.8.0 https://github.com/refactorroom/panda-suite.git
 cd panda-suite
 ```
 
