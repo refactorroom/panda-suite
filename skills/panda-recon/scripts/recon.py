@@ -6,6 +6,7 @@ import copy
 from datetime import datetime, timezone
 from functools import lru_cache
 import hashlib
+import importlib.util
 import ipaddress
 import json
 import math
@@ -49,7 +50,7 @@ def finite_float(value):
     return number
 
 
-def load_json(path):
+def load_json(path, with_bytes=False):
     path = Path(path)
     info = path.lstat()
     if path.is_symlink() or not stat.S_ISREG(info.st_mode) or info.st_size > MAX_JSON:
@@ -58,8 +59,19 @@ def load_json(path):
         data = stream.read(MAX_JSON + 1)
     if len(data) > MAX_JSON:
         raise ValueError('JSON size limit exceeded')
-    return json.loads(data.decode('utf-8'), object_pairs_hook=pairs,
-                      parse_constant=invalid_constant, parse_float=finite_float)
+    value = json.loads(data.decode('utf-8'), object_pairs_hook=pairs,
+                       parse_constant=invalid_constant, parse_float=finite_float)
+    return (value, data) if with_bytes else value
+
+
+@lru_cache(maxsize=2)
+def support(name):
+    if name not in {'commands', 'scan'}:
+        raise ValueError('unknown bundled helper module')
+    spec = importlib.util.spec_from_file_location('_panda_recon_' + name, BASE / 'scripts' / (name + '.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def timestamp(value):
@@ -119,11 +131,11 @@ def validators():
     return {kind: jsonschema.Draft202012Validator(
         schemas['urn:panda-recon:' + kind + ':v1'], registry=registry,
         format_checker=jsonschema.FormatChecker())
-        for kind in ('engagement', 'case', 'asset', 'finding', 'evidence')}
+        for kind in ('engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata')}
 
 
 def validate(kind, data):
-    if kind not in {'engagement', 'case', 'asset', 'finding', 'evidence'}:
+    if kind not in {'engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata'}:
         raise ValueError('unknown record kind')
     checker = validators()[kind]
     if next(checker.iter_errors(data), None) is not None:
@@ -160,6 +172,12 @@ def validate(kind, data):
             relative_path(data['artifact'])
         if data['integrity'] == 'Matched' and (not data['artifact'] or not data['sha256']):
             raise ValueError('matched evidence needs an artifact and hash')
+    elif kind == 'finding':
+        for location in data.get('locations', []):
+            relative_path(location['file'])
+            start, end = location['lineStart'], location['lineEnd']
+            if (start is None) != (end is None) or (start is not None and start > end):
+                raise ValueError('invalid finding line range')
     elif kind == 'case':
         ids = {}
         for group in ('assets', 'evidence', 'findings'):
@@ -361,8 +379,21 @@ def render(case):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='action', required=True)
+    command_api = support('commands')
+    command = commands.add_parser('help', help='explain agent modes without executing them')
+    command.add_argument('mode', nargs='?')
+    command = commands.add_parser('request', help='validate an agent mode request, without executing it')
+    command.add_argument('request_args', nargs=argparse.REMAINDER)
+    command = commands.add_parser('scan-report', help='normalize supplied local reports; never launch scanners')
+    command.add_argument('target', type=Path)
+    command_api.options(command)
+    command.add_argument('--security-report', type=Path, action='append', default=[])
+    command.add_argument('--semgrep-report', type=Path, action='append', default=[])
+    command.add_argument('--gitleaks-report', type=Path, action='append', default=[])
+    command.add_argument('--redactions', type=Path, help='private JSON array of exact values to mask; never put secrets in CLI arguments')
+    command.add_argument('--correlations', type=Path, help='explicit reviewed primary/duplicate ID groups; no automatic cross-rule inference')
     command = commands.add_parser('validate')
-    command.add_argument('kind', choices=['engagement', 'case', 'asset', 'finding', 'evidence'])
+    command.add_argument('kind', choices=['engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata'])
     command.add_argument('file', type=Path)
     for action in ('integrity', 'render', 'transition'):
         command = commands.add_parser(action)
@@ -389,7 +420,30 @@ def main():
     args = parser.parse_args()
     try:
         code = 0
-        if args.action == 'validate':
+        if args.action in {'help', 'request'}:
+            contract = load_json(BASE / 'assets/command-contract.json')
+            if args.action == 'help':
+                print(command_api.help_text(contract, args.mode))
+                return 0
+            output = command_api.parse_request(args.request_args, contract)
+        elif args.action == 'scan-report':
+            scanner = support('scan')
+            sources = [('panda-security', p) for p in args.security_report]
+            sources += [('semgrep', p) for p in args.semgrep_report]
+            sources += [('gitleaks', p) for p in args.gitleaks_report]
+            secrets = load_json(args.redactions) if args.redactions else []
+            if not isinstance(secrets, list) or any(not isinstance(s, str) or len(s) < 4 for s in secrets):
+                raise ValueError('redactions must be an array of values at least four characters long')
+            case, metadata = scanner.build(args.target, sources, args, globals(), secrets)
+            if args.correlations:
+                before = len(case['findings'])
+                case = scanner.correlate(case, load_json(args.correlations), globals())
+                metadata['correlationsApplied'] = before - len(case['findings'])
+                metadata['findingCount'] = len(case['findings'])
+            output_path = args.output or Path('.panda-suite/recon/reports/scans') / case['id']
+            output = scanner.write_bundle(case, metadata, output_path, args.severity, args.format)
+            code = 3 if metadata['processingStatus'] == 'Partial' else 0
+        elif args.action == 'validate':
             validate(args.kind, load_json(args.file))
             output = {'valid': True, 'kind': args.kind}
         elif args.action == 'render':
@@ -409,9 +463,16 @@ def main():
             code = 0 if output['scopeEligible'] else 2
         print(json.dumps(output, indent=2, ensure_ascii=True, allow_nan=False))
         return code
-    except (ValueError, OSError, TypeError, KeyError, RecursionError):
+    except (ValueError, OSError, TypeError, KeyError, RecursionError) as error:
         # Never echo a raw invalid document, secret, path or imported exception detail.
-        print('Offline helper refused input or could not access required local data/dependencies.', file=sys.stderr)
+        if args.action in {'help', 'request'} and isinstance(error, ValueError):
+            print(str(error) + '. Use help or help MODE; no workflow was executed.', file=sys.stderr)
+        else:
+            category = ('PERMISSION_DENIED' if isinstance(error, PermissionError) else
+                        'OUTPUT_EXISTS' if isinstance(error, FileExistsError) else
+                        'INVALID_PATH' if isinstance(error, FileNotFoundError) else 'INVALID_INPUT_OR_SCOPE')
+            print('Offline helper refused input or could not access required local data/dependencies. '
+                  + category + ': check input schemas, target scope, report paths and existing output directories.', file=sys.stderr)
         return 2
 
 

@@ -304,14 +304,18 @@ class ReconTest(unittest.TestCase):
         cases = json.loads((ROOT / 'tests/scenarios/cases.json').read_text())
         cases = [c for c in cases if c['id'].startswith('RECON-')]
         self.assertGreaterEqual(len(cases), 8)
-        expected = {p.relative_to(FIXTURE) for p in FIXTURE.rglob('*') if p.is_file() and '__pycache__' not in p.parts}
         with tempfile.TemporaryDirectory() as temp:
             for case in cases:
+                fixture = ROOT / 'tests/fixtures' / case['fixture']
+                expected = {p.relative_to(fixture) for p in fixture.rglob('*')
+                            if p.is_file() and '__pycache__' not in p.parts}
                 for arm in ('baseline', 'specialist', 'lead'):
                     dest = Path(temp) / (case['id'] + arm)
                     prepare(ROOT, dest, case['id'], arm)
                     actual = {p.relative_to(dest) for p in dest.rglob('*') if p.is_file()}
                     self.assertEqual(expected | {Path('TASK.txt')}, actual)
+                    for path in expected:
+                        self.assertEqual((fixture / path).read_bytes(), (dest / path).read_bytes())
                     task = (dest / 'TASK.txt').read_text()
                     for answer in case['checks']:
                         self.assertNotIn(answer, task)

@@ -1,0 +1,12 @@
+{
+  "source": "npm registry panda-suite@1.7.2",
+  "version": "1.7.2",
+  "bin": {
+    "panda-suite": "bin/panda-suite.js"
+  },
+  "reconFiles": [],
+  "securityFiles": [],
+  "inspectedBy": "npm pack --ignore-scripts into a disposable directory; tar member/metadata reads only",
+  "reconV020Published": false,
+  "note": "No extraction, installation or package scripts; Python TLS fetch failed and npm verified transport was used instead."
+}

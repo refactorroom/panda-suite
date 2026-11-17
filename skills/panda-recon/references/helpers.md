@@ -47,3 +47,20 @@ truth, root-cause deduplication or authority. The conservative renderer emits on
 enums, indexes and counts; free text, raw IDs, locators, hashes and artifacts stay
 in the private structured record. Use the report template for reviewed sanitized
 narrative and preserve originals separately.
+
+## v0.2.0 additions
+
+`help [MODE]` and `request MODE TARGET [scan options]` use only the standard
+library and execute no workflow. `scan-report TARGET` performs bounded local
+inventory and normalizes explicit local `--security-report`, `--semgrep-report`
+and `--gitleaks-report` inputs; it never launches producers. Existing commands
+and v1 records remain valid; scan fields are additive. See the skill-local
+[command contract](commands.md) and [scan workflow](scan.md).
+
+Scan-report writes fresh private canonical JSON, metadata and requested Markdown.
+Exit 0 means normalization/publication completed, 3 means input processing was
+partial and 2 means error/refusal. Assessment stays Partial and toolsExecuted empty
+for helper output even on exit 0. Severity affects Markdown/summary only; canonical
+JSON retains all distinct findings and correlated aliases. Redaction combines
+Gitleaks Secret values, optional private exact-value JSON and common patterns;
+review unrecognized prose/paths manually. No raw scanner messages are copied.

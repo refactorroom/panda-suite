@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-recon:scan-metadata:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "scanId",
+    "timestamp",
+    "revision",
+    "depth",
+    "offline",
+    "noTools",
+    "assessmentStatus",
+    "processingStatus",
+    "toolsExecuted",
+    "imports",
+    "files",
+    "excludedOrUnreadable",
+    "discoveryTruncated",
+    "findingCount",
+    "duplicatesMerged",
+    "limitations",
+    "toolsConsidered",
+    "assessmentBy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-recon.scan-metadata/v1"
+    },
+    "scanId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "depth": {
+      "enum": [
+        "quick",
+        "deep"
+      ]
+    },
+    "offline": {
+      "const": true
+    },
+    "noTools": {
+      "type": "boolean"
+    },
+    "assessmentStatus": {
+      "enum": [
+        "Completed",
+        "Partial"
+      ]
+    },
+    "processingStatus": {
+      "enum": [
+        "Completed",
+        "Partial"
+      ]
+    },
+    "toolsExecuted": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "version",
+          "command",
+          "exitCode",
+          "status",
+          "evidenceRef"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exitCode": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "enum": [
+              "Completed",
+              "Failed"
+            ]
+          },
+          "evidenceRef": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "imports": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "status",
+          "helperExecuted",
+          "sourceExitCode",
+          "reportSha256",
+          "reason"
+        ],
+        "properties": {
+          "tool": {
+            "enum": [
+              "panda-security",
+              "semgrep",
+              "gitleaks"
+            ]
+          },
+          "status": {
+            "enum": [
+              "Imported",
+              "Refused"
+            ]
+          },
+          "helperExecuted": {
+            "const": false
+          },
+          "sourceExitCode": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "reportSha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "bytes",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1048576
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "excludedOrUnreadable": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "reason"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "discoveryTruncated": {
+      "type": "boolean"
+    },
+    "findingCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "duplicatesMerged": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "limitations": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "viewMinimumSeverity": {
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Informational"
+      ]
+    },
+    "viewFormat": {
+      "enum": [
+        "markdown",
+        "json",
+        "both"
+      ]
+    },
+    "publicationStatus": {
+      "const": "Complete"
+    },
+    "toolsConsidered": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "availability",
+          "version",
+          "executionStatus",
+          "reason"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string"
+          },
+          "availability": {
+            "enum": [
+              "Available",
+              "Missing"
+            ]
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "executionStatus": {
+            "const": "Not Run"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assessmentBy": {
+      "enum": [
+        "normalizer",
+        "agent"
+      ]
+    },
+    "correlationsApplied": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "assessmentBy": {
+            "const": "normalizer"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "assessmentStatus": {
+            "const": "Partial"
+          },
+          "toolsExecuted": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "RuleID": "demo-key",
+    "File": "config.env",
+    "StartLine": 1,
+    "EndLine": 1,
+    "Secret": "synthetic-credential-not-for-real-use",
+    "Match": "API_KEY=synthetic-credential-not-for-real-use"
+  }
+]

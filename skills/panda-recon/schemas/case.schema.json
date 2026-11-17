@@ -33,6 +33,7 @@
     },
     "mode": {
       "enum": [
+        "scan",
         "recon",
         "simulate",
         "hunt",

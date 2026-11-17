@@ -1,0 +1,30 @@
+test_cli_scan_report_and_partial_exit (test_recon_scan.ReconScanTest.test_cli_scan_report_and_partial_exit) ... ok
+test_command_contract_and_scan_schema_modes_stay_consistent (test_recon_scan.ReconScanTest.test_command_contract_and_scan_schema_modes_stay_consistent) ... ok
+test_correlation_cycles_and_unknown_ids_are_refused (test_recon_scan.ReconScanTest.test_correlation_cycles_and_unknown_ids_are_refused) ... ok
+test_dedup_and_stable_ids_preserve_evidence (test_recon_scan.ReconScanTest.test_dedup_and_stable_ids_preserve_evidence) ... ok
+test_documented_example_requests_execute_only_the_parser (test_recon_scan.ReconScanTest.test_documented_example_requests_execute_only_the_parser) ... ok
+test_explicit_cross_report_correlation_keeps_aliases_and_assessments (test_recon_scan.ReconScanTest.test_explicit_cross_report_correlation_keeps_aliases_and_assessments) ... ok
+test_failed_publication_does_not_publish_complete_metadata (test_recon_scan.ReconScanTest.test_failed_publication_does_not_publish_complete_metadata) ... ok
+test_formats_keep_canonical_json_and_complete_metadata (test_recon_scan.ReconScanTest.test_formats_keep_canonical_json_and_complete_metadata) ... ok
+test_hardening_and_information_are_not_promoted_to_vulnerabilities (test_recon_scan.ReconScanTest.test_hardening_and_information_are_not_promoted_to_vulnerabilities) ... ok
+test_import_is_transactional_on_late_invalid_row (test_recon_scan.ReconScanTest.test_import_is_transactional_on_late_invalid_row) ... ok
+test_imports_are_potential_concerns_not_helper_executions (test_recon_scan.ReconScanTest.test_imports_are_potential_concerns_not_helper_executions) ... ok
+test_invalid_targets_and_exclusions (test_recon_scan.ReconScanTest.test_invalid_targets_and_exclusions) ... ok
+test_markdown_does_not_activate_untrusted_links_images_or_html (test_recon_scan.ReconScanTest.test_markdown_does_not_activate_untrusted_links_images_or_html) ... ok
+test_missing_reports_and_missing_tools_are_not_clean_scans (test_recon_scan.ReconScanTest.test_missing_reports_and_missing_tools_are_not_clean_scans) ... ok
+test_outside_source_path_invalid_range_and_exclusion_refuse_import (test_recon_scan.ReconScanTest.test_outside_source_path_invalid_range_and_exclusion_refuse_import) ... ok
+test_p0_records_and_helper_interfaces_remain_valid (test_recon_scan.ReconScanTest.test_p0_records_and_helper_interfaces_remain_valid) ... ok
+test_producer_errors_timeout_and_malformed_reports (test_recon_scan.ReconScanTest.test_producer_errors_timeout_and_malformed_reports) ... ok
+test_quick_and_deep_discovery_are_bounded_and_distinct (test_recon_scan.ReconScanTest.test_quick_and_deep_discovery_are_bounded_and_distinct) ... ok
+test_redaction_and_untrusted_messages_do_not_leak_to_outputs (test_recon_scan.ReconScanTest.test_redaction_and_untrusted_messages_do_not_leak_to_outputs) ... ok
+test_scan_option_contract_and_case_insensitive_severity (test_recon_scan.ReconScanTest.test_scan_option_contract_and_case_insensitive_severity) ... ok
+test_security_ids_and_assessment_are_preserved_as_imported_claims (test_recon_scan.ReconScanTest.test_security_ids_and_assessment_are_preserved_as_imported_claims) ... ok
+test_seven_modes_request_and_help_without_execution (test_recon_scan.ReconScanTest.test_seven_modes_request_and_help_without_execution) ... ok
+test_severity_filter_never_changes_canonical_findings (test_recon_scan.ReconScanTest.test_severity_filter_never_changes_canonical_findings) ... ok
+test_symlink_sources_and_output_collision_are_refused (test_recon_scan.ReconScanTest.test_symlink_sources_and_output_collision_are_refused) ... ok
+test_unknown_mode_and_missing_or_unsupported_arguments (test_recon_scan.ReconScanTest.test_unknown_mode_and_missing_or_unsupported_arguments) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.205s
+
+OK

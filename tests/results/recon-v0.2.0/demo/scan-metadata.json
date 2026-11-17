@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "panda-recon.scan-metadata/v1",
+  "scanId": "SCAN-12fd90616c05",
+  "timestamp": "2026-11-17T12:16:30.023574+00:00",
+  "revision": null,
+  "depth": "quick",
+  "offline": true,
+  "noTools": true,
+  "assessmentBy": "normalizer",
+  "assessmentStatus": "Partial",
+  "processingStatus": "Completed",
+  "toolsExecuted": [],
+  "imports": [
+    {
+      "tool": "semgrep",
+      "status": "Imported",
+      "helperExecuted": false,
+      "sourceExitCode": null,
+      "reportSha256": "ebbb069a5e6007571cbb17afdb5ddfc4a9eb6d9ddc774d6c5b5f2a21156c9100",
+      "reason": "Supplied local report; producer execution is not verified."
+    },
+    {
+      "tool": "gitleaks",
+      "status": "Imported",
+      "helperExecuted": false,
+      "sourceExitCode": null,
+      "reportSha256": "96a80bc0093c14a77af6c9945df794a5863a1254ce650adf54f93a4cd74e4ff0",
+      "reason": "Supplied local report; producer execution is not verified."
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 182,
+      "sha256": "19341783c4e1008d85c0eca23eabc9c22cdf5c48467ecbb545144075248519e7"
+    },
+    {
+      "path": "agent-instructions.txt",
+      "bytes": 133,
+      "sha256": "e05c3ab97c73cb0300fb6e6b75859f27544a20d802abe4eb22e481cabcd83733"
+    },
+    {
+      "path": "app.py",
+      "bytes": 482,
+      "sha256": "cf86d5073b1cebbd07dd4f0eccf7acb31e608c7fae30bd7ad8608b1eea185d36"
+    },
+    {
+      "path": "config.env",
+      "bytes": 46,
+      "sha256": "eb5da8a3c626d97ed9d505a3f448ec8a7aa1e4f92ed596e0ba0fba2b5d9dd1ee"
+    },
+    {
+      "path": "guards.py",
+      "bytes": 123,
+      "sha256": "8e26dbdb6a5858e215fa3fa3b3c6e359eb9a5412522aa9b842affd022fc3df2a"
+    }
+  ],
+  "excludedOrUnreadable": [],
+  "discoveryTruncated": false,
+  "findingCount": 3,
+  "duplicatesMerged": 0,
+  "limitations": [
+    "Local inventory and supplied-result normalization only; manual analysis/coverage remains unverified.",
+    "No current dependency advisory lookup or runtime validation was performed.",
+    "Trusted-root, non-concurrent filesystem assumptions apply; this helper is not a sandbox."
+  ],
+  "toolsConsidered": [
+    {
+      "tool": "semgrep",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "gitleaks",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "trivy",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "osv-scanner",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "govulncheck",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "cargo-audit",
+      "availability": "Available",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "npm",
+      "availability": "Available",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    },
+    {
+      "tool": "pip-audit",
+      "availability": "Missing",
+      "version": null,
+      "executionStatus": "Not Run",
+      "reason": "No-tools request or import-only helper; never automatically launched."
+    }
+  ],
+  "viewMinimumSeverity": "High",
+  "viewFormat": "both",
+  "publicationStatus": "Complete"
+}

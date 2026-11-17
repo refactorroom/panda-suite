@@ -177,6 +177,116 @@
       },
       "minItems": 0,
       "maxItems": 1000
+    },
+    "sourceMode": {
+      "enum": [
+        "scan",
+        "recon",
+        "simulate",
+        "hunt",
+        "incident",
+        "bounty",
+        "verify"
+      ]
+    },
+    "status": {
+      "enum": [
+        "Potential concern",
+        "Requires verification",
+        "Confirmed vulnerability",
+        "False positive",
+        "Not applicable",
+        "Inconclusive"
+      ]
+    },
+    "locations": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "lineStart",
+          "lineEnd"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lineStart": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "lineEnd": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "reportSha256",
+          "originFingerprint",
+          "helperExecuted"
+        ],
+        "properties": {
+          "tool": {
+            "enum": [
+              "panda-security",
+              "semgrep",
+              "gitleaks",
+              "panda-recon"
+            ]
+          },
+          "reportSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "originFingerprint": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "helperExecuted": {
+            "const": false
+          }
+        }
+      }
+    },
+    "aliases": {
+      "type": "array",
+      "maxItems": 1000,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+      }
+    },
+    "controlsConsidered": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correlationNotes": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     }
   }
 }

@@ -1,0 +1,233 @@
+{
+  "schemaVersion": "panda-recon.case/v1",
+  "id": "SCAN-12fd90616c05",
+  "title": "Local scan evidence",
+  "mode": "scan",
+  "state": "scoped",
+  "incidentClassification": "Inconclusive",
+  "engagementId": "LOCAL-OFFLINE",
+  "assets": [
+    {
+      "schemaVersion": "panda-recon.asset/v1",
+      "id": "A-568470d013cd12e4",
+      "caseId": "SCAN-12fd90616c05",
+      "type": "application",
+      "locator": "app.py",
+      "scope": "In scope",
+      "exposure": "Configured",
+      "observedAt": "2026-11-17T12:16:30.023574+00:00",
+      "confidence": "Confirmed",
+      "evidenceRefs": [
+        "E-ebbb069a5e600757"
+      ]
+    },
+    {
+      "schemaVersion": "panda-recon.asset/v1",
+      "id": "A-42603c88c3bea380",
+      "caseId": "SCAN-12fd90616c05",
+      "type": "application",
+      "locator": "config.env",
+      "scope": "In scope",
+      "exposure": "Configured",
+      "observedAt": "2026-11-17T12:16:30.023574+00:00",
+      "confidence": "Confirmed",
+      "evidenceRefs": [
+        "E-96a80bc0093c14a7"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "schemaVersion": "panda-recon.evidence/v1",
+      "id": "E-ebbb069a5e600757",
+      "caseId": "SCAN-12fd90616c05",
+      "source": "Imported local scanner/analyst report",
+      "collectedAt": "2026-11-17T12:16:30.023574+00:00",
+      "sourceTimestamp": null,
+      "sourceTimezone": null,
+      "artifact": null,
+      "sha256": "ebbb069a5e6007571cbb17afdb5ddfc4a9eb6d9ddc774d6c5b5f2a21156c9100",
+      "method": "Local import; hash identifies supplied bytes, not authenticity or executed scanning",
+      "relatedFindings": [
+        "F-306a67c7414ebb78",
+        "F-dc8ea484917ea6c7"
+      ],
+      "sensitivity": "Restricted",
+      "redactionStatus": "Sanitized",
+      "integrity": "Unchecked"
+    },
+    {
+      "schemaVersion": "panda-recon.evidence/v1",
+      "id": "E-96a80bc0093c14a7",
+      "caseId": "SCAN-12fd90616c05",
+      "source": "Imported local scanner/analyst report",
+      "collectedAt": "2026-11-17T12:16:30.023574+00:00",
+      "sourceTimestamp": null,
+      "sourceTimezone": null,
+      "artifact": null,
+      "sha256": "96a80bc0093c14a77af6c9945df794a5863a1254ce650adf54f93a4cd74e4ff0",
+      "method": "Local import; hash identifies supplied bytes, not authenticity or executed scanning",
+      "relatedFindings": [
+        "F-7f9660a2da53d6d5"
+      ],
+      "sensitivity": "Restricted",
+      "redactionStatus": "Sanitized",
+      "integrity": "Unchecked"
+    }
+  ],
+  "findings": [
+    {
+      "schemaVersion": "panda-recon.finding/v1",
+      "id": "F-306a67c7414ebb78",
+      "caseId": "SCAN-12fd90616c05",
+      "title": "Static scanner concern requiring review",
+      "category": "source-security",
+      "assetId": "A-568470d013cd12e4",
+      "severity": "High",
+      "severityRationale": "Upstream rule priority only; contextual impact requires manual assessment.",
+      "confidence": "Unknown",
+      "vulnerabilityStatus": "Potential weakness",
+      "verificationStatus": "Not tested",
+      "preconditions": "Unverified; trace attacker control and effective guards.",
+      "invariant": "Only authorized input and identities may cross the identified security boundary.",
+      "observedBehavior": "Imported claim located in current source; source SHA-256 cf86d5073b1cebbd07dd4f0eccf7acb31e608c7fae30bd7ad8608b1eea185d36. No exploit was executed.",
+      "expectedBehavior": "Preserve the applicable input, access and data-protection boundary.",
+      "evidenceRefs": [
+        "E-ebbb069a5e600757"
+      ],
+      "reproduction": "Review current source and relevant unchanged guards; no payload executed by helper.",
+      "rootCause": null,
+      "impact": "Not established from a scanner match alone.",
+      "remediation": "Confirm the causal path and controls before selecting remediation.",
+      "regression": "Use a safe negative/control pair against the verified invariant; not run.",
+      "controlsConsidered": "Not yet assessed; trace relevant guards and caller controls before confirmation.",
+      "mappings": [],
+      "sourceMode": "scan",
+      "status": "Potential concern",
+      "locations": [
+        {
+          "file": "app.py",
+          "lineStart": 4,
+          "lineEnd": 4
+        }
+      ],
+      "provenance": [
+        {
+          "tool": "semgrep",
+          "reportSha256": "ebbb069a5e6007571cbb17afdb5ddfc4a9eb6d9ddc774d6c5b5f2a21156c9100",
+          "originFingerprint": "306a67c7414ebb784fc45c91a6418e581ca94b5288a12c8c82b26fd3bb3972ac",
+          "helperExecuted": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "schemaVersion": "panda-recon.finding/v1",
+      "id": "F-dc8ea484917ea6c7",
+      "caseId": "SCAN-12fd90616c05",
+      "title": "Static scanner concern requiring review",
+      "category": "source-security",
+      "assetId": "A-568470d013cd12e4",
+      "severity": "Informational",
+      "severityRationale": "Upstream rule priority only; contextual impact requires manual assessment.",
+      "confidence": "Unknown",
+      "vulnerabilityStatus": "Potential weakness",
+      "verificationStatus": "Not tested",
+      "preconditions": "Unverified; trace attacker control and effective guards.",
+      "invariant": "Only authorized input and identities may cross the identified security boundary.",
+      "observedBehavior": "Imported claim located in current source; source SHA-256 cf86d5073b1cebbd07dd4f0eccf7acb31e608c7fae30bd7ad8608b1eea185d36. No exploit was executed.",
+      "expectedBehavior": "Preserve the applicable input, access and data-protection boundary.",
+      "evidenceRefs": [
+        "E-ebbb069a5e600757"
+      ],
+      "reproduction": "Review current source and relevant unchanged guards; no payload executed by helper.",
+      "rootCause": null,
+      "impact": "Not established from a scanner match alone.",
+      "remediation": "Confirm the causal path and controls before selecting remediation.",
+      "regression": "Use a safe negative/control pair against the verified invariant; not run.",
+      "controlsConsidered": "Not yet assessed; trace relevant guards and caller controls before confirmation.",
+      "mappings": [],
+      "sourceMode": "scan",
+      "status": "Potential concern",
+      "locations": [
+        {
+          "file": "app.py",
+          "lineStart": 8,
+          "lineEnd": 8
+        }
+      ],
+      "provenance": [
+        {
+          "tool": "semgrep",
+          "reportSha256": "ebbb069a5e6007571cbb17afdb5ddfc4a9eb6d9ddc774d6c5b5f2a21156c9100",
+          "originFingerprint": "dc8ea484917ea6c7eeb11c4cf8dd8f5435f80c9b33cdf38f0214a52acdc620d2",
+          "helperExecuted": false
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "schemaVersion": "panda-recon.finding/v1",
+      "id": "F-7f9660a2da53d6d5",
+      "caseId": "SCAN-12fd90616c05",
+      "title": "Potential credential exposure",
+      "category": "secrets",
+      "assetId": "A-42603c88c3bea380",
+      "severity": "High",
+      "severityRationale": "Upstream rule priority only; contextual impact requires manual assessment.",
+      "confidence": "Unknown",
+      "vulnerabilityStatus": "Potential weakness",
+      "verificationStatus": "Not tested",
+      "preconditions": "Unverified; trace attacker control and effective guards.",
+      "invariant": "Only authorized input and identities may cross the identified security boundary.",
+      "observedBehavior": "Imported claim located in current source; source SHA-256 eb5da8a3c626d97ed9d505a3f448ec8a7aa1e4f92ed596e0ba0fba2b5d9dd1ee. No exploit was executed.",
+      "expectedBehavior": "Preserve the applicable input, access and data-protection boundary.",
+      "evidenceRefs": [
+        "E-96a80bc0093c14a7"
+      ],
+      "reproduction": "Review current source and relevant unchanged guards; no payload executed by helper.",
+      "rootCause": null,
+      "impact": "Not established from a scanner match alone.",
+      "remediation": "Confirm the causal path and controls before selecting remediation.",
+      "regression": "Use a safe negative/control pair against the verified invariant; not run.",
+      "controlsConsidered": "Not yet assessed; trace relevant guards and caller controls before confirmation.",
+      "mappings": [],
+      "sourceMode": "scan",
+      "status": "Potential concern",
+      "locations": [
+        {
+          "file": "config.env",
+          "lineStart": 1,
+          "lineEnd": 1
+        }
+      ],
+      "provenance": [
+        {
+          "tool": "gitleaks",
+          "reportSha256": "96a80bc0093c14a77af6c9945df794a5863a1254ce650adf54f93a4cd74e4ff0",
+          "originFingerprint": "7f9660a2da53d6d535d68f0a51bca993d4d84abca6ee29ae37f0386f50f01253",
+          "helperExecuted": false
+        }
+      ],
+      "aliases": []
+    }
+  ],
+  "observations": [],
+  "limitations": [
+    "Imported findings require human source/control review; no scanner or security test was executed by this helper."
+  ],
+  "history": [
+    {
+      "from": null,
+      "to": "created",
+      "reason": "Create offline scan record",
+      "at": "2026-11-17T12:16:30.023574+00:00"
+    },
+    {
+      "from": "created",
+      "to": "scoped",
+      "reason": "Explicit local target and exclusions only",
+      "at": "2026-11-17T12:16:30.023574+00:00"
+    }
+  ]
+}

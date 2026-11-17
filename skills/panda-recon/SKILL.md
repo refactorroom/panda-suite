@@ -1,12 +1,15 @@
 ---
 name: panda-recon
-description: Investigate authorized security surfaces and evidence through offline reconnaissance, bounded validation, threat hunting, incident reconstruction, bug-bounty preparation and remediation verification. Use for assessment evidence and suspicious activity, not a source-only vulnerability audit.
+description: Run requested repository scan workflows using available security analysis, or investigate authorized surfaces and evidence through reconnaissance, bounded validation, threat hunting, incident reconstruction, bounty preparation and remediation verification.
+metadata:
+  version: "0.2.0"
 ---
 
 # Panda Recon
 
 Turn authorized assessment inputs into traceable assets, hypotheses, observations
-and findings. Source/configuration auditing belongs with `panda-security`;
+and findings. A requested `scan` is a Recon facade using available `panda-security`
+analysis; direct source/configuration audits still belong with `panda-security`;
 ordinary application failures with Debugger. A focused explanation needs no case.
 Never equate a potential weakness, verified vulnerability, simulation or confirmed
 incident. This skill works without companion skills or an external service.
@@ -19,6 +22,7 @@ cues, not shell subcommands. Load only the relevant reference:
 
 | Mode | Workflow and applicable saved outputs |
 | --- | --- |
+| `scan` | [Repository security scan](references/scan.md): SECURITY_SCAN.md, canonical findings.json and scan-metadata.json. |
 | `recon` | [Offline surface mapping](references/reconnaissance.md): ATTACK_SURFACE.md, asset-inventory.json, RECON_REPORT.md. |
 | `simulate` | [Controlled validation](references/validation.md): SIMULATION_REPORT.md, simulation-results.json, DETECTION_COVERAGE.md when telemetry exists. |
 | `hunt` | [Telemetry investigation](references/investigation.md): THREAT_HUNT_REPORT.md, timeline.json, detection-findings.json. |
@@ -26,7 +30,14 @@ cues, not shell subcommands. Load only the relevant reference:
 | `bounty` | [Program-bound validation](references/validation.md): BUG_BOUNTY_REPORT.md; no automatic submission. |
 | `verify` | [Remediation recheck](references/validation.md): VERIFICATION_REPORT.md, verification-results.json. |
 
-P0 provides offline scope/evidence/case/report helpers. The other modes can analyze
+Use [command/help routing](references/commands.md) for mode/target/options, `help`,
+`help scan` or unsupported input. These are agent instructions, not npm subcommands.
+Do not silently substitute another mode. Help produces help only. With a bare path
+and no clear assessment question, use a bounded read-only recon overview or resolve
+the missing outcome; do not infer permission to probe.
+
+The helper provides offline scope/evidence/case/report tools and scan-result
+normalization. The other modes can analyze
 supplied evidence and propose bounded checks; active scanner adapters, automated
 simulation and telemetry correlation are later phases, not bundled capabilities.
 Do not claim an action ran because a mode or executable exists.
@@ -74,6 +85,8 @@ The [optional offline helper](references/helpers.md) validates records, checks
 candidate target scope without connecting, handles explicit case transitions,
 checks evidence hashes and renders a conservative report view. It is not a network
 client, scanner, sandbox, authorization oracle or evidence-authentication service.
+The new `help`, `request` and `scan-report` helper commands add discovery, request
+validation and report normalization; they do not invoke a model or launch scanners.
 
 Source changes, remediation, containment/isolation, credential revocation, scanner
 installation, global settings, publication, external sharing and bounty submission

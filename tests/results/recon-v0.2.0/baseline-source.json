@@ -1,0 +1,13 @@
+{
+  "baselineRevision": "1b6fb01f89e9d07acfb997d148342c0362079abc",
+  "purpose": "Instruction/mechanical baseline identity; not a model comparison",
+  "files": {
+    "skills/panda-recon/SKILL.md": "65a3c4c0078a11131f7bd9c33f8a69b72b35a73e5570ca6fc10adcd4972745d4",
+    "skills/panda-recon/scripts/recon.py": "85efa35f2dc8a216a1e5c4f216144e973583649e7065d814fe672556009302eb",
+    "skills/panda-recon/schemas/case.schema.json": "0c51e58000a898e4b1d28aa8cb783506f09e17704f70129afcfe1dc36c427cde",
+    "skills/panda-recon/schemas/finding.schema.json": "8011ecade992572cc4021c59868755aa0496417cfea60b8a738023a9afddf722",
+    "bin/panda-suite.js": "be8ca90c39ebb35763042f0dc804f24fdaf80b966c47147dbf2e950f289e3d74",
+    "bin/operations.js": "d165d88dd27be37c6c8b35d173ee791489c32ec53ebcc354de2302b6aa984e35",
+    "package.json": "fc1c175108221c5880cb870bbeaed339b9c969213188509b5a8f096e8727c11f"
+  }
+}

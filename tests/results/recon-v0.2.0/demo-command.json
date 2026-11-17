@@ -1,0 +1,38 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "skills/panda-recon/scripts/recon.py",
+    "scan-report",
+    "tests/fixtures/recon-scan/project",
+    "--semgrep-report",
+    "tests/fixtures/recon-scan/semgrep.json",
+    "--gitleaks-report",
+    "tests/fixtures/recon-scan/gitleaks.json",
+    "--severity",
+    "high",
+    "--depth",
+    "quick",
+    "--offline",
+    "--no-tools",
+    "--output",
+    "tests/results/recon-v0.2.0/demo"
+  ],
+  "exitCode": 0,
+  "summary": {
+    "scanId": "SCAN-12fd90616c05",
+    "assessmentStatus": "Partial",
+    "processingStatus": "Completed",
+    "findingCount": 3,
+    "displayedFindingCount": 2,
+    "files": [
+      "findings.json",
+      "SECURITY_SCAN.md",
+      "scan-metadata.json"
+    ],
+    "toolsExecuted": [],
+    "outputCreated": true
+  },
+  "stderr": "",
+  "provenance": "Actual helper execution on authored synthetic scanner reports; no producer or model run."
+}

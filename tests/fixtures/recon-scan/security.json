@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "panda-security.findings/v1",
+  "audit": {
+    "target": "project",
+    "revision": null,
+    "timestamp": null,
+    "mode": "skills",
+    "include": [
+      "app.py"
+    ],
+    "exclude": []
+  },
+  "findings": [
+    {
+      "id": "SEC-demo-sql",
+      "ruleId": null,
+      "title": "Synthetic concatenated query concern",
+      "category": "injection",
+      "classification": "Confirmed vulnerability",
+      "severity": "High",
+      "severityRationale": "Synthetic report labels the source weakness High; helper preserves this supplied assessment.",
+      "confidence": "Confirmed",
+      "locations": [
+        {
+          "path": "app.py",
+          "lineStart": 4,
+          "lineEnd": 4
+        }
+      ],
+      "component": "find_user",
+      "evidence": [
+        "Synthetic source returns a provider decision without checking timeout or exit status."
+      ],
+      "attackerPrerequisites": "Ability to supply a required provider result.",
+      "attackScenario": "Provider returns PASS while its process times out; the consumer accepts the claim.",
+      "impact": "Synthetic author claim only; review current source before relying on it.",
+      "controlsConsidered": "Bound query in safe_user is a separate effective control.",
+      "remediation": "Validate process success and required evidence before accepting provider verdicts.",
+      "regression": "Reject PASS with timeout/nonzero exit; retain a successful matching control. Proposed, not executed by this example.",
+      "cwe": null,
+      "verification": {
+        "status": "source-traced",
+        "detail": "Illustrative synthetic report only; not an actual audit or model result."
+      }
+    }
+  ],
+  "scans": [
+    {
+      "tool": "optional-scanner",
+      "version": null,
+      "command": null,
+      "status": "Not Run",
+      "exitCode": null,
+      "evidence": [],
+      "limitations": [
+        "Synthetic example; no scanner was launched."
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "surface": "runner.py",
+      "status": "Inspected",
+      "detail": "Illustrative synthetic code path only."
+    },
+    {
+      "surface": "provider runtime",
+      "status": "Unverified",
+      "detail": "No provider was executed."
+    }
+  ],
+  "limitations": [
+    "Example data demonstrates report structure, not successful scanning or remediation."
+  ]
+}
