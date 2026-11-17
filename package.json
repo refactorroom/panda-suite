@@ -3,8 +3,20 @@
   "version": "1.8.0",
   "description": "Standalone Panda Suite skills installer",
   "license": "SEE LICENSE IN SOURCE_NOTICES.md",
-  "repository": "https://github.com/refactorroom/panda-suite",
-  "engines": { "node": ">=20" },
-  "bin": { "panda-suite": "bin/panda-suite.js" },
-  "files": ["bin", "skills", "LICENSE", "SOURCE_NOTICES.md"]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refactorroom/panda-suite.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "panda-suite": "bin/panda-suite.js"
+  },
+  "files": [
+    "bin",
+    "skills",
+    "LICENSE",
+    "SOURCE_NOTICES.md"
+  ]
 }
