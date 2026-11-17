@@ -6,3 +6,4 @@ dist/
 tests/runs/
 .venv-docs/
 /.panda-suite/
+.impeccable/hook.cache.json

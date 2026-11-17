@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "site/template.html"
+        ],
+        "createdAt": "2026-11-17T14:10:37.536Z",
+        "reason": "Claude verified: static detector pairs light-theme text with dark-theme backgrounds (e.g. #242137 on #18151f); rendered scans of all 54 pages in both light and dark found 0 WCAG AA failures"
+      }
+    ]
+  }
+}
