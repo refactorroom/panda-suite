@@ -11,7 +11,7 @@ import markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'dist'
-REPO = 'https://github.com/akkaraponph/panda-suite'
+REPO = 'https://github.com/refactorroom/panda-suite'
 SKILLS = [
     ('panda-lead', 'Panda Lead'),
     ('panda-craft', 'Panda Craft'),
