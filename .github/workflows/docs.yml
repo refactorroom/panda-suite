@@ -1,7 +1,7 @@
 name: Documentation
 on:
   push:
-    branches: [main]
+    branches: [dev]
     paths: ['site/**', 'docs/**', 'scripts/build-docs.py', 'scripts/check-docs.py', 'requirements-docs.txt', 'README*', 'SOURCE_NOTICES.md', 'plugin.json', 'skills/**', 'images/**', '.github/workflows/docs.yml']
   pull_request:
     paths: ['site/**', 'docs/**', 'scripts/build-docs.py', 'scripts/check-docs.py', 'requirements-docs.txt', 'README*', 'SOURCE_NOTICES.md', 'plugin.json', 'skills/**', 'images/**', '.github/workflows/docs.yml']
@@ -28,7 +28,7 @@ jobs:
         with:
           path: dist
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/dev' && github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     permissions:

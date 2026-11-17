@@ -40,7 +40,7 @@ Print styles use a light background in either mode.
 
 ## Publish
 
-The `.github/workflows/docs.yml` workflow builds and checks the site on pull requests. Pushes to `main` that change site inputs also deploy to the `github-pages` environment. It can be run manually from GitHub Actions.
+The `.github/workflows/docs.yml` workflow builds and checks the site on pull requests. Pushes to `dev` that change site inputs also deploy to the `github-pages` environment. It can be run manually from GitHub Actions.
 
 Repository Settings → Pages must use **GitHub Actions** as the source. Deployment follows the [GitHub Pages custom workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) model.
 
