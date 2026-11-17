@@ -10,7 +10,7 @@ Start with **Panda Lead** when you want help choosing a workflow. Go straight to
 
 Panda Plan links requirements, implementation tasks, verification and expected
 evidence. It reports execution readiness and defines release gates when the
-requested scope needs them. The suite contains 27 independent skills.
+requested scope needs them. The suite contains 28 independent skills.
 Read the [release notes](../docs/v1.7.2.md) and [Plan guide](panda-plan.html).
 
 ## Your first request
@@ -46,7 +46,8 @@ Using Claude Code or standalone skills? See the [invocation reference](usage.htm
 | Restructure code while preserving behavior | [Refactor](panda-refactor.html) |
 | Implement an authorized change | [Execute](panda-execute.html) |
 | Investigate unexpected behavior | [Debugger](panda-debugger.html) |
-| Audit vulnerabilities and dependency reports | [Sec](panda-sec.html) |
+| Audit code, dependencies, Agent Skills, MCP and harness security | [Security](panda-security.html) |
+| Map assessment surfaces and investigate security evidence | [Recon](panda-recon.html) |
 | Investigate performance and memory cost | [Perf](panda-perf.html) |
 | Check correctness and complexity | [Review](panda-review.html), [Test](panda-test.html), or [Simplify](panda-simplify.html) |
 | Explain the system to others | [Write](panda-write.html) or [Manual](panda-manual.html) |

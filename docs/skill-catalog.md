@@ -3,7 +3,7 @@
 For every skill's inputs, example prompt, expected result and authorization limits,
 read the [complete usage guide](usage.md).
 
-The [README catalog](../README.md) lists all twenty-four skills and independent
+The [README catalog](../README.md) lists all packaged skills and independent
 installation methods. [Lead](../skills/panda-lead/SKILL.md) is the authoritative
 routing table; [expansion decisions](expansion.md) explain the new ownership
 boundaries of that milestone. [Research addition](panda-research.md) describes
@@ -16,9 +16,10 @@ status changes type?” selects Impact; “add regression tests” selects Test;
 An approved feature can skip requirements and planning already completed.
 Investigation-only incidents remain read-only.
 
-Dedicated security audits select Sec; resource profiling and optimization diffs
+Dedicated code, agent/MCP and harness security audits select Security; resource profiling and optimization diffs
 select Perf. General Review and Simplify keep their existing responsibilities.
 See [v1.1.0 evaluation and standardization](v1.1.0.md).
+See [Security enhancement and migration](panda-security.md) for the renamed skill.
 
 Refactor owns bounded structural improvement through baseline, incremental edits
 and compatibility verification. Simplify retains general complexity assessment;
@@ -42,3 +43,6 @@ Git owns repository operations and commit conventions. Release owns readiness;
 Review owns changed-code defects. Craft, Refactor and Execute load Git guidance
 when their authorized task reaches Git, with a standalone fallback if absent.
 See [Git design and trials](panda-git.md).
+
+Recon owns security surface/evidence investigation; Security keeps source audits.
+See [Recon P0 contract and phase limits](panda-recon.md).

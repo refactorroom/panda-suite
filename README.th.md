@@ -2,7 +2,7 @@
 
 [เว็บไซต์เอกสารและวิธีใช้งาน](https://akkaraponph.github.io/panda-suite/)
 
-เวอร์ชัน **1.7.2** · 27 skills ที่ใช้แยกกันได้
+เวอร์ชัน **1.7.2** · 28 skills ที่ใช้แยกกันได้
 
 เวอร์ชัน 1.7.2 ปรับ Panda Plan ให้เชื่อมข้อกำหนด งาน และหลักฐานการตรวจสอบ
 พร้อมระบุความพร้อมเริ่มงานและเกณฑ์ตรวจสอบก่อน release ดู [รายละเอียด v1.7.2](docs/v1.7.2.md)
@@ -25,7 +25,7 @@
 พฤติกรรมโมเดลรอบใหม่
 
 ดู [คู่มือใช้ครบทุก skill](docs/usage.md) สำหรับวิธีเรียกใช้ สิ่งที่ต้องเตรียม
-ตัวอย่าง prompt ผลลัพธ์ที่คาดหวัง และขอบเขตสิทธิ์ของทั้ง 27 skills
+ตัวอย่าง prompt ผลลัพธ์ที่คาดหวัง และขอบเขตสิทธิ์ของทั้ง 28 skills
 
 ชุด Agent Skills สำหรับงานวิศวกรรมซอฟต์แวร์และการส่งมอบผลิตภัณฑ์ โดยมี
 **Panda Lead** ช่วยเลือก workflow เท่าที่จำเป็น แต่ละ skill เรียกใช้แยกกันได้
@@ -56,7 +56,8 @@
 | `panda-plan` | วางงานตามลำดับ พร้อม acceptance criteria และวิธีตรวจสอบ |
 | `panda-execute` | ลงมือทำงานที่ได้รับอนุญาตและรายงานผลจริง |
 | `panda-debugger` | วิเคราะห์สาเหตุจากหลักฐาน ใช้ skill ต้นฉบับ |
-| `panda-sec` | ตรวจช่องโหว่ secrets และความเกี่ยวข้องของ dependency advisory |
+| `panda-security` | ตรวจความปลอดภัยของ code, dependencies, CI/CD, Agent Skills, MCP และ verification harness |
+| `panda-recon` | สำรวจขอบเขตที่ได้รับอนุญาต วิเคราะห์หลักฐาน และจัดทำรายงานความปลอดภัยแบบ offline |
 | `panda-perf` | วิเคราะห์ performance และ memory พร้อม optimization diff และหลักฐานการตรวจสอบ |
 | `panda-review` | ตรวจข้อผิดพลาดสำคัญใน diff |
 | `panda-simplify` | ลดความซับซ้อนโดยรักษาพฤติกรรมและข้อกำหนดสำคัญ |
@@ -166,7 +167,7 @@ python3 scripts/install-skills.py --destination "$HOME/.agents/skills" --skill p
 ```text
 $panda-lead อธิบาย function นี้โดยอ้างอิง source code
 
-$panda-sec ตรวจ src และ dependency report ระบุ severity หลักฐานและวิธีแก้
+$panda-security ตรวจ src และ dependency report ระบุ severity หลักฐานและวิธีแก้
 ปกปิดค่า secrets ห้ามแก้ไฟล์หรือสแกนระบบภายนอก
 
 $panda-perf วิเคราะห์ operation ที่ช้า เสนอ optimization diff โดยรักษาพฤติกรรม

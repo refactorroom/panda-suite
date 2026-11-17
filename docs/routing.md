@@ -50,3 +50,8 @@ requested boundary warrants them. Release evaluates the actual release revision
 and evidence. Plan readiness describes executable scope, never release readiness;
 no mandatory Plan → Release chain is introduced. See the
 [planning refinement](panda-plan-refinement.md#execution-readiness-and-release-gate-refinement-2026-11-14).
+
+Recon handles security evidence collection, surface mapping, controlled validation,
+hunting and incident reconstruction. Security handles source/configuration auditing;
+Debugger retains ordinary technical failures. No route authorizes active testing
+or requires a combined workflow. See [Recon P0](panda-recon.md).

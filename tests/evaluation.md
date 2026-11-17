@@ -4,6 +4,16 @@ Separate structural correctness, host discovery, and useful task behavior. A val
 SKILL.md is not proof of a better model response. This suite has no custom model
 runner or orchestration service.
 
+## Security enhancement
+
+The current skill is `panda-security` (formerly `panda-sec`). Historical trials
+retain the original name. Eleven `SECURITY-*` cases add agent/MCP, CI, non-web and
+harness boundaries. See [design and protocol](../docs/panda-security.md) and
+[actual checks](results/security-rebrand/validation.md). Behavioral comparison is
+**Not Run**. The correct control remains outside prepared workspaces. Run
+`python3 -B tests/reviewer/check_security.py` to verify that green ordinary suites
+do not cover the defective gate/path behavior; this does not test model quality.
+
 ## Structural and host checks
 
 Run the commands in the root README. The tooling tests mutate temporary package
@@ -297,3 +307,13 @@ The target failure modes are hypotheses, not recorded failures of a baseline.
 `python3 -B tests/reviewer/check_craft.py` to confirm the faulty implementation
 and correct control both pass supplied tests while only the control preserves
 duplicates. This verifies fixture discrimination, not agent performance.
+
+## Recon foundation
+
+Twelve RECON-* scenarios add offline surface mapping, authority/scope boundaries,
+local simulation, benign/hostile telemetry, incomplete incident claims, verification,
+failed tools, saved reports, bounty policy and nonactivation/routing. See
+[design and protocol](../docs/panda-recon.md) and
+[actual checks](results/recon/validation.md). Baseline/specialist behavior is Not Run.
+The reviewer control stays outside task fixtures; check_recon.py validates the
+green-suite/uncovered-authorization fixture, not model performance.

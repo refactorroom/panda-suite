@@ -1,6 +1,6 @@
 # Panda Suite
 
-Version **1.7.2** · 27 independent skills
+Version **1.7.2** · 28 independent skills
 
 ![Cyberpunk Panda Suite branding](images/branding.png)
 
@@ -45,7 +45,8 @@ a shared outcome, compact handoffs and acceptance evidence.
 | `panda-plan` | Define ordered tasks, dependencies, acceptance, and verification |
 | `panda-execute` | Implement authorized work and report actual verification |
 | `panda-debugger` | Investigate a failure and establish causal confidence; preserved upstream |
-| `panda-sec` | Audit vulnerabilities, secrets, and dependency report applicability |
+| `panda-security` | Audit code, dependencies, CI/CD, Agent Skills, MCP and verification harness security |
+| `panda-recon` | Map authorized security surfaces and investigate evidence with offline scope, case and reporting tools |
 | `panda-perf` | Profile performance and memory; produce verified optimization diffs |
 | `panda-review` | Find material defects in a bounded change |
 | `panda-simplify` | Assess unnecessary complexity while preserving invariants |
@@ -62,10 +63,22 @@ between every activity. Requirements, research, testing, impact, release, and sk
 
 ## Security and performance
 
-`panda-sec` audits scoped code or diffs and triages dependency reports. Findings
+`panda-recon` adds offline security reconnaissance and evidence investigation,
+with engagement boundaries, case/evidence records and report templates. Active
+scanner adapters and telemetry automation remain later phases. See
+[P0 design and validation](docs/panda-recon.md).
+
+`panda-security` audits scoped code or diffs and triages dependency reports. Findings
 include severity, confidence, attack conditions, source evidence, mitigations,
 and regression checks. It validates scanner matches, redacts potential secrets,
 and reports missing coverage without claiming whole-system security.
+
+It also audits Agent Skills, prompts, hooks, MCP tools and verification harness
+boundaries. Use `quick`, `deep`, `skills` or `verify` as request cues. Invaris,
+Evaris and Itervyn guidance is conditional and version-aware; none is required.
+This checkout renames `panda-sec` to `panda-security` without adding a second skill.
+See [design, migration and evaluation](docs/panda-security.md). Historical trials
+retain the old name; this change has not been published or globally installed.
 
 `panda-perf` traces algorithmic cost, memory retention, redundant queries, N+1
 patterns, and query plans. It delivers concrete optimization diffs, preserves
@@ -271,7 +284,7 @@ $panda-lead Explain what this function does.
 $panda-learn ./src Teach me how a request reaches storage. Start with the
 mental model and trace actual code. Read-only; offer guided practice only if useful.
 
-$panda-sec Audit src and the supplied dependency report. Rank supported
+$panda-security Audit src and the supplied dependency report. Rank supported
 vulnerabilities, redact secrets, and give fixes and checks. Do not edit or scan externally.
 
 $panda-perf Analyze this slow operation and propose a concrete optimization diff.

@@ -1,3 +1,7 @@
+Recon P0 source addition: [contract, checks and phase limits](panda-recon.md).
+
+Security source enhancement: [rename, checks and limitations](panda-security.md).
+
 Current patch: [v1.1.1 changes and verification](v1.1.1.md).
 
 Prior nineteen-skill v1.1.0 checks and model trials: see [v1.1.0 report](v1.1.0.md).
