@@ -1,0 +1,46 @@
+name: Tests
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.12 matches docs.yml; 3.x tracks the latest release used locally.
+        python-version: ['3.12', '3.x']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: python -m pip install -r requirements-dev.txt
+      # Network-free: threat-intelligence tests mock all HTTP calls.
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: python scripts/validate-skills.py
+      # tests/check_codex_discovery.py is not run here: it needs a local
+      # Codex CLI (`codex app-server`), which CI runners do not have.
+  node:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 20 is the minimum in package.json engines.
+        node-version: ['20', 'lts/*']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node --test tests/npm-cli.test.js
