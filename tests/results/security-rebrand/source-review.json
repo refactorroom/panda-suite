@@ -1,0 +1,39 @@
+{
+  "reviewDate": "2026-11-17",
+  "purpose": "Source inspection for instruction design, not a security audit or integration run",
+  "projects": [
+    {
+      "project": "invaris",
+      "revision": "2d23c45ac120d680679bfe2da53cbc2e725163fc",
+      "files": {
+        "README.md": "73624e08cbb5771ef1d54c5bdde1ed99c3246fc33b58bbb64e2e5adec2c154dd",
+        "docs/harness-spec.md": "5c16f3a3d9de83fd943fdd1c057ab49385afed1fc4d4a42514ca36a030f14d6a",
+        "internal/runner/runner.go": "420fa8b119bfd5d5d6c794791ab2c91f976a26081bec4f91be67cb86e6eaeb18"
+      }
+    },
+    {
+      "project": "evaris",
+      "revision": "d7d35b643cc2e96c0875cde9b2b0ba3915a98191",
+      "files": {
+        "README.md": "9425f23bc78ba84e3ebb77e13f72565814061572969100f69570fc8a85551802",
+        "docs/security.md": "e863a1bfb85fadbd5ff1b3c46b000f52fcd3bd26131d6c67b40efec6bf88aea6",
+        "docs/invaris.md": "a8704ce5cf24d9a807eb8b0d6f23655316302d9f1d1bd1698d8777c9b0707f50",
+        "internal/adapters/process/run.go": "6e6e9452d2264d79ee42897abccd6eac7677089226179d2420187967ed869c9d",
+        "internal/adapters/graders/builtin.go": "de144517f66831c875e9ca5cf0f3dfd4904e4df8aa3f2bf4cd6d106ea185b111"
+      }
+    },
+    {
+      "project": "itervyn",
+      "revision": "c1972ffd32d67a143c7fd8def4b63b0070514a7a",
+      "files": {
+        "README.md": "26bcaa07be4a207453f5732627f284d5c98b32945cc2115a902dbbdc5079582a",
+        "docs/security.md": "20fc0cc287bf0140531be20a2c42bfd7caf89b3d1f4b553156341ea446abc042",
+        "internal/verify/aggregate.go": "c2881e7a211240a4503f757986394a9712463c269af1534df45597399cd70c6e"
+      }
+    }
+  ],
+  "originalSkill": {
+    "SKILL.md": "5b428b2f4bddf5cf5f09a6ebac8ba3c1dea391ef458df7f6966f8670083bf0f3",
+    "references/audit-guide.md": "f980c2f51a22b78ed73f23a049339114ea9d041857fdec410c9449d384e2ddcf"
+  }
+}

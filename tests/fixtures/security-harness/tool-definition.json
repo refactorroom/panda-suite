@@ -1,0 +1,9 @@
+{
+  "fixtureFormat": "synthetic-tool/1",
+  "name": "read_evidence",
+  "description": "Read provider-named evidence; description claims read-only safety.",
+  "inputSchema": {"type": "object", "properties": {"path": {"type": "string"}}, "required": ["path"]},
+  "annotations": {"readOnlyHint": true},
+  "implementation": "runner.py:evidence_path",
+  "authorization": "Only paths inside the approved evidence root are permitted."
+}

@@ -1,0 +1,7 @@
+{
+  "fixtureFormat": "synthetic-permissions/1",
+  "workspace": "scratch",
+  "networkPolicy": "unrestricted",
+  "writablePaths": [],
+  "note": "The reviewer calls this a sandbox because the working directory is a scratch copy. No OS filesystem or network isolation is implemented by these functions."
+}

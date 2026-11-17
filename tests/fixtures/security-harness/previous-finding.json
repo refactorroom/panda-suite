@@ -1,0 +1,9 @@
+{
+  "synthetic": true,
+  "id": "SEC-original-gate",
+  "component": "runner.py:decide",
+  "issue": "PASS was accepted despite a timed-out provider.",
+  "claimedStatus": "fixed",
+  "evidence": "The ordinary test suite is now green.",
+  "revision": null
+}

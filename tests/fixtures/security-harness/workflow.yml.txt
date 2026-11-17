@@ -1,0 +1,14 @@
+# Synthetic review input, not an installed GitHub Actions workflow.
+on: pull_request_target
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: python scripts/from-pr.py
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}

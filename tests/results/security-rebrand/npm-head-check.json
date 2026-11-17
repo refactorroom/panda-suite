@@ -1,0 +1,29 @@
+{
+  "subject": "pristine HEAD",
+  "revision": "5a47539db0723f339575cd661d0c87e32c186db1",
+  "node": "v26.10.0",
+  "command": "node --test tests/npm-cli.test.js",
+  "exitCode": 1,
+  "summary": [
+    "\u2716 install tracks selected files and refuses collisions and unsafe inputs (92.792375ms)",
+    "\u2716 update replaces full content and preserves missing upstream skills (96.59225ms)",
+    "\u2716 update refuses local changes and leaves all other data untouched (87.181792ms)",
+    "\u2716 corrupt state, locks and interrupted journal refuse writes (168.59625ms)",
+    "\u2716 failure during replacement or state commit restores earlier data (81.814917ms)",
+    "\u2139 tests 9",
+    "\u2139 suites 0",
+    "\u2139 pass 4",
+    "\u2139 fail 5",
+    "\u2139 cancelled 0",
+    "\u2139 skipped 0",
+    "\u2139 todo 0",
+    "\u2139 duration_ms 1240.158333",
+    "\u2716 failing tests:",
+    "\u2716 install tracks selected files and refuses collisions and unsafe inputs (92.792375ms)",
+    "\u2716 update replaces full content and preserves missing upstream skills (96.59225ms)",
+    "\u2716 update refuses local changes and leaves all other data untouched (87.181792ms)",
+    "\u2716 corrupt state, locks and interrupted journal refuse writes (168.59625ms)",
+    "\u2716 failure during replacement or state commit restores earlier data (81.814917ms)"
+  ],
+  "limitation": "Installer code and npm tests were not modified by the security skill change."
+}

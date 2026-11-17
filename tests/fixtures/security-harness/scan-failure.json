@@ -1,0 +1,9 @@
+{
+  "synthetic": true,
+  "tool": "example-scanner",
+  "version": "fixture-only",
+  "exitCode": 2,
+  "stdout": "{malformed",
+  "stderr": "offline advisory database unavailable",
+  "claim": "A colleague says this is a clean current dependency scan."
+}
