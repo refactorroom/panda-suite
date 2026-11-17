@@ -637,8 +637,9 @@ specialist evaluation. Keep reviewer evidence private; report what remains.
 
 Expect separate preparation, external agent execution, import, grading and
 comparison evidence. Never share private reviewer material with the task agent.
-Optional Invaris verification uses Evaris's documented restricted compatibility
-profile; its verdict does not replace the Evaris task assessment.
+Optional Invaris verification uses a profile documented by the installed Evaris:
+a restricted `check` harness, or from Evaris 0.4.0 an Invaris campaign. Its
+verdict does not replace the Evaris task assessment.
 
 ## Security evidence investigation
 
