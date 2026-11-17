@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-17",
+  "note": "Observed live NVD behavior before and after the paging fix. Counts change daily. Not a model run.",
+  "nvdChangeCounts": {"lastModified1Day": 1440, "lastModified7Days": 9081, "published7Days": 4410,
+                      "cvssV3SeverityCritical1Day": 9, "cvssV3SeverityHigh1Day": 60,
+                      "comment": "cvssV3Severity filters only NVD primary scores, so most CNA-scored records are excluded; not used."},
+  "pageSize": {"records": 500, "bytes": 1777897},
+  "beforeFix": {"command": "intel latest --allow-network --days 1", "exitCode": 3, "nvd": "Unavailable (3 x 100 record cap)"},
+  "afterFix": [
+    {"command": "intel latest --allow-network --output NEW_DIR", "exitCode": 0, "seconds": 10, "requests": 4,
+     "nvd": "Fresh", "kev": "Fresh", "epss": "Fresh", "records": 1445, "topOfReport": "KEV-listed records first"},
+    {"command": "intel update --allow-network (first)", "exitCode": 0, "seconds": 13, "requests": 8, "allSources": "Fresh"},
+    {"command": "intel update --allow-network (second, incremental)", "exitCode": 0, "seconds": 4, "requests": 7, "allSources": "Fresh"},
+    {"command": "intel latest --days 7 --allow-network", "exitCode": 3, "seconds": 2,
+     "nvd": "Unavailable: NVD_WINDOW_TOO_LARGE (9,081 > 8,000), refused after the first page", "kev": "Fresh"},
+    {"command": "intel update --source nvd --source kev --allow-network (twice, after the sync-key change)",
+     "exitCodes": [0, 0], "nvdRequests": [2, 1], "nvd": "Fresh"}
+  ]
+}

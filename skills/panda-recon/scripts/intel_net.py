@@ -12,6 +12,9 @@ from urllib.parse import urlsplit
 from urllib.request import HTTPSHandler, HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
 MAX_BYTES = 8 * 1024 * 1024
+MAX_REQUESTS = 40      # Per run: up to 9 NVD pages plus KEV, EPSS, OSV and guidance sources.
+MAX_SECONDS = 240      # Per run, including NVD's recommended 6-second spacing.
+REQUEST_TIMEOUT = 30   # One 1,000-record NVD page is about 3.6 MB.
 
 
 class SourceError(ValueError):
@@ -88,11 +91,11 @@ class Client:
         https_url(url)
         if not self.allow_network:
             raise SourceError('NETWORK_NOT_AUTHORIZED')
-        if len(self.requests) >= 24 or self.clock() - self.started >= 90:
+        if len(self.requests) >= MAX_REQUESTS or self.clock() - self.started >= MAX_SECONDS:
             raise SourceError('REQUEST_BUDGET_EXHAUSTED')
         for attempt in range(3):
             elapsed = self.clock() - self.started
-            if elapsed >= 90 or len(self.requests) >= 24:
+            if elapsed >= MAX_SECONDS or len(self.requests) >= MAX_REQUESTS:
                 raise SourceError('REQUEST_BUDGET_EXHAUSTED')
             if source == 'nvd' and self.last_nvd is not None:
                 self.sleep(max(0, 6 - (self.clock() - self.last_nvd)))
@@ -100,7 +103,7 @@ class Client:
                                   'bodySent': payload is not None, 'attempt': attempt + 1})
             if source == 'nvd': self.last_nvd = self.clock()
             try:
-                data, kind = self.transport(url, 'POST' if payload is not None else 'GET', payload, min(10, max(1, 90 - elapsed)))
+                data, kind = self.transport(url, 'POST' if payload is not None else 'GET', payload, min(REQUEST_TIMEOUT, max(1, MAX_SECONDS - elapsed)))
                 if not isinstance(data, bytes) or len(data) > MAX_BYTES:
                     raise SourceError('INVALID_OR_OVERSIZED_RESPONSE')
                 expected = self.endpoints[source]['format']

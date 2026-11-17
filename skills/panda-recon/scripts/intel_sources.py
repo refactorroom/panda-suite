@@ -9,6 +9,22 @@ from urllib.parse import urlencode
 import xml.etree.ElementTree as ET
 
 CVE = re.compile(r'CVE-[0-9]{4}-[0-9]{4,19}\Z')
+NVD_PAGE = 1000          # About 3.6 MB per live page, inside the 8 MiB response cap.
+NVD_MAX_RECORDS = 8000   # Per run; a larger window is refused rather than truncated.
+NVD_CACHE_RECORDS = 12000
+
+
+def compact_nvd(row):
+    """Window snapshots keep only the fields normalization uses; single-CVE lookups stay complete."""
+    metrics = {}
+    for group, values in row.get('metrics', {}).items():
+        metrics[group] = [{'cvssData': {k: m.get('cvssData', {}).get(k) for k in ('version', 'baseScore', 'baseSeverity', 'vectorString')},
+                           'baseSeverity': m.get('baseSeverity')} for m in values]
+    english = [d for d in row['descriptions'] if d.get('lang') == 'en'][:1]
+    return {'id': row['id'], 'vulnStatus': row.get('vulnStatus'), 'published': row['published'],
+            'lastModified': row['lastModified'], 'metrics': metrics,
+            'descriptions': [{'lang': 'en', 'value': d['value'][:1000]} for d in english],
+            'references': [{'url': r.get('url'), 'source': r.get('source')} for r in row.get('references', [])[:5]]}
 
 
 def cve_id(value):
@@ -58,7 +74,7 @@ def fetch(source, query, client, config, now, previous=None):
         return raw
     if source == 'nvd':
         records, offset = [], 0
-        params = {'resultsPerPage': 100}
+        params = {'resultsPerPage': NVD_PAGE}
         if query.get('cve'):
             params['cveId'] = cve_id(query['cve'])
         else:
@@ -66,22 +82,24 @@ def fetch(source, query, client, config, now, previous=None):
             start = end - timedelta(days=query.get('days', 7))
             if previous:
                 old = datetime.fromisoformat(previous['retrievedAt'].replace('Z', '+00:00')) - timedelta(minutes=2)
-                if query.get('sync'):
+                if query.get('sync') and not query.get('restart'):
                     if end - old > timedelta(days=120): raise ValueError('NVD catch-up window exceeds 120 days; explicit partitioning required')
                     start = old
+                elif query.get('sync'): pass  # Explicit restart: the caller accepted the gap and reports it.
                 else: start = max(start, old)
             params.update(lastModStartDate=start.isoformat(), lastModEndDate=end.isoformat())
-        for _ in range(3):
+        for _ in range(NVD_MAX_RECORDS // NVD_PAGE + 1):
             page = decode(get(dict(params, startIndex=offset)))
             if (not isinstance(page, dict) or type(page.get('totalResults')) is not int or page['totalResults'] < 0
                     or not isinstance(page.get('vulnerabilities'), list) or page.get('startIndex') != offset):
                 raise ValueError('NVD response schema changed')
+            if page['totalResults'] > NVD_MAX_RECORDS: raise ValueError('NVD_WINDOW_TOO_LARGE')
             rows = page['vulnerabilities']
             for wrapper in rows:
                 row = wrapper['cve']; cve_id(row['id']); iso(row['published'], True); iso(row['lastModified'], True)
                 if query.get('cve') and row['id'] != query['cve']: raise ValueError('CVE subject mismatch')
                 if not isinstance(row.get('descriptions'), list): raise ValueError('NVD descriptions missing')
-                records.append(row)
+                records.append(row if query.get('cve') else compact_nvd(row))
             offset += len(rows)
             if offset >= page['totalResults']: break
             if not rows: raise ValueError('NVD incomplete pagination')
@@ -89,8 +107,12 @@ def fetch(source, query, client, config, now, previous=None):
         if len({r['id'] for r in records}) != len(records): raise ValueError('duplicate NVD subjects')
         if previous and not query.get('cve'):
             merged = {r['id']: r for r in previous['data']['records']}
-            merged.update({r['id']: r for r in records}); records = list(merged.values())
-        if len(records) > 5000: raise ValueError('NVD cache record cap')
+            merged.update({r['id']: r for r in records})
+            # Keep only changes inside the query window; older ones were reported by earlier runs.
+            keep_after = datetime.fromisoformat(now) - timedelta(days=query.get('days', 1))
+            records = [r for r in merged.values() if iso(r['lastModified'], True) and
+                       datetime.fromisoformat(iso(r['lastModified'], True)) >= keep_after]
+        if len(records) > NVD_CACHE_RECORDS: raise ValueError('NVD cache record cap')
         return {'records': records, 'urls': urls, 'sourceVersion': str(page.get('version')) if page.get('version') else None}
     if source == 'kev':
         data = decode(get())

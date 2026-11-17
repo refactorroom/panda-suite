@@ -20,7 +20,7 @@ def parser(prog='panda-recon intel'):
     result.add_argument('--cache', type=Path, default=Path('.panda-suite/recon/intelligence-cache'))
     result.add_argument('--sources', type=Path, help='registry override: known source IDs/endpoints only; configurable enabled/TTL')
     result.add_argument('--source', action='append', help='select known source IDs for latest/update')
-    result.add_argument('--days', type=int, default=7)
+    result.add_argument('--days', type=int, help='window in days; default 1 for latest/update NVD changes, 7 for incidents')
     result.add_argument('--ecosystem', choices=['go', 'npm', 'pypi'])
     result.add_argument('--severity', choices=['critical', 'high', 'medium', 'low', 'informational'])
     result.add_argument('--offline', action='store_true')
@@ -30,6 +30,11 @@ def parser(prog='panda-recon intel'):
     result.add_argument('--project', type=Path, help='derive npm package-lock v2/v3 inventory locally')
     result.add_argument('--output', type=Path, help='new private directory; no previous report overwritten')
     return result
+
+
+def window_days(args):
+    if args.days is not None: return args.days
+    return 7 if args.topic == 'incidents' else 1
 
 
 def configuration(api, path=None):
@@ -52,7 +57,8 @@ def configuration(api, path=None):
     return base
 
 
-def source_read(name, query, config, store, client, api, now, live, package_allowed=False):
+def source_read(name, query, config, store, client, api, now, live, package_allowed=False, hints=None):
+    """`query` identifies the cache entry; `hints` only shape this fetch (window, explicit restart)."""
     policy = config[name]; module = api['support']('intel_store')
     snapshot, state = store.snapshot(name, query)
     status = {'source': name, 'enabled': policy['enabled'], 'endpoint': policy['endpoint'],
@@ -67,8 +73,8 @@ def source_read(name, query, config, store, client, api, now, live, package_allo
         try:
             if name == 'osv' and not package_allowed: raise ValueError('PACKAGE_QUERY_NOT_AUTHORIZED')
             if not client.allow_network: raise ValueError('NETWORK_NOT_AUTHORIZED')
-            data = api['support']('intel_sources').fetch(name, query, client, config, now, snapshot)
-            if not isinstance(data.get('records'), list) or len(data['records']) > 5000:
+            data = api['support']('intel_sources').fetch(name, {**query, **(hints or {})}, client, config, now, snapshot)
+            if not isinstance(data.get('records'), list) or len(data['records']) > 12000:
                 raise ValueError('SOURCE_RECORD_LIMIT')
             if data.get('sourceVersion') is not None and not isinstance(data['sourceVersion'], str):
                 raise ValueError('source version schema changed')
@@ -87,7 +93,7 @@ def source_read(name, query, config, store, client, api, now, live, package_allo
         except (ValueError, OSError, KeyError, TypeError, AttributeError, json.JSONDecodeError) as failure:
             error = getattr(failure, 'code', None)
             if error is None:
-                error = str(failure) if str(failure) in {'NETWORK_NOT_AUTHORIZED', 'PACKAGE_QUERY_NOT_AUTHORIZED'} else 'SOURCE_RESPONSE_INVALID_OR_UNAVAILABLE'
+                error = str(failure) if str(failure) in {'NETWORK_NOT_AUTHORIZED', 'PACKAGE_QUERY_NOT_AUTHORIZED', 'NVD_WINDOW_TOO_LARGE'} else 'SOURCE_RESPONSE_INVALID_OR_UNAVAILABLE'
             if client.allow_network:
                 store.commit(name, query, now, error=error)  # Never replaces a successful snapshot.
             status['lastAttemptError'] = error
@@ -251,7 +257,7 @@ def exposures(records, components, api):
 
 
 def run(args, api, transport=None, sleep=None, now=None):
-    if not 1 <= args.days <= 120: raise ValueError('days must be 1–120')
+    if not 1 <= window_days(args) <= 120: raise ValueError('days must be 1–120')
     if args.offline and args.allow_network: raise ValueError('offline conflicts with network permission')
     if args.topic == 'cve': api['support']('intel_sources').cve_id(args.identifier)
     elif args.identifier is not None: raise ValueError('unexpected intelligence identifier')
@@ -283,9 +289,9 @@ def run(args, api, transport=None, sleep=None, now=None):
         wanted = api['support']('components').ECOSYSTEMS[args.ecosystem]
         components = [c for c in components if c['ecosystem'] == wanted]
     snapshots, statuses = [], []
-    def obtain(name, query):
+    def obtain(name, query, hints=None):
         snapshot, status = source_read(name, query, config, store, client, api, now,
-                                      live=not args.offline, package_allowed=args.allow_package_queries)
+                                      live=not args.offline, package_allowed=args.allow_package_queries, hints=hints)
         statuses.append(status)
         if snapshot: snapshots.append((name, snapshot))
     if args.source:
@@ -301,10 +307,18 @@ def run(args, api, transport=None, sleep=None, now=None):
         if source == 'epss':
             if not args.identifier: raise ValueError('EPSS direct selection requires cve topic')
             query = {'cves': [args.identifier]}
-        elif source == 'nvd': query = {'cve': args.identifier} if args.identifier else {'days': args.days, 'sync': args.topic == 'update'}
+        elif source == 'nvd' and args.topic == 'update':
+            # One sync entry regardless of --days; an explicit --days restarts the window there.
+            obtain(source, {'sync': True}, {'days': window_days(args), 'restart': args.days is not None}); continue
+        elif source == 'nvd': query = {'cve': args.identifier} if args.identifier else {'days': window_days(args), 'sync': False}
         else: query = {}
         obtain(source, query)
-    ids = [args.identifier] if args.identifier else sorted({row['id'] for source, s in snapshots if source == 'nvd' for row in s['data']['records']})[:50]
+    if args.identifier: ids = [args.identifier]
+    else:  # EPSS budget (50 per request) goes to the highest-ranked changed records.
+        kev_ids = {r['cveID'] for source, s in snapshots if source == 'kev' for r in s['data']['records']}
+        rows = [row for source, s in snapshots if source == 'nvd' for row in s['data']['records']]
+        rows.sort(key=lambda row: (row['id'] not in kev_ids, -raw_severity_rank(row), row['id']))
+        ids = list(dict.fromkeys(row['id'] for row in rows))[:50]
     if ids and args.topic in ('cve', 'latest', 'update') and 'epss' not in selected:
         obtain('epss', {'cves': ids})
     for component in components[:20]:
@@ -330,9 +344,14 @@ def run(args, api, transport=None, sleep=None, now=None):
                             'epss': None, 'epssDate': None, 'epssModelVersion': None, 'epssDateStale': None},
                         'conflictingStatus': False, 'conflictingScores': False, 'applicability': {'status': 'Not assessed', 'evidence': []}})
     if args.topic == 'incidents':
-        threshold = datetime.fromisoformat(now) - timedelta(days=args.days)
+        threshold = datetime.fromisoformat(now) - timedelta(days=window_days(args))
         records = [r for r in records if any(c['source']['publishedAt'] is None or datetime.fromisoformat(c['source']['publishedAt']) >= threshold for c in r['claims'])]
+    restart_note = []
+    if args.topic == 'update' and args.days is not None and 'nvd' in selected:
+        restart_note = [f'NVD sync restarted at {window_days(args)} day(s) before {now}; any changes between the previous '
+                        'sync and that point were not fetched.']
     exposure = exposures(records, components, api)  # Before filtering: an affected component never disappears.
+    records.sort(key=rank_key)
     severity_note = []
     if args.severity:
         records, severity_note = severity_filter(records, args.severity)
@@ -346,10 +365,26 @@ def run(args, api, transport=None, sleep=None, now=None):
                 'OWASP projects are interpreted separately; incident feed items are leads, not confirmed breaches.',
                 'No daemon, scheduler, package upgrade, target probe or alert delivery was activated.',
                 'Package matching supports exact versions and npm/Go SEMVER only; other ranges/backports remain uncertain.',
-                'NVD latest is a bounded modification window, not a complete all-time catalog; publication/modification dates remain distinct.'] + severity_note}
+                'NVD latest is a bounded modification window, not a complete all-time catalog; publication/modification dates remain distinct.'] + severity_note + restart_note}
 
 
 SEVERITY_ORDER = ['informational', 'low', 'medium', 'high', 'critical']
+
+
+def raw_severity_rank(row):
+    values = [str(m.get('cvssData', {}).get('baseSeverity') or m.get('baseSeverity') or '').lower()
+              for group in row.get('metrics', {}).values() for m in group]
+    ranks = [SEVERITY_ORDER.index('informational' if v == 'none' else v) for v in values if v in SEVERITY_ORDER or v == 'none']
+    return max(ranks) if ranks else -1
+
+
+def rank_key(record):
+    """Explainable order, not a score: KEV-listed, then publisher severity, then EPSS, then most recently modified."""
+    ex = record.get('exploitation') or {}
+    severity = record_severity(record)
+    modified = max((c['source'].get('modifiedAt') or '' for c in record['claims']), default='')
+    return (ex.get('knownExploited') is not True, -(SEVERITY_ORDER.index(severity) if severity else -1),
+            -(ex.get('epss') or 0), ''.join(chr(0x10FFFF - ord(ch)) for ch in modified), record['id'])
 
 
 def record_severity(record):
@@ -375,6 +410,9 @@ def severity_filter(records, minimum):
     return kept, [note]
 
 
+REPORT_RECORDS = 50
+
+
 def markdown(data):
     def safe(value):
         text = html.escape(str(value), quote=False).replace('\n', ' / ')
@@ -387,7 +425,11 @@ def markdown(data):
               f'{len(data["records"])} source records; {len(data["projectExposure"])} component assessments. This is not proof of a local compromise.',
               '', '## Vulnerabilities, guidance and reported leads', '']
     urls = []
-    for record in data['records']:
+    shown = data['records'][:REPORT_RECORDS]
+    if len(data['records']) > REPORT_RECORDS:
+        lines += [f'Ranked by KEV listing, publisher severity, EPSS and recency. Showing the top {REPORT_RECORDS}; '
+                  f'{len(data["records"]) - REPORT_RECORDS} more records are in intelligence.json.', '']
+    for record in shown:
         lines += ['### ' + safe(record['id']), '', 'Type: ' + safe(record['recordType'])]
         for claim in record['claims']:
             source = claim['source']; urls.append(source['url'])

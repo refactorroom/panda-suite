@@ -54,7 +54,7 @@ def help_text(contract, mode=None):
               'Installer: panda-suite install/update copies skills; npx skills is not mode execution.',
               'Active testing, remote scans, installation and uploads require their own authorization.']
     if mode in (None, 'intel'):
-        lines += ['', 'Intel: latest, update, status, owasp, cve CVE-ID, kev, incidents [--days 7].',
+        lines += ['', 'Intel: latest, update, status, owasp, cve CVE-ID, kev, incidents [--days N: default 1 for latest/update, 7 for incidents].',
                   'Helper intel requires --allow-network for live reads; --offline reads dated cache.',
                   'scan/hunt/incident accept --intel off|cache|live; explicit --offline conflicts with live.',
                   'Package queries need separate --allow-package-queries; no scheduler is activated.']
@@ -69,7 +69,7 @@ def parse_request(argv, contract):
         if item['name'] == 'intel':
             command.add_argument('topic', choices=contract['intelTopics'])
             command.add_argument('identifier', nargs='?')
-            command.add_argument('--days', type=int, default=7)
+            command.add_argument('--days', type=int)
             command.add_argument('--ecosystem', choices=['go', 'npm', 'pypi'])
             command.add_argument('--severity', type=severity)
             command.add_argument('--offline', action='store_true')
@@ -83,11 +83,12 @@ def parse_request(argv, contract):
     args = parser.parse_args(argv)
     if args.mode == 'intel':
         import re
-        if (not 1 <= args.days <= 120 or args.topic == 'cve' and not re.fullmatch(r'CVE-\d{4}-\d{4,19}', args.identifier or '')
+        days = args.days if args.days is not None else (7 if args.topic == 'incidents' else 1)
+        if (not 1 <= days <= 120 or args.topic == 'cve' and not re.fullmatch(r'CVE-\d{4}-\d{4,19}', args.identifier or '')
                 or args.topic != 'cve' and args.identifier is not None):
             raise ValueError('intel requires a valid topic/CVE and days 1–120')
         return {'schemaVersion': 'panda-recon.request/v1', 'mode': 'intel', 'topic': args.topic,
-                'identifier': args.identifier, 'days': args.days, 'ecosystem': args.ecosystem,
+                'identifier': args.identifier, 'days': days, 'ecosystem': args.ecosystem,
                 'severity': args.severity, 'offline': args.offline, 'executed': False,
                 'permission': 'No execution; live public lookup intent does not authorize private package queries or probing'}
     path = args.target

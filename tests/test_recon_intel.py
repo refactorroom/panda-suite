@@ -57,6 +57,93 @@ class IntelligenceTest(unittest.TestCase):
         API['validate']('intelligence', result)
         return result
 
+    def paged_nvd(self, total, severities=None):
+        """Serve `total` synthetic NVD records honoring startIndex/resultsPerPage, like the live API."""
+        base = fixture('nvd')['vulnerabilities'][0]
+        def serve(url, method, payload, timeout):
+            if not url.startswith(self.mock.config['nvd']['endpoint']): return original(url, method, payload, timeout)
+            self.mock.calls.append(('nvd', url, method, payload))
+            query = parse_qs(urlsplit(url).query)
+            start, size = int(query['startIndex'][0]), int(query['resultsPerPage'][0])
+            rows = []
+            for i in range(start, min(total, start + size)):
+                row = copy.deepcopy(base); row['cve']['id'] = f'CVE-2099-{30000 + i}'
+                row['cve']['configurations'] = [{'nodes': ['x' * 50]}]
+                severity = (severities or {}).get(i, 'MEDIUM')
+                row['cve']['metrics']['cvssMetricV31'][0]['cvssData'].update(baseSeverity=severity)
+                rows.append(row)
+            body = {'resultsPerPage': len(rows), 'startIndex': start, 'totalResults': total, 'version': '2.0', 'vulnerabilities': rows}
+            return json.dumps(body).encode(), 'application/json'
+        original = self.mock.__call__
+        return serve
+
+    def run_paged(self, *values, total, now=NOW, severities=None):
+        result = INTEL.run(self.args(*values), API, transport=self.paged_nvd(total, severities), sleep=lambda _: None, now=now)
+        API['validate']('intelligence', result)
+        return result
+
+    def test_nvd_real_volume_pages_fully_and_stores_compact_records(self):
+        data = self.run_paged('update', '--source', 'nvd', '--allow-network', total=2500)
+        status = next(s for s in data['sourceStatus'] if s['source'] == 'nvd')
+        self.assertTrue(status['refreshSucceeded'], status)
+        urls = [c[1] for c in self.mock.calls if c[0] == 'nvd']
+        self.assertEqual(['1000', '1000', '1000'], [parse_qs(urlsplit(u).query)['resultsPerPage'][0] for u in urls])
+        snapshot, _ = STORE.Store(self.root / 'cache').snapshot('nvd', {'sync': True})
+        self.assertEqual(2500, len(snapshot['data']['records']))
+        self.assertNotIn('configurations', snapshot['data']['records'][0])  # Window snapshots keep only used fields.
+
+    def test_nvd_window_too_large_is_reported_not_truncated(self):
+        data = self.run_paged('latest', '--allow-network', '--days', '30', total=40000)
+        status = next(s for s in data['sourceStatus'] if s['source'] == 'nvd')
+        self.assertEqual('NVD_WINDOW_TOO_LARGE', status['lastAttemptError'])
+        self.assertEqual(1, len([c for c in self.mock.calls if c[0] == 'nvd']))  # Refused after the first page reports the total.
+
+    def test_latest_defaults_to_one_day_and_incidents_to_seven(self):
+        self.run_paged('latest', '--allow-network', total=1)
+        query = parse_qs(urlsplit([c for c in self.mock.calls if c[0] == 'nvd'][-1][1]).query)
+        start = datetime.fromisoformat(query['lastModStartDate'][0]); end = datetime.fromisoformat(query['lastModEndDate'][0])
+        self.assertEqual(1, (end - start).days)
+        self.assertEqual(7, INTEL.window_days(self.args('incidents')))
+        self.assertEqual(3, INTEL.window_days(self.args('latest', '--days', '3')))
+
+    def test_stuck_catch_up_can_be_restarted_explicitly_and_says_so(self):
+        self.run_paged('update', '--source', 'nvd', '--allow-network', total=3)
+        later = '2026-11-27T09:00:00+00:00'  # Ten days of missed runs: too many changes to catch up.
+        stuck = self.run_paged('update', '--source', 'nvd', '--allow-network', total=40000, now=later)
+        self.assertEqual('NVD_WINDOW_TOO_LARGE', next(s for s in stuck['sourceStatus'] if s['source'] == 'nvd')['lastAttemptError'])
+        self.mock.calls.clear()
+        restarted = self.run_paged('update', '--source', 'nvd', '--days', '1', '--allow-network', total=5, now=later)
+        self.assertTrue(next(s for s in restarted['sourceStatus'] if s['source'] == 'nvd')['refreshSucceeded'])
+        query = parse_qs(urlsplit(self.mock.calls[-1][1]).query)
+        self.assertTrue(query['lastModStartDate'][0].startswith('2026-11-26T09:00'))
+        self.assertTrue(any('not fetched' in v for v in restarted['limitations']))
+        self.mock.calls.clear()
+        self.run_paged('update', '--source', 'nvd', '--allow-network', total=0, now='2026-11-27T10:00:00+00:00')
+        query = parse_qs(urlsplit(self.mock.calls[-1][1]).query)
+        self.assertTrue(query['lastModStartDate'][0].startswith('2026-11-27T08:58'))  # Default resumes from the restart.
+
+    def test_sync_merge_drops_records_outside_retention(self):
+        self.run_paged('update', '--source', 'nvd', '--allow-network', total=3)
+        later = '2026-11-25T09:00:00+00:00'  # Eight days later: the earlier records are outside the 7-day retention.
+        self.run_paged('update', '--source', 'nvd', '--allow-network', total=0, now=later)
+        snapshot, _ = STORE.Store(self.root / 'cache').snapshot('nvd', {'sync': True})
+        self.assertEqual([], snapshot['data']['records'])
+
+    def test_latest_ranks_kev_and_severity_and_report_shows_top_records(self):
+        kev = fixture('kev'); kev['vulnerabilities'][0]['cveID'] = 'CVE-2099-30059'
+        self.mock.responses['kev'] = (json.dumps(kev).encode(), 'application/json')
+        original = self.paged_nvd(80, {5: 'CRITICAL', 7: 'HIGH'})
+        def transport(url, method, payload, timeout):
+            return original(url, method, payload, timeout) if 'nvd.nist.gov' in url else self.mock(url, method, payload, timeout)
+        data = INTEL.run(self.args('latest', '--allow-network'), API, transport=transport, sleep=lambda _: None, now=NOW)
+        API['validate']('intelligence', data)
+        self.assertEqual(['CVE-2099-30059', 'CVE-2099-30005', 'CVE-2099-30007'], [r['id'] for r in data['records'][:3]])
+        epss_ids = parse_qs(urlsplit([c for c in self.mock.calls if c[0] == 'epss'][0][1]).query)['cve'][0].split(',')
+        self.assertEqual('CVE-2099-30059', epss_ids[0])  # EPSS budget goes to the top-ranked records.
+        text = INTEL.markdown(data)
+        self.assertEqual(50, text.count('\n### CVE-'))
+        self.assertIn('30 more records', text)
+
     def test_live_cve_provenance_kev_epss_and_no_local_incident(self):
         data = self.run_intel('cve', 'CVE-2099-10001', '--allow-network')
         self.assertEqual(1, len(data['records']))
@@ -230,13 +317,13 @@ class IntelligenceTest(unittest.TestCase):
         query = parse_qs(urlsplit([c for c in self.mock.calls if c[0] == 'nvd'][-1][1]).query)
         self.assertIn('08:58:00', query['lastModStartDate'][0])
         store = STORE.Store(self.root / 'cache')
-        snapshot, _ = store.snapshot('nvd', {'days': 7, 'sync': True})
+        snapshot, _ = store.snapshot('nvd', {'sync': True})
         self.assertEqual('2026-11-17T10:00:00Z', snapshot['data']['records'][0]['lastModified'])
         data['totalResults'] = 1000
         self.mock.responses['nvd'] = (json.dumps(data).encode(), 'application/json')
         failed = self.run_intel('update', '--source', 'nvd', '--allow-network', now='2026-11-17T11:00:00+00:00')
         self.assertTrue(next(s for s in failed['sourceStatus'] if s['source'] == 'nvd')['lastAttemptError'])
-        self.assertEqual('2026-11-17T10:00:00+00:00', store.snapshot('nvd', {'days': 7, 'sync': True})[0]['retrievedAt'])
+        self.assertEqual('2026-11-17T10:00:00+00:00', store.snapshot('nvd', {'sync': True})[0]['retrievedAt'])
 
     def test_owasp_dynamic_release_and_draft_not_guessed(self):
         data = self.run_intel('owasp', '--allow-network')
