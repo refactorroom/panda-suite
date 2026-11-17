@@ -1,5 +1,8 @@
 # Panda Recon P0: contract, design and verification
 
+Current workflow: [Recon v0.2.0 command guide](panda-recon/README.md). This page
+records the earlier P0 foundation and its original validation conditions.
+
 ## Purpose and overlap
 
 The user requests an evidence-driven security investigator with a P0 foundation,

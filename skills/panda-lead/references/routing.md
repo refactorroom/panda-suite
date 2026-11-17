@@ -59,3 +59,8 @@ When the user explicitly requests Craft to compose selected specialists, load
 `panda-craft` and preserve those selections. Ordinary named-specialist work does
 not require Craft; Lead keeps its existing coordination capability. Craft need
 not route back to Lead.
+
+Explicit `panda-recon scan` requests use Recon as the user-facing facade with
+available Security guidance; ordinary source-only audit routing still selects
+Security. Do not claim a programmatic peer invocation or launch tools from a mode
+name alone.

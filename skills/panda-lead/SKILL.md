@@ -51,7 +51,7 @@ edit can be handled directly without another skill or a project plan.
 | Diagnose unexpected behavior | `panda-debugger` |
 | Profile performance/memory and produce optimization diffs | `panda-perf` |
 | Audit code, dependencies, CI/CD, Agent Skills, MCP or harness security; verify security fixes | `panda-security` |
-| Map authorized attack surfaces, investigate telemetry/incidents or validate security observations | `panda-recon` |
+| Run an explicitly requested Recon scan, map authorized surfaces, investigate telemetry/incidents or validate security observations | `panda-recon` |
 | Find defects in a change | `panda-review` |
 | Assess unnecessary complexity | `panda-simplify` |
 | Carry structural improvements through behavior-preserving verification | `panda-refactor` |

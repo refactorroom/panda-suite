@@ -75,6 +75,9 @@ def build():
     packaged = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
     assert packaged == {slug for slug, _ in SKILLS}, 'Update the site skill list for the packaged catalog'
     for slug, title in SKILLS:
+        if slug == 'panda-recon':
+            add(slug, title, 'docs/panda-recon/README.md')
+            continue
         if slug == 'panda-logo':
             add(slug, title, 'docs/panda-logo.md')
             continue
@@ -114,11 +117,16 @@ def build():
         ('maintaining', 'Maintain this site', 'site/maintaining.md'),
     ]:
         add(slug, title, source)
+    for slug in ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting']:
+        add('recon-' + slug, 'Recon ' + slug.replace('-', ' '), 'docs/panda-recon/' + slug + '.md')
+    for slug in ['scan-codebase', 'recon-project', 'simulate-local', 'hunt-logs', 'incident-analysis', 'bug-bounty', 'verify-finding']:
+        add('recon-example-' + slug, 'Recon example: ' + slug.replace('-', ' '), 'docs/panda-recon/examples/' + slug + '.md')
     source_routes = {source: slug + '.html' for slug, (_, source, _) in pages.items()
                      if slug not in {s for s, _ in SKILLS} | {'skills', 'installation'}}
     source_routes['README.md'] = 'index.html'
     source_routes['docs/usage.md'] = 'usage.html'
     source_routes['docs/panda-logo.md'] = 'panda-logo.html'
+    source_routes['docs/panda-recon/README.md'] = 'panda-recon.html'
     # Generated page links stay relative to the project path on GitHub Pages.
     def url_rewrite(url, source):
         if url.startswith(('#', '/', 'https:', 'http:', 'mailto:', 'data:')):

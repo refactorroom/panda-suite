@@ -663,7 +663,11 @@ local evidence. Preserve finding IDs; failed tools or missing environments are
 Not tested/Inconclusive rather than fixed. No source changes or active probes.
 ```
 
-All six modes have conditional guidance and report templates. P0 implements offline
+Recon v0.2.0 adds `scan` and `help` with structured mode/options validation.
+`$panda-recon scan ./project --depth quick --offline --no-tools` is an agent prompt,
+not an npm command. See [all commands, examples and help](panda-recon/README.md).
+
+The original six modes retain conditional guidance and report templates. P0 implements offline
 record/scope/inventory/integrity/lifecycle/report helpers, not active scanners or an
 automated incident platform. A manifest cannot grant operator authority. Request
 an approved bounded lab test explicitly before execution. Companion skills are

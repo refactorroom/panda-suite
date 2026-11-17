@@ -46,7 +46,7 @@ a shared outcome, compact handoffs and acceptance evidence.
 | `panda-execute` | Implement authorized work and report actual verification |
 | `panda-debugger` | Investigate a failure and establish causal confidence; preserved upstream |
 | `panda-security` | Audit code, dependencies, CI/CD, Agent Skills, MCP and verification harness security |
-| `panda-recon` | Map authorized security surfaces and investigate evidence with offline scope, case and reporting tools |
+| `panda-recon` | Scan workflows, authorized surface mapping and security evidence investigation |
 | `panda-perf` | Profile performance and memory; produce verified optimization diffs |
 | `panda-review` | Find material defects in a bounded change |
 | `panda-simplify` | Assess unnecessary complexity while preserving invariants |
@@ -66,7 +66,8 @@ between every activity. Requirements, research, testing, impact, release, and sk
 `panda-recon` adds offline security reconnaissance and evidence investigation,
 with engagement boundaries, case/evidence records and report templates. Active
 scanner adapters and telemetry automation remain later phases. See
-[P0 design and validation](docs/panda-recon.md).
+[v0.2.0 commands and examples](docs/panda-recon/README.md) and
+[earlier P0 design](docs/panda-recon.md).
 
 `panda-security` audits scoped code or diffs and triages dependency reports. Findings
 include severity, confidence, attack conditions, source evidence, mitigations,
