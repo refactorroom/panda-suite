@@ -10,7 +10,7 @@ state a "latest" version, CVE, KEV entry or incident without a retrieved source.
 
 | Agent cue | Answer with |
 | --- | --- |
-| `$panda-recon intel latest [--ecosystem go/npm/pypi] [--severity S]` | Recent relevant advisories, prioritized by project relevance, KEV and EPSS; not every new CVE. |
+| `$panda-recon intel latest [--ecosystem go/npm/pypi] [--severity S]` | Recently modified NVD records with KEV/EPSS enrichment, plus project exposure when an inventory is supplied. Results are not ranked; highlight KEV-listed and locally affected items first. `--severity` keeps records at or above the publisher CVSS severity and always keeps records without CVSS. |
 | `$panda-recon intel update` | Refresh enabled sources; report per-source success/failure and retained snapshots. |
 | `$panda-recon intel status` | Enabled sources, last successful sync, data age, freshness, failures, offline availability. |
 | `$panda-recon intel owasp` | Current released version per OWASP project (Top 10, API, ASVS), checked independently; drafts/RCs are not releases. |
@@ -62,6 +62,13 @@ general news never creates a `PROJECT_EXPOSURE.md` row.
 
 ## Freshness, network and privacy
 
+Known limit: one helper run reads at most 300 changed NVD records (3 pages of
+100). Real NVD activity is often higher, so `latest` and `update` usually report
+NVD Unavailable against the live service. Say so; do not present the missing
+NVD data as "no new CVEs". `intel cve`, KEV, EPSS, OSV, OWASP and MITRE are
+not affected.
+
+
 Live retrieval needs explicit network permission (`--allow-network` in the helper,
 or a clear user request for current/live data when the host's own web tools are
 used). Sending package names/versions to OSV needs separate permission
@@ -111,7 +118,7 @@ symlinked paths refused). `--output` must be a new directory; it writes
 `PROJECT_EXPOSURE.md` only when exposure rows exist. Exit 0: every enabled source
 fresh. Exit 3: some source stale, unavailable or failed; the output says which.
 Exit 2: refused input. No scheduler or monitoring is active; scheduled refresh
-needs a user-configured job, and reports must say monitoring is not running.
+needs a user-configured job (see `docs/panda-recon/scheduling.md` in the Suite checkout), and reports must say monitoring is not running.
 
 Use `panda-write` for polished reports when available; keep source URLs, dates and
 limitations from `intelligence.json`.

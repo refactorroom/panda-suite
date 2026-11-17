@@ -14,7 +14,7 @@ automatic containment or autonomous exploit loop. The npm CLI remains an install
 
 [Quickstart](quickstart.md) · [Command reference](command-reference.md) ·
 [Installation](installation.md) · [Workflows](workflows.md) ·
-[Troubleshooting](troubleshooting.md) · [Change and validation record](../panda-recon-v0.2.0.md)
+[Troubleshooting](troubleshooting.md) · [Scheduled refresh](scheduling.md) · [Change and validation record](../panda-recon-v0.2.0.md)
 
 | Agent mode | Purpose | Example |
 | --- | --- | --- |

@@ -118,9 +118,9 @@ def build():
         ('maintaining', 'Maintain this site', 'site/maintaining.md'),
     ]:
         add(slug, title, source)
-    for slug in ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting']:
+    for slug in ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting', 'scheduling']:
         add('recon-' + slug, 'Recon ' + slug.replace('-', ' '), 'docs/panda-recon/' + slug + '.md')
-    for slug in ['scan-codebase', 'recon-project', 'simulate-local', 'hunt-logs', 'incident-analysis', 'bug-bounty', 'verify-finding']:
+    for slug in ['scan-codebase', 'recon-project', 'simulate-local', 'hunt-logs', 'incident-analysis', 'bug-bounty', 'verify-finding', 'intel-cve']:
         add('recon-example-' + slug, 'Recon example: ' + slug.replace('-', ' '), 'docs/panda-recon/examples/' + slug + '.md')
     source_routes = {source: slug + '.html' for slug, (_, source, _) in pages.items()
                      if slug not in {s for s, _ in SKILLS} | {'skills', 'installation'}}
