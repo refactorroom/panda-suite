@@ -17,8 +17,11 @@
       ?.setAttribute('content', theme === 'dark' ? '#18151f' : '#392c73');
     const toggle = document.querySelector('#theme-toggle');
     if (toggle) {
+      // Name the theme the button switches to, so it never reads "Dark mode" on a dark page.
+      const next = theme === 'dark' ? 'light' : 'dark';
       toggle.hidden = false;
-      toggle.setAttribute('aria-pressed', String(theme === 'dark'));
+      toggle.textContent = next === 'dark' ? 'Dark mode' : 'Light mode';
+      toggle.setAttribute('aria-label', `Switch to ${next} mode`);
     }
   }
 
