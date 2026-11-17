@@ -176,7 +176,10 @@ Use `--all` instead of the `--skill` options to install all bundled skills. The
 default destination is `~/.agents/skills`; append `--destination /path/to/skills`
 to both commands to manage a different host or project directory. Restart or
 refresh the host after changes. `@latest` requests the latest published CLI;
-the skill contents come from that package version.
+the skill contents come from that package version. In an interactive terminal, an older
+CLI checks for a newer npm release and asks whether to run the requested command
+with that version. Declining, offline use, and non-interactive runs continue with
+the current version; set `PANDA_SUITE_SKIP_UPDATE_CHECK=1` to skip the check.
 
 The CLI records managed files in `.panda-suite-state.json` in the destination.
 It refuses existing directories and stops the entire update if managed files were
