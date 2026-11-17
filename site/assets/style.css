@@ -6,5 +6,5 @@
 #theme-toggle{min-height:34px;white-space:nowrap}#theme-toggle[hidden]{display:none}@media(max-width:400px){.header-actions{gap:9px}.header-actions>a{display:none}}
 @media print{html{color-scheme:light}body{color:#242137;background:#fff}h1,h2,h3,th,pre code{color:#242137}pre,code,th,blockquote{background:#f8f7fc}tr:hover td{background:transparent}}
 
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .brand-art{background:#181818}:root:not([data-theme=light]) .brand-art img{filter:grayscale(1)}:root:not([data-theme=light]) .brand-art figcaption{background:linear-gradient(transparent,#181818e6)}}
-:root[data-theme=dark] .brand-art{background:#181818}:root[data-theme=dark] .brand-art img{filter:grayscale(1)}:root[data-theme=dark] .brand-art figcaption{background:linear-gradient(transparent,#181818e6)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .brand-art{background:#181818}:root:not([data-theme=light]) .brand-art figcaption{background:linear-gradient(transparent,#181818e6)}}
+:root[data-theme=dark] .brand-art{background:#181818}:root[data-theme=dark] .brand-art figcaption{background:linear-gradient(transparent,#181818e6)}
