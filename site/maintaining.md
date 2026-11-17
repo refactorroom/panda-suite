@@ -18,7 +18,8 @@ Open `http://localhost:8000`. The build creates `dist/`, which is ignored by Git
 
 ## Update content
 
-- Edit `docs/usage.md` to update the copyable prompts and skill guides. The builder extracts each specialist section from this file.
+- Edit `docs/skills/<skill>.md` to update a skill's in-depth page (when to use it, inputs, workflow, boundaries, and example prompts). When this file exists, the builder publishes it as the skill page and adds the invocation note and a link to the skill's `SKILL.md`.
+- Edit `docs/usage.md` to update the complete usage guide. For a skill without a `docs/skills/` guide, the builder extracts its section from this file instead.
 - Edit `README.md` to update installation instructions. The builder extracts its installation section.
 - Edit `site/index.md` for the home page and `site/assets/` for styles and behavior.
 - Update the page list in `scripts/build-docs.py` when adding a guide. Add new skills to the usage guide and the builder's skill list together.
@@ -49,7 +50,7 @@ Repository Settings → Pages must use **GitHub Actions** as the source. Deploym
 | Published content | Repository evidence |
 | --- | --- |
 | Installation commands and limitations | `README.md`, `scripts/install-skills.py`, plugin manifests |
-| Skill prompts, inputs, expected results, boundaries | `docs/usage.md`, each `skills/*/SKILL.md` |
+| Skill prompts, inputs, expected results, boundaries | `docs/skills/*.md`, `docs/usage.md`, each `skills/*/SKILL.md` |
 | Version and skill inventory | `plugin.json`, packaged `skills/` directories |
 | Routing and handoff | `docs/routing.md`, `docs/skill-contract.md` |
 | Historical check results and limitations | `docs/verification.md`, linked repository reports |

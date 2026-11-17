@@ -15,7 +15,8 @@ Only install one copy of a skill name to avoid ambiguous selection.
 | Claude Code standalone | `/panda-lead` | `/panda-test` |
 
 The examples below use standalone Codex names. Substitute the selector for your
-installation. Discovery was checked on Codex 0.159.2 and Claude Code 2.1.251;
+installation. Each skill also has an in-depth guide under `docs/skills/` (for example,
+[Panda Lead](skills/panda-lead.md)) with many more example prompts. Discovery was checked on Codex 0.159.2 and Claude Code 2.1.251;
 interactive plugin invocation was not exercised. If a typed selector is not
 recognized, choose its discovered name in the host skill picker. Other hosts
 must use their documented instruction-loading mechanism.
@@ -452,7 +453,7 @@ Thai documentation is supported. Each integration is traced independently;
 implementation, configuration, deployed state, and remote contracts stay distinct.
 Unclear sources or facts produce a question first; `Pending Confirmation` is used
 when you allow continuing with gaps. New documents default to
-`.panda-suite/docs/YYYY-MM-DD-<topic>.md`, or `.docx`/`.pdf` beside the Markdown
+`.panda-suite/docs/<story-slug>/YYYY-MM-DD-<topic>.md`, or `.docx`/`.pdf` beside the Markdown
 source when you ask for that format and a local converter exists. Panda Write
 does not stage or commit them; it tells you when Git would track `.panda-suite/`.
 An explicit path, an existing document to update, or chat-only output takes

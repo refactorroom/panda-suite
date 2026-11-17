@@ -63,7 +63,7 @@ def build():
     install = readme.split('## Install from this checkout\n', 1)[1].split('\n## Examples', 1)[0]
     add('installation', 'Installation', 'README.md', '# Install Panda Suite\n\n' + install)
     add('usage', 'Complete usage guide', 'docs/usage.md')
-    catalog = '# Find your skill\n\nChoose a specialist directly, or let [Panda Lead](panda-lead.html) select the activities your task needs. Each guide includes inputs, a copyable prompt, and expected results.\n\n'
+    catalog = '# Find your skill\n\nChoose a specialist directly, or let [Panda Lead](panda-lead.html) select the activities your task needs. Each guide explains when to use the skill, what to provide, how it works, its authorization boundaries, and many copyable example prompts with the results to expect.\n\n'
     catalog += '| Skill | Use it for |\n| --- | --- |\n'
     table = readme.split('| Skill | Use it for |', 1)[1].split('\n\n', 1)[0]
     for line in table.splitlines():
@@ -81,6 +81,16 @@ def build():
         if slug == 'panda-logo':
             add(slug, title, 'docs/panda-logo.md')
             continue
+        intro = ('Examples use **standalone Codex** names. For a Codex plugin, use '
+                 '`$panda-suite:' + slug + '`; for a Claude Code plugin, use '
+                 '`/panda-suite:' + slug + '`. See [all invocation formats](usage.html#invoke-a-skill).\n\n')
+        guide = ROOT / 'docs/skills' / (slug + '.md')
+        if guide.exists():
+            # In-depth guide: keep its H1, then add the selector note.
+            heading, rest = guide.read_text().split('\n', 1)
+            add(slug, title, guide.relative_to(ROOT).as_posix(), heading + '\n\n' + intro + rest.lstrip('\n') +
+                f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/dev/skills/{slug}/SKILL.md) in the repository.\n')
+            continue
         if slug == 'panda-lead':
             body = usage.split('## Choose a workflow\n', 1)[1].split('\n## Product discovery', 1)[0]
         else:
@@ -88,9 +98,6 @@ def build():
             if not match:
                 raise ValueError(f'Missing usage section: {title}')
             body = match.group(1)
-        intro = ('Examples use **standalone Codex** names. For a Codex plugin, use '
-                 '`$panda-suite:' + slug + '`; for a Claude Code plugin, use '
-                 '`/panda-suite:' + slug + '`. See [all invocation formats](usage.html#invoke-a-skill).\n\n')
         add(slug, title, 'docs/usage.md', '# ' + title + '\n\n' + intro + body +
             f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/dev/skills/{slug}/SKILL.md) in the repository.\n')
     for slug, title, source in [
@@ -128,6 +135,8 @@ def build():
     source_routes['docs/usage.md'] = 'usage.html'
     source_routes['docs/panda-logo.md'] = 'panda-logo.html'
     source_routes['docs/panda-recon/README.md'] = 'panda-recon.html'
+    for slug, _ in SKILLS:
+        source_routes[f'docs/skills/{slug}.md'] = slug + '.html'
     # Generated page links stay relative to the project path on GitHub Pages.
     def url_rewrite(url, source):
         if url.startswith(('#', '/', 'https:', 'http:', 'mailto:', 'data:')):
