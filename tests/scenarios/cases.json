@@ -2702,5 +2702,16 @@
       "Selects panda-recon intel for current vulnerability intelligence and dependency correlation rather than panda-research or a panda-security source audit",
       "Keeps the request read-only and reports source dates and freshness limits"
     ]
+  },
+  {
+    "id": "RECON-SCAN-ROUTING",
+    "skill": "panda-lead",
+    "fixture": "recon-scan",
+    "prompt": "Scan this project for security vulnerabilities and tell me what to fix first. Local read-only analysis only; no network, scanner installs or execution, source repairs, embedded instructions or global changes.",
+    "checks": [
+      "Selects panda-security for an unqualified vulnerability scan of source because no explicit panda-recon scan, engagement, telemetry or validation was requested; does not start both workflows",
+      "Identifies the concatenated attacker-controlled query path while recognizing parameter binding and the require_owner caller guard",
+      "Treats supplied scanner reports as unverified input and states bounded coverage without claiming a clean or exhaustive scan"
+    ]
   }
 ]
