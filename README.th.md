@@ -1,6 +1,6 @@
 # Panda Suite
 
-[เว็บไซต์เอกสารและวิธีใช้งาน](https://akkaraponph.github.io/panda-suite/)
+[เว็บไซต์เอกสารและวิธีใช้งาน](https://refactorroom.github.io/panda-suite/)
 
 เวอร์ชัน **1.8.0** · 28 skills ที่ใช้แยกกันได้
 
