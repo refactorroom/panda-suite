@@ -1,0 +1,20 @@
+{
+  "engagementId": "ENG-001",
+  "assets": [
+    {
+      "schemaVersion": "panda-recon.asset/v1",
+      "id": "A-001",
+      "caseId": "CASE-001",
+      "type": "api",
+      "locator": "https://app.example.test/api/items",
+      "scope": "In scope",
+      "exposure": "Configured",
+      "observedAt": null,
+      "confidence": "Likely",
+      "evidenceRefs": [
+        "E-001"
+      ]
+    }
+  ],
+  "limitation": "Supplied inventory only; declared scope is not authority or observed reachability."
+}

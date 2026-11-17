@@ -1,0 +1,16 @@
+[
+  {
+    "schemaVersion": "panda-recon.asset/v1",
+    "id": "A-001",
+    "caseId": "CASE-001",
+    "type": "api",
+    "locator": "https://app.example.test/api/items",
+    "scope": "Unverified",
+    "exposure": "Configured",
+    "observedAt": null,
+    "confidence": "Likely",
+    "evidenceRefs": [
+      "E-001"
+    ]
+  }
+]

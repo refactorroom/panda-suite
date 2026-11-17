@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "panda-recon.engagement/v1",
+  "id": "ENG-001",
+  "name": "Synthetic offline assessment",
+  "environment": "laboratory",
+  "scope": {
+    "targets": [
+      {
+        "url": "https://app.example.test/api",
+        "allowedAddresses": [
+          "192.0.2.10/32"
+        ]
+      }
+    ],
+    "exclusions": [
+      "https://app.example.test/api/admin"
+    ],
+    "excludedAddresses": [
+      "192.0.2.99/32"
+    ]
+  },
+  "authorization": {
+    "status": "required",
+    "evidenceReference": null,
+    "validFrom": null,
+    "validUntil": null
+  },
+  "testing": {
+    "passiveAllowed": true,
+    "activeAllowed": false,
+    "techniques": [],
+    "maxRequestsPerSecond": 2,
+    "maxTotalRequests": 100,
+    "maxDurationSeconds": 300
+  },
+  "safety": {
+    "destructiveTesting": false,
+    "credentialAttacks": false,
+    "denialOfService": false,
+    "persistence": false,
+    "thirdPartyDataAccess": false,
+    "automaticRemediation": false
+  }
+}

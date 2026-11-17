@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "installedTool": null,
+  "runs": [
+    {
+      "status": "Failed",
+      "exitCode": 2,
+      "reason": "TIMEOUT",
+      "output": null
+    }
+  ],
+  "warnings": [
+    {
+      "id": "row1",
+      "asset": "A-001",
+      "cause": "ownership hypothesis",
+      "verified": false
+    },
+    {
+      "id": "row2",
+      "asset": "A-001",
+      "cause": "ownership hypothesis",
+      "verified": false
+    }
+  ]
+}

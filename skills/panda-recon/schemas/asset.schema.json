@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-recon:asset:v1",
+  "title": "Panda Recon asset v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "caseId",
+    "type",
+    "locator",
+    "scope",
+    "exposure",
+    "observedAt",
+    "confidence",
+    "evidenceRefs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-recon.asset/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "type": {
+      "enum": [
+        "application",
+        "api",
+        "worker",
+        "host",
+        "service",
+        "integration",
+        "other"
+      ]
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "enum": [
+        "In scope",
+        "Excluded",
+        "Unverified"
+      ]
+    },
+    "exposure": {
+      "enum": [
+        "Configured",
+        "Locally observed",
+        "Externally observed",
+        "Unverified"
+      ]
+    },
+    "observedAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "confidence": {
+      "enum": [
+        "Confirmed",
+        "Likely",
+        "Unknown"
+      ]
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "maxItems": 1000
+    }
+  }
+}

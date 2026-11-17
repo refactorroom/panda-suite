@@ -1,0 +1,106 @@
+[
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "validate",
+      "engagement",
+      "tests/fixtures/recon-offline/engagement.json"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/validate-engagement.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "validate",
+      "case",
+      "tests/fixtures/recon-offline/case.json"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/validate-case.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "inventory",
+      "tests/fixtures/recon-offline/engagement.json",
+      "tests/fixtures/recon-offline/assets.json"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/asset-inventory.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "integrity",
+      "tests/fixtures/recon-offline/case.json",
+      "--root",
+      "tests/fixtures/recon-offline"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/integrity.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "render",
+      "tests/fixtures/recon-offline/case.json"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/CASE_SUMMARY.md",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "transition",
+      "tests/fixtures/recon-offline/case.json",
+      "--to",
+      "collecting",
+      "--reason",
+      "Read approved synthetic export",
+      "--at",
+      "2026-11-17T09:01:00Z"
+    ],
+    "exitCode": 0,
+    "artifact": "demo/case-progress.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "skills/panda-recon/scripts/recon.py",
+      "scope",
+      "tests/fixtures/recon-offline/engagement.json",
+      "https://app.example.test/api/items",
+      "--resolutions",
+      "tests/fixtures/recon-offline/resolutions.json",
+      "--redirects",
+      "tests/fixtures/recon-offline/redirects.json",
+      "--technique",
+      "http-get",
+      "--at",
+      "2026-11-17T09:00:00Z"
+    ],
+    "exitCode": 2,
+    "artifact": "demo/scope-denied.json",
+    "stderr": ""
+  }
+]

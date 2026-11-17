@@ -1,0 +1,7 @@
+{
+  "scopeEligible": false,
+  "reason": "active activity is not declared approved",
+  "operatorAuthority": "not verified by this helper",
+  "targetContacted": false,
+  "limitation": "Offline preflight only; no DNS rebinding, live budgets or authorization enforcement."
+}

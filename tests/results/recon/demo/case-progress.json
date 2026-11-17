@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "panda-recon.case/v1",
+  "id": "CASE-001",
+  "title": "Synthetic object boundary investigation",
+  "mode": "simulate",
+  "state": "collecting",
+  "incidentClassification": "Simulation only",
+  "engagementId": "ENG-001",
+  "assets": [
+    {
+      "schemaVersion": "panda-recon.asset/v1",
+      "id": "A-001",
+      "caseId": "CASE-001",
+      "type": "api",
+      "locator": "https://app.example.test/api/items",
+      "scope": "Unverified",
+      "exposure": "Configured",
+      "observedAt": null,
+      "confidence": "Likely",
+      "evidenceRefs": [
+        "E-001"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "schemaVersion": "panda-recon.evidence/v1",
+      "id": "E-001",
+      "caseId": "CASE-001",
+      "source": "supplied synthetic export",
+      "collectedAt": "2026-11-17T08:01:00Z",
+      "sourceTimestamp": "2026-11-17T08:00:00Z",
+      "sourceTimezone": "UTC",
+      "artifact": "evidence/events.jsonl",
+      "sha256": "d690a8a7d84ba6ae6b2f5cbac0b0fa89f559de01b37011bf7f658fe0776983b8",
+      "method": "local fixture read, no live acquisition",
+      "relatedFindings": [
+        "F-001"
+      ],
+      "sensitivity": "Restricted",
+      "redactionStatus": "Original",
+      "integrity": "Unchecked"
+    }
+  ],
+  "findings": [
+    {
+      "schemaVersion": "panda-recon.finding/v1",
+      "id": "F-001",
+      "caseId": "CASE-001",
+      "title": "Synthetic ownership control rejects another account",
+      "category": "object-authorization",
+      "assetId": "A-001",
+      "severity": "Informational",
+      "severityRationale": "Supplied lab observation supports an effective boundary, not a vulnerability.",
+      "confidence": "Confirmed",
+      "vulnerabilityStatus": "Simulation observation",
+      "verificationStatus": "Not tested",
+      "preconditions": "Two synthetic account identities; no real accounts.",
+      "invariant": "A non-owner cannot read another account object.",
+      "observedBehavior": "Supplied fixture event records a rejection; no validation was launched by this task.",
+      "expectedBehavior": "Reject cross-account access.",
+      "evidenceRefs": [
+        "E-001"
+      ],
+      "reproduction": "Supplied synthetic evidence only; new test not run.",
+      "rootCause": null,
+      "impact": "No supported unauthorized access or real incident.",
+      "remediation": "No source repair established by this observation.",
+      "regression": "Compare owner success with non-owner rejection in an authorized lab.",
+      "mappings": []
+    }
+  ],
+  "observations": [
+    "Example only; no network or real security test was executed."
+  ],
+  "limitations": [
+    "No production evidence, live scanner, alert export or model trial."
+  ],
+  "history": [
+    {
+      "from": null,
+      "to": "created",
+      "reason": "Register supplied fixture",
+      "at": "2026-11-17T08:01:00Z"
+    },
+    {
+      "from": "created",
+      "to": "scoped",
+      "reason": "Offline local fixture only",
+      "at": "2026-11-17T08:02:00Z"
+    },
+    {
+      "from": "scoped",
+      "to": "collecting",
+      "reason": "Read approved synthetic export",
+      "at": "2026-11-17T09:01:00Z"
+    }
+  ]
+}

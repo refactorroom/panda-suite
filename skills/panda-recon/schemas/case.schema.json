@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-recon:case:v1",
+  "title": "Panda Recon case v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "title",
+    "mode",
+    "state",
+    "incidentClassification",
+    "engagementId",
+    "assets",
+    "evidence",
+    "findings",
+    "observations",
+    "limitations",
+    "history"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-recon.case/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "recon",
+        "simulate",
+        "hunt",
+        "incident",
+        "bounty",
+        "verify"
+      ]
+    },
+    "state": {
+      "enum": [
+        "created",
+        "scoped",
+        "collecting",
+        "analyzing",
+        "validating",
+        "reviewed",
+        "reported",
+        "closed",
+        "blocked"
+      ]
+    },
+    "incidentClassification": {
+      "enum": [
+        "Confirmed incident",
+        "Suspected incident",
+        "Benign event",
+        "Simulation only",
+        "Inconclusive"
+      ]
+    },
+    "engagementId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:panda-recon:asset:v1"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:panda-recon:evidence:v1"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:panda-recon:finding:v1"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "from",
+          "to",
+          "reason",
+          "at"
+        ],
+        "properties": {
+          "from": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "enum": [
+                  "created",
+                  "scoped",
+                  "collecting",
+                  "analyzing",
+                  "validating",
+                  "reviewed",
+                  "reported",
+                  "closed",
+                  "blocked"
+                ]
+              }
+            ]
+          },
+          "to": {
+            "enum": [
+              "created",
+              "scoped",
+              "collecting",
+              "analyzing",
+              "validating",
+              "reviewed",
+              "reported",
+              "closed",
+              "blocked"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 1000
+    }
+  }
+}

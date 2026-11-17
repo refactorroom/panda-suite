@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-recon:finding:v1",
+  "title": "Panda Recon finding v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "caseId",
+    "title",
+    "category",
+    "assetId",
+    "severity",
+    "severityRationale",
+    "confidence",
+    "vulnerabilityStatus",
+    "verificationStatus",
+    "preconditions",
+    "invariant",
+    "observedBehavior",
+    "expectedBehavior",
+    "evidenceRefs",
+    "reproduction",
+    "rootCause",
+    "impact",
+    "remediation",
+    "regression",
+    "mappings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-recon.finding/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "severity": {
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low",
+        "Informational"
+      ]
+    },
+    "severityRationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "enum": [
+        "Confirmed",
+        "Likely",
+        "Unknown"
+      ]
+    },
+    "vulnerabilityStatus": {
+      "enum": [
+        "Potential weakness",
+        "Verified vulnerability",
+        "Simulation observation",
+        "Informational",
+        "False positive"
+      ]
+    },
+    "verificationStatus": {
+      "enum": [
+        "Not tested",
+        "Reproduced",
+        "Source traced",
+        "Fixed",
+        "Still vulnerable",
+        "Partially remediated",
+        "Not reproducible",
+        "Inconclusive"
+      ]
+    },
+    "preconditions": {
+      "type": "string",
+      "minLength": 1
+    },
+    "invariant": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observedBehavior": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expectedBehavior": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "maxItems": 1000
+    },
+    "reproduction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rootCause": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "remediation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "regression": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "system",
+          "identifier",
+          "version",
+          "rationale"
+        ],
+        "properties": {
+          "system": {
+            "enum": [
+              "CWE",
+              "CVSS",
+              "MITRE ATT&CK"
+            ]
+          },
+          "identifier": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    }
+  }
+}

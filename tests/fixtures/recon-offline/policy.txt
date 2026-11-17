@@ -1,0 +1,3 @@
+Synthetic program policy. Only https://app.example.test:443/api is in scope.
+Exclude /api/admin and all other hosts/ports. No active tests are authorized in this fixture.
+No external submission or disclosure. Related domains are excluded unless explicitly listed.
