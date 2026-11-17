@@ -6,12 +6,12 @@ Start with **Panda Lead** when you want help choosing a workflow. Go straight to
 
 [Get started](installation.html) · [Browse the skills](skills.html)
 
-## Latest release v1.7.2
+## Latest release v1.8.0
 
-Panda Plan links requirements, implementation tasks, verification and expected
-evidence. It reports execution readiness and defines release gates when the
-requested scope needs them. The suite contains 28 independent skills.
-Read the [release notes](../docs/v1.7.2.md) and [Plan guide](panda-plan.html).
+Panda Recon adds an `intel` mode for current, dated vulnerability intelligence:
+CVE, CISA KEV, EPSS, OSV, OWASP and ATT&CK, correlated with project components.
+Network use is opt-in and stale data is labeled. The suite contains 28 independent skills.
+Read the [release notes](../docs/v1.8.0.md).
 
 ## Your first request
 

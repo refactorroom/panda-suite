@@ -52,6 +52,7 @@ edit can be handled directly without another skill or a project plan.
 | Profile performance/memory and produce optimization diffs | `panda-perf` |
 | Audit code, dependencies, CI/CD, Agent Skills, MCP or harness security; verify security fixes | `panda-security` |
 | Run an explicitly requested Recon scan, map authorized surfaces, investigate telemetry/incidents or validate security observations | `panda-recon` |
+| Retrieve current dated vulnerability intelligence (CVE, KEV, EPSS, OSV, OWASP, ATT&CK, advisories) or check which project components it affects | `panda-recon` (`intel`) |
 | Find defects in a change | `panda-review` |
 | Assess unnecessary complexity | `panda-simplify` |
 | Carry structural improvements through behavior-preserving verification | `panda-refactor` |

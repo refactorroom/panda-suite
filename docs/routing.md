@@ -52,6 +52,9 @@ no mandatory Plan → Release chain is introduced. See the
 [planning refinement](panda-plan-refinement.md#execution-readiness-and-release-gate-refinement-2026-11-14).
 
 Recon handles security evidence collection, surface mapping, controlled validation,
-hunting and incident reconstruction. Security handles source/configuration auditing;
+hunting, incident reconstruction and current threat intelligence (`intel`: dated
+CVE, KEV, EPSS, OSV, OWASP, ATT&CK and advisory lookups correlated with project
+components). Security handles source/configuration auditing and dependency triage
+inside an audit;
 Debugger retains ordinary technical failures. No route authorizes active testing
 or requires a combined workflow. See [Recon P0](panda-recon.md).

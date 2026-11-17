@@ -11,8 +11,9 @@ penetration testing, and implementing repairs are separate activities. A securit
 keyword in a focused explanation does not require an audit.
 
 When available, `panda-recon` owns attack-surface evidence collection, telemetry
-investigation and controlled runtime validation. Keep source/configuration audits
-here; do not start active testing or an incident workflow automatically.
+investigation, controlled runtime validation and dated threat-intelligence retrieval
+(`intel`: CVE, KEV, EPSS, OSV, OWASP, ATT&CK). Keep source/configuration audits and
+dependency triage within an audit here, using Recon intel output when supplied; do not start active testing or an incident workflow automatically.
 
 Skill effectiveness belongs with Skill Lab; configuring or running verification
 belongs with the relevant harness workflow. Security review does not require

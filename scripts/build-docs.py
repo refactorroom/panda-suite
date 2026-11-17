@@ -102,6 +102,7 @@ def build():
         ('release-v1-1-1', 'Release v1.1.1', 'docs/v1.1.1.md'),
         ('release-v1-2-0', 'Release v1.2.0', 'docs/v1.2.0.md'),
         ('release-v1-6-2', 'Release v1.6.2', 'docs/v1.6.2.md'),
+        ('release-v1-8-0', 'Release v1.8.0', 'docs/v1.8.0.md'),
         ('release-v1-7-2', 'Release v1.7.2', 'docs/v1.7.2.md'),
         ('release-v1-7-1', 'Release v1.7.1', 'docs/v1.7.1.md'),
         ('release-v1-7-0', 'Release v1.7.0', 'docs/v1.7.0.md'),
@@ -149,7 +150,7 @@ def build():
     groups = [
         ('Get started', [('index', 'Welcome'), ('installation', 'Installation'), ('skills', 'Skill directory'), ('usage', 'Complete usage guide')]),
         ('Skills', SKILLS),
-        ('Project', [('routing', 'Workflows and routing'), ('architecture', 'Architecture'), ('skill-contract', 'Extend the suite'), ('integration', 'Upstream maintenance'), ('verification', 'Verification record'), ('release-v1-7-2', 'Release v1.7.2'), ('release-v1-7-1', 'Release v1.7.1'), ('release-v1-7-0', 'Release v1.7.0'), ('release-v1-6-3', 'Release v1.6.3'), ('release-v1-6-2', 'Release v1.6.2'), ('release-v1-6-1', 'Release v1.6.1'), ('release-v1-6-0', 'Release v1.6.0'), ('release-v1-5-1', 'Release v1.5.1'), ('release-v1-5-0', 'Release v1.5.0'), ('release-v1-4-0', 'Release v1.4.0'), ('release-v1-3-0', 'Release v1.3.0'), ('release-v1-2-0', 'Release v1.2.0'), ('release-v1-1-1', 'Release v1.1.1'), ('notices', 'Source and licenses'), ('thai', 'ภาษาไทย'), ('maintaining', 'Maintain this site')]),
+        ('Project', [('routing', 'Workflows and routing'), ('architecture', 'Architecture'), ('skill-contract', 'Extend the suite'), ('integration', 'Upstream maintenance'), ('verification', 'Verification record'), ('release-v1-8-0', 'Release v1.8.0'), ('release-v1-7-2', 'Release v1.7.2'), ('release-v1-7-1', 'Release v1.7.1'), ('release-v1-7-0', 'Release v1.7.0'), ('release-v1-6-3', 'Release v1.6.3'), ('release-v1-6-2', 'Release v1.6.2'), ('release-v1-6-1', 'Release v1.6.1'), ('release-v1-6-0', 'Release v1.6.0'), ('release-v1-5-1', 'Release v1.5.1'), ('release-v1-5-0', 'Release v1.5.0'), ('release-v1-4-0', 'Release v1.4.0'), ('release-v1-3-0', 'Release v1.3.0'), ('release-v1-2-0', 'Release v1.2.0'), ('release-v1-1-1', 'Release v1.1.1'), ('notices', 'Source and licenses'), ('thai', 'ภาษาไทย'), ('maintaining', 'Maintain this site')]),
     ]
     search = []
     template = (ROOT / 'site/template.html').read_text()
