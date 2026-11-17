@@ -16,6 +16,7 @@ Load only applicable templates:
 | incident | [Incident](../assets/report-templates/INCIDENT_REPORT.md), [timeline](../assets/report-templates/INCIDENT_TIMELINE.md) |
 | bounty | [Submission draft](../assets/report-templates/BUG_BOUNTY_REPORT.md) |
 | verify | [Verification](../assets/report-templates/VERIFICATION_REPORT.md) |
+| intel | Helper-generated topic report (THREAT_INTELLIGENCE.md, CVE_ANALYSIS.md, OWASP_UPDATES.md or INCIDENT_INTELLIGENCE.md), intelligence.json, source-status.json; PROJECT_EXPOSURE.md only for local matches. State assessment time, source freshness and limitations first. |
 
 Create only mode-relevant reports named in SKILL.md and an optional CASE_SUMMARY.md.
 Keep JSON records versioned even when a conventional file is named incident.json,

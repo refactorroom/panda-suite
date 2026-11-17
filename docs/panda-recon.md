@@ -1,6 +1,6 @@
 # Panda Recon P0: contract, design and verification
 
-Current workflow: [Recon v0.2.0 command guide](panda-recon/README.md). This page
+Current workflow: [Recon v0.3.0 command guide](panda-recon/README.md). This page
 records the earlier P0 foundation and its original validation conditions.
 
 ## Purpose and overlap
@@ -139,6 +139,8 @@ are unverified; this is not an operational penetration-testing platform.
 The existing Node 26 npm installer failures were reproduced before this addition;
 installer source remains unchanged. That issue and unrun behavioral/cross-platform
 checks remain release limitations. No package version bump claims a release.
+Rechecked for v1.8.0 on 2026-11-17: all 9 `node --test tests/npm-cli.test.js` tests
+pass on Node 26.8.2, so the installer failure no longer reproduces.
 
 Smallest justified next step: fresh comparable `RECON-AUTHORIZATION`,
 `RECON-SIMULATE`, `RECON-HUNT`, `RECON-REPORT` and routing/nonactivation trials.

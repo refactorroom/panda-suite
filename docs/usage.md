@@ -663,7 +663,24 @@ local evidence. Preserve finding IDs; failed tools or missing environments are
 Not tested/Inconclusive rather than fixed. No source changes or active probes.
 ```
 
-Recon v0.2.0 adds `scan` and `help` with structured mode/options validation.
+Recon v0.3.0 adds `intel` for current, dated vulnerability intelligence (CVE,
+CISA KEV, EPSS, OSV, OWASP, MITRE ATT&CK, CISA advisories). Ask for a live lookup
+when you need current facts; the answer shows each source's date and freshness.
+
+```text
+$panda-recon intel cve CVE-2021-44228 Use live public sources. Show KEV, EPSS
+with its date, and fixed versions. Do not send source code or private paths.
+
+$panda-recon scan ./project --intel live Check npm dependencies against current
+advisories. Report only exact version matches as affected; no upgrades.
+```
+
+`scan`, `hunt` and `incident` accept `--intel off|cache|live` (default off). KEV
+means exploited somewhere, not that your project was compromised; EPSS is a dated
+probability. Network use is opt-in. See the
+[threat intelligence reference](../skills/panda-recon/references/threat-intelligence.md).
+
+Recon v0.2.0 added `scan` and `help` with structured mode/options validation.
 `$panda-recon scan ./project --depth quick --offline --no-tools` is an agent prompt,
 not an npm command. See [all commands, examples and help](panda-recon/README.md).
 

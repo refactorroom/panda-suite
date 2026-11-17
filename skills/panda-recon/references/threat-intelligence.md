@@ -84,6 +84,8 @@ timeline from supplied evidence:
 2. Look up only those (intel cve, kev, ATT&CK) and record each source date.
 3. Map an ATT&CK technique only when the observed behavior matches it and the ID is
    current (not revoked/deprecated); resemblance to the description is not enough.
+   The helper loads only the ATT&CK version index, not techniques, so confirm the
+   technique page on attack.mitre.org or report the ID as unverified.
 4. Keep external intelligence in a separate section from local observations.
    A relevant CVE, KEV entry or published campaign never upgrades a case to
    Confirmed incident and never supports actor attribution on its own.

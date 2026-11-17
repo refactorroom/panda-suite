@@ -40,6 +40,16 @@ or compromise. Missing alerts can reflect absent collection rather than detectio
 failure. Lab simulations remain Simulation only. Containment, isolation, revocation
 and external notifications are recommendations until authorization covers them.
 
+## Threat intelligence
+
+`intel` → scan/hunt/incident with `--intel cache|live` → report. Intelligence is
+retrieved with source dates and a Fresh/Stale/Unavailable status, then matched
+only against local components or case evidence. Scan writes `PROJECT_EXPOSURE.md`
+rows only for exact package/version matches; hunt and incident keep external
+intelligence in a separate dated section. KEV, EPSS and published campaigns never
+upgrade a finding's status or an incident classification by themselves. Records
+use `panda-recon.intelligence/v1`; reports are written to a new private directory.
+
 ## Optional tools and companions
 
 Security/Write/Debugger/Plan and Invaris/Evaris/Itervyn remain optional. No programmatic

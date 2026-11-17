@@ -37,27 +37,24 @@ The host inventory proves discovery, not that the model followed a prompt.
 
 ## npm distribution
 
-The registry metadata and published 1.7.2 tar member layout were inspected during
-this change. Its executable is `panda-suite` at `bin/panda-suite.js`, an installer
-with `install` and `update`; it does not run scan/recon/incident. The current
-source enhancement is not made available by installing that older publication:
-the inspected archive has no panda-recon files at all.
-See [actual registry inspection](../../tests/results/recon-v0.2.0/published-package.json).
+The executable is `panda-suite` at `bin/panda-suite.js`, an installer with
+`install` and `update`; it does not run scan/recon/incident/intel. The published
+1.7.2 archive has no panda-recon files
+([registry inspection](../../tests/results/recon-v0.2.0/published-package.json)).
+The 1.8.0 package preview (`npm pack --dry-run`) includes them, and all 9 installer
+tests pass on Node 26.8.2. 1.8.0 is not published yet.
 
-Conceptual installer examples for a future version bundling the desired skill
-(the inspected latest 1.7.2 cannot install Recon):
+Once 1.8.0 is published:
 
 ```sh
 npx panda-suite@latest install --skill panda-recon
 npx panda-suite@latest update
 ```
 
-These are installer examples, not execution commands or a claim the current latest
-publication contains this enhancement. Node 26 installer tests have a recorded
-pre-existing compatibility failure; use the verified checkout copy/plugin path
-until that issue and a release are addressed. Existing managed copies must be
-backed up/reconciled through the documented updater; never overwrite modified skills.
-No install command above was used to modify user/global configuration in this task.
+These install or update skill files; they do not execute modes. Existing managed
+copies must be backed up/reconciled through the documented updater; never
+overwrite modified skills. No install command above was run against user/global
+configuration in this task.
 
 The bundled Python helper is invoked explicitly with an existing configured Python,
 not installed as a new shell binary. Optional validation/reporting uses jsonschema;

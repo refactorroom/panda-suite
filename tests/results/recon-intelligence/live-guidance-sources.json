@@ -1,0 +1,209 @@
+[
+  {
+    "run": "live-owasp",
+    "command": "intel owasp --allow-network (private scratch cache, exit 0)",
+    "generatedAt": "2026-11-17T13:27:34.927950+00:00",
+    "topic": "owasp",
+    "sources": [
+      {
+        "source": "owasp-web",
+        "enabled": true,
+        "endpoint": "https://owasp.org/projects/top-ten",
+        "lastSuccessfulSync": "2026-11-17T13:27:34.927950+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "2025",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      },
+      {
+        "source": "owasp-api",
+        "enabled": true,
+        "endpoint": "https://owasp.org/projects/api-security-project",
+        "lastSuccessfulSync": "2026-11-17T13:27:34.927950+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "2023",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      },
+      {
+        "source": "owasp-asvs",
+        "enabled": true,
+        "endpoint": "https://asvs.owasp.org/",
+        "lastSuccessfulSync": "2026-11-17T13:27:34.927950+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "5.0.0",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      }
+    ],
+    "records": [
+      {
+        "id": "owasp-web",
+        "title": "OWASP Web Top 10",
+        "sourceVersion": "2025",
+        "versions": null,
+        "publishedAt": null
+      },
+      {
+        "id": "owasp-api",
+        "title": "OWASP API Security",
+        "sourceVersion": "2023",
+        "versions": null,
+        "publishedAt": null
+      },
+      {
+        "id": "owasp-asvs",
+        "title": "OWASP ASVS",
+        "sourceVersion": "5.0.0",
+        "versions": null,
+        "publishedAt": null
+      }
+    ],
+    "requestCount": 3,
+    "note": "Observed public responses on this date; values change as sources publish. Not a model run."
+  },
+  {
+    "run": "live-incidents",
+    "command": "intel incidents --allow-network (default --days 7) (private scratch cache, exit 0)",
+    "generatedAt": "2026-11-17T13:27:37.974602+00:00",
+    "topic": "incidents",
+    "sources": [
+      {
+        "source": "incidents",
+        "enabled": true,
+        "endpoint": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+        "lastSuccessfulSync": "2026-11-17T13:27:37.974602+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": null,
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      }
+    ],
+    "records": [
+      {
+        "id": "https://www.cisa.gov/news-events/alerts/2026/11/13/cisa-adds-two-known-exploited-vulnerabilities-catalog",
+        "title": "CISA Adds Two Known Exploited Vulnerabilities to Catalog",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-13T12:00:00+00:00"
+      },
+      {
+        "id": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-02",
+        "title": "Siemens Desigo, Gridscale",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-12T12:00:00+00:00"
+      },
+      {
+        "id": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-05",
+        "title": "Siemens RUGGEDCOM APE1808",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-12T12:00:00+00:00"
+      },
+      {
+        "id": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-04",
+        "title": "Siemens RUGGEDCOM APE1808",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-12T12:00:00+00:00"
+      },
+      {
+        "id": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-01",
+        "title": "Siemens Building Automation and Energy Products",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-12T12:00:00+00:00"
+      },
+      {
+        "id": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-03",
+        "title": "Siemens Industrial Edge Management",
+        "sourceVersion": null,
+        "versions": null,
+        "publishedAt": "2026-11-12T12:00:00+00:00"
+      }
+    ],
+    "requestCount": 1,
+    "note": "Observed public responses on this date; values change as sources publish. Not a model run."
+  },
+  {
+    "run": "live-mitre",
+    "command": "intel update --source mitre --allow-network (private scratch cache, exit 0)",
+    "generatedAt": "2026-11-17T13:27:38.663064+00:00",
+    "topic": "update",
+    "sources": [
+      {
+        "source": "mitre",
+        "enabled": true,
+        "endpoint": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/index.json",
+        "lastSuccessfulSync": "2026-11-17T13:27:38.663064+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": null,
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      }
+    ],
+    "records": [
+      {
+        "id": "x-mitre-collection--1f5f1533-f617-4ca8-9ab4-6a02367fa019",
+        "title": "Enterprise ATT&CK",
+        "sourceVersion": null,
+        "versions": [
+          "20.1",
+          "20.0",
+          "19.2"
+        ],
+        "publishedAt": null
+      },
+      {
+        "id": "x-mitre-collection--90c00720-636b-4485-b342-8751d232bf09",
+        "title": "ICS ATT&CK",
+        "sourceVersion": null,
+        "versions": [
+          "20.1",
+          "20.0",
+          "19.2"
+        ],
+        "publishedAt": null
+      },
+      {
+        "id": "x-mitre-collection--dac0d2d7-8653-445c-9bff-82f934c1e858",
+        "title": "Mobile ATT&CK",
+        "sourceVersion": null,
+        "versions": [
+          "20.1",
+          "20.0",
+          "19.2"
+        ],
+        "publishedAt": null
+      }
+    ],
+    "requestCount": 1,
+    "note": "Observed public responses on this date; values change as sources publish. Not a model run."
+  }
+]

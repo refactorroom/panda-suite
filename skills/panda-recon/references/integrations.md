@@ -6,9 +6,9 @@ mandatory multi-agent pipeline.
 
 | Peer | Handoff |
 | --- | --- |
-| panda-security | Source/configuration audit with exact scope; import IDs, evidence and unverified status without upgrading confidence. Recon owns additional collection and controlled validation. |
+| panda-security | Source/configuration audit with exact scope; import IDs, evidence and unverified status without upgrading confidence. Recon owns additional collection, controlled validation and dated intelligence; Security may use `intelligence.json` for dependency triage inside its audit. |
 | panda-debugger | A specific application execution/root-cause question and its safe evidence; incident suspicion alone does not authorize code execution or repairs. |
-| panda-write | Sanitized structured findings and explicit report paths; writing must not discover or invent vulnerability facts. |
+| panda-write | Sanitized structured findings and explicit report paths; writing must not discover or invent vulnerability facts. For intel reports pass `intelligence.json` and `source-status.json` and keep every source URL, date and freshness status. |
 | panda-plan | Prioritized supported issues and acceptance invariants for a requested detailed remediation plan. |
 | panda-refactor / panda-execute | Explicitly approved scoped code changes and regression criteria; structural refactoring is not automatically a vulnerability fix. |
 | Invaris | Candidate deterministic invariants and benign challenges; inspect the actual CLI/schema and trusted commands before running. |

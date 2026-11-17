@@ -1,3 +1,5 @@
+Current release: [v1.8.0 Recon threat intelligence, checks and limits](v1.8.0.md).
+
 Recon v0.2.0 source enhancement: [commands, imports, compatibility and checks](panda-recon-v0.2.0.md).
 
 Recon P0 source addition: [contract, checks and phase limits](panda-recon.md).

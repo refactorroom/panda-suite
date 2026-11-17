@@ -36,6 +36,17 @@ findings; it does not mean a clean scan. An inaccessible/malformed/error-bearing
 import yields 3 with a Partial processing record; invalid target/destination or
 schema produces 2. No target, scanner or advisory service is contacted.
 
+Optional intelligence check, offline: this reads the private cache only and shows
+each source as Fresh, Stale or Unavailable. A new cache has no data, so every source
+is Unavailable and the exit is 3. That is the expected honest result, not an error.
+
+```sh
+.venv/bin/python skills/panda-recon/scripts/recon.py intel status --offline
+```
+
+Add `--allow-network` only when you want a live public lookup; see the
+[CVE lookup example](examples/intel-cve.md).
+
 [Actual generated example](../../tests/results/recon-v0.2.0/demo/SECURITY_SCAN.md)
 contains author-run synthetic results. Review redaction before sharing; unknown
 secrets in arbitrary narrative/paths cannot be guaranteed absent by regex masking.

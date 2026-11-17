@@ -16,9 +16,13 @@
 | No active authorization | Stay offline. A manifest/discovered host is not authority; establish exact assets/techniques/budgets before permitted testing. |
 | Existing output/report failure | Old scans are never overwritten. Choose a fresh directory; missing metadata means incomplete publication. Keep failure evidence rather than relabeling it complete. |
 | Helper dependency missing | Use an already configured interpreter with jsonschema, or perform manual workflow. Help/request do not require it; nothing auto-installs. |
+| Intel exit 3 / source Stale or Unavailable | At least one enabled source has no fresh data. Read `sourceStatus` for the error. Offline or no `--allow-network` means cache only; never treat old data as current. Retry later for rate limits or outages. |
+| Intel cache refused | The cache path must not be a symlink (for example macOS `$TMPDIR` under `/var`) and its directory must be private (0700). Use the default `.panda-suite/recon/intelligence-cache` or a real private path. |
+| No project exposure rows | Package queries need `--allow-package-queries`, and automatic inventory reads only npm `package-lock.json` v2/v3. For other ecosystems supply a reviewed `--components` file. No rows is not proof of no exposure. |
 | Sensitive output | Use a private exact-value redactions file; inspect sanitized JSON/Markdown before sharing. Unknown secrets in arbitrary prose/paths need human review. Never validate tokens externally. |
 
 Helper exits describe parsing/transformation/publication, not severity: 0 operation
-completed, 2 refused/error, 3 partial scan-report processing. Agent scan statuses
+completed, 2 refused/error, 3 partial scan-report processing or an intel source
+that is not fresh. Agent scan statuses
 and producer-specific exits are separate. Windows and active scanner execution
 remain unverified; trusted local root assumptions are not a sandbox.
