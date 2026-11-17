@@ -1,0 +1,127 @@
+[
+  {
+    "run": "report-verified",
+    "generatedAt": "2026-11-17T12:49:45.218447+00:00",
+    "topic": "cve",
+    "sources": [
+      {
+        "source": "nvd",
+        "enabled": true,
+        "endpoint": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+        "lastSuccessfulSync": "2026-11-17T12:49:45.218447+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "2.0",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": "2.0",
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      },
+      {
+        "source": "kev",
+        "enabled": true,
+        "endpoint": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+        "lastSuccessfulSync": "2026-11-17T12:49:45.218447+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "2026.11.13",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      },
+      {
+        "source": "epss",
+        "enabled": true,
+        "endpoint": "https://api.first.org/data/v1/epss",
+        "lastSuccessfulSync": "2026-11-17T12:49:45.218447+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "1.0",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": "1.0",
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      }
+    ],
+    "recordIds": [
+      "CVE-2021-44228"
+    ],
+    "requestCount": 3,
+    "applicability": [],
+    "note": "Actual public-source smoke; lodash is an explicitly shared public example, not this project inventory. No source code, secrets or target probes."
+  },
+  {
+    "run": "report-osv",
+    "generatedAt": "2026-11-17T12:49:46.400384+00:00",
+    "topic": "latest",
+    "sources": [
+      {
+        "source": "osv",
+        "enabled": true,
+        "endpoint": "https://api.osv.dev/v1/query",
+        "lastSuccessfulSync": "2026-11-17T12:49:46.400384+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": null,
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      },
+      {
+        "source": "epss",
+        "enabled": true,
+        "endpoint": "https://api.first.org/data/v1/epss",
+        "lastSuccessfulSync": "2026-11-17T12:49:46.400384+00:00",
+        "lastAttemptError": null,
+        "refreshSucceeded": true,
+        "sourceVersion": "1.0",
+        "status": "Fresh",
+        "ageSeconds": 0,
+        "previousSourceVersion": null,
+        "versionChanged": false,
+        "usedCachedSnapshot": false,
+        "networkAvailability": "Observed response"
+      }
+    ],
+    "recordIds": [
+      "CVE-2020-28500",
+      "CVE-2021-23337",
+      "CVE-2026-4800",
+      "CVE-2025-13465"
+    ],
+    "requestCount": 2,
+    "applicability": [
+      {
+        "component": "lodash",
+        "version": "4.17.20",
+        "status": "Confirmed affected component"
+      },
+      {
+        "component": "lodash",
+        "version": "4.17.20",
+        "status": "Confirmed affected component"
+      },
+      {
+        "component": "lodash",
+        "version": "4.17.20",
+        "status": "Confirmed affected component"
+      },
+      {
+        "component": "lodash",
+        "version": "4.17.20",
+        "status": "Confirmed affected component"
+      }
+    ],
+    "note": "Actual public-source smoke; lodash is an explicitly shared public example, not this project inventory. No source code, secrets or target probes."
+  }
+]

@@ -1,8 +1,8 @@
 ---
 name: panda-recon
-description: Run requested repository scan workflows using available security analysis, or investigate authorized surfaces and evidence through reconnaissance, bounded validation, threat hunting, incident reconstruction, bounty preparation and remediation verification.
+description: Run requested repository scan workflows using available security analysis, retrieve dated public threat intelligence (CVE, CISA KEV, EPSS, OSV, OWASP, ATT&CK) and correlate it with project components, or investigate authorized surfaces and evidence through reconnaissance, bounded validation, threat hunting, incident reconstruction, bounty preparation and remediation verification.
 metadata:
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Panda Recon
@@ -29,12 +29,20 @@ cues, not shell subcommands. Load only the relevant reference:
 | `incident` | [Incident reconstruction](references/investigation.md): INCIDENT_REPORT.md, INCIDENT_TIMELINE.md, incident.json. |
 | `bounty` | [Program-bound validation](references/validation.md): BUG_BOUNTY_REPORT.md; no automatic submission. |
 | `verify` | [Remediation recheck](references/validation.md): VERIFICATION_REPORT.md, verification-results.json. |
+| `intel` | [Threat intelligence](references/threat-intelligence.md): dated CVE/KEV/EPSS/OSV/OWASP/ATT&CK/advisory lookups; THREAT_INTELLIGENCE.md or topic report, intelligence.json, source-status.json, PROJECT_EXPOSURE.md only for local matches. |
 
 Use [command/help routing](references/commands.md) for mode/target/options, `help`,
 `help scan` or unsupported input. These are agent instructions, not npm subcommands.
 Do not silently substitute another mode. Help produces help only. With a bare path
 and no clear assessment question, use a bounded read-only recon overview or resolve
 the missing outcome; do not infer permission to probe.
+
+`scan`, `hunt` and `incident` accept `--intel off|cache|live` (default off). With
+it, follow [threat intelligence](references/threat-intelligence.md): retrieve or
+reuse dated sources, correlate only with local components/evidence, and keep
+external intelligence separate from local findings. Current-fact questions (latest
+OWASP, a CVE's KEV/EPSS status, recent advisories) need a retrieved, dated source;
+do not answer them from memory or present cached data as fresh.
 
 The helper provides offline scope/evidence/case/report tools and scan-result
 normalization. The other modes can analyze
@@ -83,8 +91,11 @@ language. Preserve exact severity/confidence, evidence IDs and verification limi
 
 The [optional offline helper](references/helpers.md) validates records, checks
 candidate target scope without connecting, handles explicit case transitions,
-checks evidence hashes and renders a conservative report view. It is not a network
-client, scanner, sandbox, authorization oracle or evidence-authentication service.
+checks evidence hashes and renders a conservative report view. Apart from `intel`, it is
+not a network client; it is never a scanner, sandbox, authorization oracle or
+evidence-authentication service. `intel` contacts only fixed public intelligence
+endpoints and only with explicit `--allow-network`; package queries need
+`--allow-package-queries`. No scheduler or continuous monitoring is active.
 The new `help`, `request` and `scan-report` helper commands add discovery, request
 validation and report normalization; they do not invoke a model or launch scanners.
 

@@ -64,9 +64,9 @@ def load_json(path, with_bytes=False):
     return (value, data) if with_bytes else value
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=8)
 def support(name):
-    if name not in {'commands', 'scan'}:
+    if name not in {'commands', 'scan', 'intel', 'intel_sources', 'intel_store', 'intel_net', 'components'}:
         raise ValueError('unknown bundled helper module')
     spec = importlib.util.spec_from_file_location('_panda_recon_' + name, BASE / 'scripts' / (name + '.py'))
     module = importlib.util.module_from_spec(spec)
@@ -131,11 +131,11 @@ def validators():
     return {kind: jsonschema.Draft202012Validator(
         schemas['urn:panda-recon:' + kind + ':v1'], registry=registry,
         format_checker=jsonschema.FormatChecker())
-        for kind in ('engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata')}
+        for kind in ('engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata', 'intelligence')}
 
 
 def validate(kind, data):
-    if kind not in {'engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata'}:
+    if kind not in {'engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata', 'intelligence'}:
         raise ValueError('unknown record kind')
     checker = validators()[kind]
     if next(checker.iter_errors(data), None) is not None:
@@ -380,6 +380,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='action', required=True)
     command_api = support('commands')
+    command = commands.add_parser('intel', help='on-demand public intelligence; network requires explicit opt-in')
+    command.add_argument('intel_args', nargs=argparse.REMAINDER)
     command = commands.add_parser('help', help='explain agent modes without executing them')
     command.add_argument('mode', nargs='?')
     command = commands.add_parser('request', help='validate an agent mode request, without executing it')
@@ -393,7 +395,7 @@ def main():
     command.add_argument('--redactions', type=Path, help='private JSON array of exact values to mask; never put secrets in CLI arguments')
     command.add_argument('--correlations', type=Path, help='explicit reviewed primary/duplicate ID groups; no automatic cross-rule inference')
     command = commands.add_parser('validate')
-    command.add_argument('kind', choices=['engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata'])
+    command.add_argument('kind', choices=['engagement', 'case', 'asset', 'finding', 'evidence', 'scan-metadata', 'intelligence'])
     command.add_argument('file', type=Path)
     for action in ('integrity', 'render', 'transition'):
         command = commands.add_parser(action)
@@ -420,7 +422,15 @@ def main():
     args = parser.parse_args()
     try:
         code = 0
-        if args.action in {'help', 'request'}:
+        if args.action == 'intel':
+            intelligence = support('intel')
+            intel_args = intelligence.parser().parse_args(args.intel_args)
+            output = intelligence.run(intel_args, globals())
+            validate('intelligence', output)
+            code = 3 if any(s['status'] in ('Stale', 'Unavailable') or s.get('lastAttemptError') for s in output['sourceStatus'] if s.get('enabled', True)) else 0
+            if intel_args.output:
+                output = intelligence.write(output, intel_args.output)
+        elif args.action in {'help', 'request'}:
             contract = load_json(BASE / 'assets/command-contract.json')
             if args.action == 'help':
                 print(command_api.help_text(contract, args.mode))
@@ -440,8 +450,28 @@ def main():
                 case = scanner.correlate(case, load_json(args.correlations), globals())
                 metadata['correlationsApplied'] = before - len(case['findings'])
                 metadata['findingCount'] = len(case['findings'])
+            intel_data = None
+            if args.intel != 'off':
+                if args.intel == 'live' and args.offline:
+                    raise ValueError('live intelligence conflicts with explicit offline')
+                intelligence = support('intel')
+                flags = ['latest', '--cache', str(args.intel_cache)]
+                if args.intel == 'cache': flags.append('--offline')
+                if args.allow_network: flags.append('--allow-network')
+                if args.allow_package_queries: flags.append('--allow-package-queries')
+                if args.components: flags += ['--components', str(args.components)]
+                else: flags += ['--project', str(args.target)]
+                intel_data = intelligence.run(intelligence.parser().parse_args(flags), globals())
+                validate('intelligence', intel_data)
+                metadata['intelligence'] = {'mode': args.intel, 'recordCount': len(intel_data['records']),
+                    'exposureCount': len(intel_data['projectExposure']), 'caseClassificationChanged': False}
+                if any(s['status'] in ('Stale', 'Unavailable') or s.get('lastAttemptError')
+                       for s in intel_data['sourceStatus'] if s.get('enabled', True)):
+                    metadata['processingStatus'] = 'Partial'
             output_path = args.output or Path('.panda-suite/recon/reports/scans') / case['id']
             output = scanner.write_bundle(case, metadata, output_path, args.severity, args.format)
+            if intel_data is not None:
+                output['intelligence'] = intelligence.write(intel_data, output_path / 'intelligence')
             code = 3 if metadata['processingStatus'] == 'Partial' else 0
         elif args.action == 'validate':
             validate(args.kind, load_json(args.file))

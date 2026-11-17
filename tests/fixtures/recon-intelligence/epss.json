@@ -1,0 +1,13 @@
+{
+  "status": "OK",
+  "version": "1.0",
+  "total": 1,
+  "data": [
+    {
+      "cve": "CVE-2099-10001",
+      "epss": "0.91",
+      "percentile": "0.99",
+      "date": "2026-11-17"
+    }
+  ]
+}

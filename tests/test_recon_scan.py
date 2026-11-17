@@ -39,10 +39,11 @@ class ReconScanTest(unittest.TestCase):
                               text=True, capture_output=True, timeout=15)
 
     def test_seven_modes_request_and_help_without_execution(self):
-        self.assertEqual(7, len(CONTRACT['modes']))
+        self.assertEqual({'scan', 'recon', 'simulate', 'hunt', 'incident', 'bounty', 'verify', 'intel'},
+                         {m['name'] for m in CONTRACT['modes']})
         for mode in CONTRACT['modes']:
             with self.subTest(mode=mode['name']):
-                request = COMMANDS.parse_request([mode['name'], str(TARGET)], CONTRACT)
+                request = COMMANDS.parse_request([mode['name'], 'latest' if mode['name'] == 'intel' else str(TARGET)], CONTRACT)
                 self.assertEqual(mode['name'], request['mode'])
                 self.assertFalse(request['executed'])
                 self.assertIn(mode['purpose'], COMMANDS.help_text(CONTRACT, mode['name']))
@@ -271,7 +272,7 @@ class ReconScanTest(unittest.TestCase):
 
     def test_documented_example_requests_execute_only_the_parser(self):
         examples = sorted((ROOT / 'docs/panda-recon/examples').glob('*.md'))
-        self.assertEqual(7, len(examples))
+        self.assertEqual(len(CONTRACT['modes']), len(examples))
         for path in examples:
             text = path.read_text()
             self.assertIn('interactive execution is **Not Run**', text)
@@ -288,7 +289,7 @@ class ReconScanTest(unittest.TestCase):
         self.assertEqual(modes, set(schema['properties']['mode']['enum']))
         guide = (ROOT / 'docs/panda-recon/command-reference.md').read_text()
         for mode in modes:
-            self.assertIn('$panda-recon ' + mode + ' TARGET', guide)
+            self.assertIn('$panda-recon ' + mode + (' TOPIC' if mode == 'intel' else ' TARGET'), guide)
         self.assertIn('not a universal positional-argument', guide)
 
 

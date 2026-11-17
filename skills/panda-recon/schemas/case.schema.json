@@ -39,7 +39,8 @@
         "hunt",
         "incident",
         "bounty",
-        "verify"
+        "verify",
+        "intel"
       ]
     },
     "state": {

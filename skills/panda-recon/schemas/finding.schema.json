@@ -186,7 +186,8 @@
         "hunt",
         "incident",
         "bounty",
-        "verify"
+        "verify",
+        "intel"
       ]
     },
     "status": {
@@ -281,6 +282,14 @@
       "minLength": 1
     },
     "correlationNotes": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "intelligenceRefs": {
       "type": "array",
       "maxItems": 1000,
       "items": {

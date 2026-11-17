@@ -35,6 +35,11 @@ External scans, credential use, installation and uploads need separate permissio
    actual source-to-sink path and effective controls. Reject false positives or
    retain deciding gaps. Check advisory versions/dates before dependency claims;
    an installed package or unmaintained label alone is not a vulnerability.
+   With `--intel cache|live`, build the local component inventory first, then
+   apply [threat intelligence](threat-intelligence.md#project-applicability):
+   exact package/version matching, KEV/EPSS as dated separate signals, and
+   PROJECT_EXPOSURE.md rows only for local matches. Intelligence never changes
+   a finding to verified or reachable on its own. `--intel off` is the default.
 7. **Publish structured results.** Use the shared v1 finding/case model with added
    optional sourceMode, status, locations, controls and provenance. New scan findings
    explicitly set them. Status is Potential concern, Requires verification,

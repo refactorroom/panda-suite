@@ -30,6 +30,11 @@ isolate hosts, kill processes, change firewalls or revoke credentials automatica
 Use clear authorization for those actions. P0 supplies structured/manual workflows,
 not an automated log parser, forensic acquisition tool or correlation engine.
 
+With `--intel cache|live`, enrich only after the local timeline exists and follow
+[threat intelligence enrichment](threat-intelligence.md#hunt-and-incident-enrichment):
+external CVE/KEV/ATT&CK/advisory context stays in its own dated section and never
+raises incident classification or supports attribution by itself.
+
 Consult [NIST SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final) for
 incident-response guidance. Map [MITRE ATT&CK](https://attack.mitre.org/) techniques
 only after checking actual behavior and current identifiers; do not infer actor

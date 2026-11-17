@@ -1,0 +1,15 @@
+{
+  "collections": [
+    {
+      "id": "collection-fixture",
+      "name": "Synthetic enterprise",
+      "versions": [
+        {
+          "version": "99.0",
+          "modified": "2026-11-17T00:00:00Z",
+          "url": "https://collector.invalid/never-follow"
+        }
+      ]
+    }
+  ]
+}

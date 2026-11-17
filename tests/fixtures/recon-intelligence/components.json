@@ -1,0 +1,11 @@
+[
+  {
+    "name": "demo-package",
+    "ecosystem": "npm",
+    "version": "1.1.0",
+    "versionKind": "resolved",
+    "evidence": "synthetic lock entry",
+    "internetExposed": true,
+    "criticality": "high"
+  }
+]

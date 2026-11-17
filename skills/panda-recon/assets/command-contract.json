@@ -1,6 +1,6 @@
 {
   "schemaVersion": "panda-recon.commands/v1",
-  "skillVersion": "0.2.0",
+  "skillVersion": "0.3.0",
   "modes": [
     {
       "name": "scan",
@@ -43,6 +43,12 @@
       "purpose": "Recheck an existing finding against its invariant",
       "input": "Finding/case record or case directory",
       "outputs": "VERIFICATION_REPORT.md, verification-results.json"
+    },
+    {
+      "name": "intel",
+      "purpose": "Retrieve dated authoritative public intelligence and correlate supplied components",
+      "input": "Topic and optional CVE identifier; no filesystem target required",
+      "outputs": "THREAT_INTELLIGENCE.md or topic report (CVE_ANALYSIS.md, OWASP_UPDATES.md, INCIDENT_INTELLIGENCE.md), intelligence.json, source-status.json, optional PROJECT_EXPOSURE.md"
     }
   ],
   "scanDefaults": {
@@ -51,11 +57,21 @@
     "format": "both",
     "offline": true,
     "noTools": false,
-    "exclude": []
+    "exclude": [],
+    "intel": "off"
   },
   "mechanisms": {
     "agent": "Mode cues interpreted by the selected skill; not shell commands.",
     "installer": "panda-suite install/update copies skill definitions; does not execute a mode.",
     "helper": "help/request validate a contract; scan-report normalizes supplied local results without launching scanners."
-  }
+  },
+  "intelTopics": [
+    "latest",
+    "update",
+    "status",
+    "owasp",
+    "cve",
+    "kev",
+    "incidents"
+  ]
 }

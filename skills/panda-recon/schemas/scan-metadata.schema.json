@@ -300,6 +300,35 @@
     "correlationsApplied": {
       "type": "integer",
       "minimum": 0
+    },
+    "intelligence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "recordCount",
+        "exposureCount",
+        "caseClassificationChanged"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "cache",
+            "live"
+          ]
+        },
+        "recordCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exposureCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "caseClassificationChanged": {
+          "const": false
+        }
+      }
     }
   },
   "allOf": [

@@ -1,10 +1,14 @@
-# Panda Recon v0.2.0
+# Panda Recon v0.3.0
 
 Panda Recon maps authorized security surfaces, investigates supplied evidence and
 runs a requested repository `scan` workflow using available Panda Security analysis.
 It preserves findings across investigation, controlled validation and verification.
 
-This update adds mode help/request validation, scan-result normalization, provenance
+v0.3.0 adds the `intel` mode: dated CVE, KEV, EPSS, OSV, OWASP, ATT&CK and
+advisory lookups with a visible freshness status, plus `--intel` for scan, hunt and
+incident. Network use is opt-in; see the [release notes](../v1.8.0.md).
+
+v0.2.0 added mode help/request validation, scan-result normalization, provenance
 and report bundles. It does not add a scanner engine, target probe, agent runtime,
 automatic containment or autonomous exploit loop. The npm CLI remains an installer.
 
@@ -21,6 +25,7 @@ automatic containment or autonomous exploit loop. The npm CLI remains an install
 | incident | Supported incident reconstruction | [Case analysis](examples/incident-analysis.md) |
 | bounty | Policy-bound validation/submission preparation | [Program policy](examples/bug-bounty.md) |
 | verify | Recheck an existing finding/invariant | [Remediation](examples/verify-finding.md) |
+| intel | Dated public vulnerability intelligence and project exposure | [CVE lookup](examples/intel-cve.md) |
 
 Standalone Codex prompt: `$panda-recon scan ./project --depth quick --no-tools`.
 Codex plugin: `$panda-suite:panda-recon scan ./project --depth quick --no-tools`.

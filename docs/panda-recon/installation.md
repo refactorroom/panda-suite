@@ -1,6 +1,6 @@
 # Installation and activation
 
-The source checkout contains Recon v0.2.0. It is not a published npm/plugin update.
+The source checkout contains Recon v0.3.0 (Suite 1.8.0). It is not a published npm/plugin update.
 Read the [Suite overview and installation guidance](../../README.md) for
 license, backups, managed updates and host refresh behavior. Use one method to avoid
 same-named duplicate skills. The package remains `panda-suite`; no `panda-recon`

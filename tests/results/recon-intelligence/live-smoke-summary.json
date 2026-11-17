@@ -1,0 +1,55 @@
+{
+  "command": "intel cve CVE-2021-44228 --allow-network (private ignored cache/report roots)",
+  "exitCode": 3,
+  "generatedAt": "2026-11-17T12:46:54.160996+00:00",
+  "sources": [
+    {
+      "source": "nvd",
+      "enabled": true,
+      "endpoint": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "lastSuccessfulSync": "2026-11-17T12:46:54.160996+00:00",
+      "lastAttemptError": null,
+      "refreshSucceeded": true,
+      "sourceVersion": "2.0",
+      "status": "Fresh",
+      "ageSeconds": 0,
+      "previousSourceVersion": null,
+      "versionChanged": false,
+      "usedCachedSnapshot": false,
+      "networkAvailability": "Observed response"
+    },
+    {
+      "source": "kev",
+      "enabled": true,
+      "endpoint": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+      "lastSuccessfulSync": null,
+      "lastAttemptError": "CONTENT_TYPE_CHANGED",
+      "refreshSucceeded": false,
+      "sourceVersion": null,
+      "status": "Unavailable",
+      "ageSeconds": null,
+      "usedCachedSnapshot": false,
+      "networkAvailability": "Not verified"
+    },
+    {
+      "source": "epss",
+      "enabled": true,
+      "endpoint": "https://api.first.org/data/v1/epss",
+      "lastSuccessfulSync": "2026-11-17T12:46:54.160996+00:00",
+      "lastAttemptError": null,
+      "refreshSucceeded": true,
+      "sourceVersion": "1.0",
+      "status": "Fresh",
+      "ageSeconds": 0,
+      "previousSourceVersion": null,
+      "versionChanged": false,
+      "usedCachedSnapshot": false,
+      "networkAvailability": "Observed response"
+    }
+  ],
+  "recordIds": [
+    "CVE-2021-44228"
+  ],
+  "requestCount": 3,
+  "note": "Actual public source requests, no component metadata, source code, credentials or target probes sent. Raw data stays private."
+}

@@ -7,7 +7,7 @@ not a shell command. Installed plugins may use `$panda-suite:panda-recon`; Claud
 standalone uses `/panda-recon`, plugin `/panda-suite:panda-recon`. Use the actual
 host selector. Discovery is not proof an interactive model task was executed.
 
-Help: `help` lists seven modes, inputs, outputs and boundaries. `help MODE` gives
+Help: `help` lists eight modes, inputs, outputs and boundaries. `help MODE` gives
 focused help and scan defaults/options. Unknown modes/options produce a useful
 error listing supported choices; do not silently dispatch a different workflow.
 Missing target: inspect an explicit current project only when the context resolves
@@ -21,6 +21,12 @@ work without scanner execution; import of already supplied reports is still allo
 Offline prohibits remote rules/advisory services/uploads; it does not make an
 arbitrary installed tool safe. Exclusions and deferred coverage must be visible.
 Keep canonical findings.json complete regardless of severity/format selection.
+
+`intel TOPIC` takes a topic instead of a filesystem target: latest, update, status,
+owasp, cve CVE-ID, kev or incidents, with optional `--days` (1–120), `--ecosystem`
+and `--severity`. scan, hunt and incident accept `--intel off|cache|live` (default
+off); explicit `--offline` with `--intel live` is refused, not silently downgraded.
+See [threat intelligence](threat-intelligence.md).
 
 The equivalent structured agent request is `{mode, target, options}` with scan
 options `{depth, severity, format, output, exclude, offline, noTools}`. The optional

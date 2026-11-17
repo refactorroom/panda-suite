@@ -26,8 +26,13 @@ def options(parser):
     parser.add_argument('--format', choices=['markdown', 'json', 'both'], default='both')
     parser.add_argument('--output', type=Path)
     parser.add_argument('--exclude', action='append', type=exclusion, default=[])
-    parser.add_argument('--offline', action='store_true', default=True, help='default; no remote operations are permitted by this request')
+    parser.add_argument('--offline', action='store_true', help='no remote operations; default unless intel live is explicitly selected')
     parser.add_argument('--no-tools', action='store_true', help='request manual/static work without launching external scanners')
+    parser.add_argument('--intel', choices=['off', 'cache', 'live'], default='off')
+    parser.add_argument('--intel-cache', type=Path, default=Path('.panda-suite/recon/intelligence-cache'))
+    parser.add_argument('--components', type=Path)
+    parser.add_argument('--allow-network', action='store_true', help='helper: permit fixed public intelligence requests only')
+    parser.add_argument('--allow-package-queries', action='store_true', help='helper: permit sending exact package/version metadata to OSV')
 
 
 def help_text(contract, mode=None):
@@ -48,6 +53,11 @@ def help_text(contract, mode=None):
               'Helper: recon.py scan-report TARGET imports local reports; no scanners are launched.',
               'Installer: panda-suite install/update copies skills; npx skills is not mode execution.',
               'Active testing, remote scans, installation and uploads require their own authorization.']
+    if mode in (None, 'intel'):
+        lines += ['', 'Intel: latest, update, status, owasp, cve CVE-ID, kev, incidents [--days 7].',
+                  'Helper intel requires --allow-network for live reads; --offline reads dated cache.',
+                  'scan/hunt/incident accept --intel off|cache|live; explicit --offline conflicts with live.',
+                  'Package queries need separate --allow-package-queries; no scheduler is activated.']
     return '\n'.join(lines)
 
 
@@ -56,10 +66,30 @@ def parse_request(argv, contract):
     modes = parser.add_subparsers(dest='mode', required=True)
     for item in contract['modes']:
         command = modes.add_parser(item['name'], help=item['purpose'])
+        if item['name'] == 'intel':
+            command.add_argument('topic', choices=contract['intelTopics'])
+            command.add_argument('identifier', nargs='?')
+            command.add_argument('--days', type=int, default=7)
+            command.add_argument('--ecosystem', choices=['go', 'npm', 'pypi'])
+            command.add_argument('--severity', type=severity)
+            command.add_argument('--offline', action='store_true')
+            continue
         command.add_argument('target', type=Path, help=item['input'])
         if item['name'] == 'scan':
             options(command)
+        elif item['name'] in ('hunt', 'incident'):
+            command.add_argument('--intel', choices=['off', 'cache', 'live'], default='off')
+            command.add_argument('--offline', action='store_true')
     args = parser.parse_args(argv)
+    if args.mode == 'intel':
+        import re
+        if (not 1 <= args.days <= 120 or args.topic == 'cve' and not re.fullmatch(r'CVE-\d{4}-\d{4,19}', args.identifier or '')
+                or args.topic != 'cve' and args.identifier is not None):
+            raise ValueError('intel requires a valid topic/CVE and days 1–120')
+        return {'schemaVersion': 'panda-recon.request/v1', 'mode': 'intel', 'topic': args.topic,
+                'identifier': args.identifier, 'days': args.days, 'ecosystem': args.ecosystem,
+                'severity': args.severity, 'offline': args.offline, 'executed': False,
+                'permission': 'No execution; live public lookup intent does not authorize private package queries or probing'}
     path = args.target
     if path.is_symlink() or not path.exists() or not (path.is_file() or path.is_dir()):
         raise ValueError('invalid target: choose an existing authorized regular file or directory')
@@ -68,7 +98,13 @@ def parse_request(argv, contract):
     result = {'schemaVersion': 'panda-recon.request/v1', 'mode': args.mode,
               'target': str(path.resolve()), 'executed': False, 'permission': 'local read-only request only'}
     if args.mode == 'scan':
+        if args.offline and args.intel == 'live': raise ValueError('intel live conflicts with explicit offline')
         result['options'] = {'depth': args.depth, 'severity': args.severity, 'format': args.format,
                              'output': str(args.output) if args.output else None,
-                             'exclude': args.exclude, 'offline': args.offline, 'noTools': args.no_tools}
+                             'exclude': args.exclude, 'offline': args.offline or args.intel != 'live', 'noTools': args.no_tools,
+                             'intel': args.intel, 'networkScope': 'public-intelligence-only' if args.intel == 'live' else 'none'}
+    elif args.mode in ('hunt', 'incident'):
+        if args.offline and args.intel == 'live': raise ValueError('intel live conflicts with explicit offline')
+        result['options'] = {'intel': args.intel, 'offline': args.offline or args.intel != 'live',
+                             'networkScope': 'public-intelligence-only' if args.intel == 'live' else 'none'}
     return result

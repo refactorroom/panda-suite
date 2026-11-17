@@ -1,0 +1,11 @@
+{
+  "note": "Current uncommitted v0.2 source preserved as baseline; no independent model result",
+  "files": {
+    "SKILL.md": "67e0a110e5cde6c5f4780f9bfd2630f2dbd8396f43c9f6b9bf378631e98419c3",
+    "scripts/recon.py": "e25a7a510c07aafe8dc4b872ceee671d6ef4c0bbd62a9b852b9aff4616417827",
+    "scripts/commands.py": "9b303b50106a1cb24943e1a93ae43addd90d23a4f59893d64af737f3228fab3c",
+    "scripts/scan.py": "d90742f6e72f7709906d66f2f409e324e8aa45432a226b018751979a24f23466",
+    "schemas/finding.schema.json": "2347d9aed58628960fc8a0b06de7f7854d08de1a4e3ef59f21ee4651d08087a6",
+    "assets/command-contract.json": "ebe8ff86faf63bc590f52a09b8320462947e7f8fb992ec5bf98ea227b6c1c9eb"
+  }
+}

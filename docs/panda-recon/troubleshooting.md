@@ -4,7 +4,7 @@
 | --- | --- |
 | Skill absent | Confirm the selected host directory/plugin inventory, complete copied references and supported metadata. Refresh host; avoid duplicate copies. Discovery is not model execution. |
 | `scan` unknown in a shell | `$panda-recon scan ...` is an agent prompt. Use `recon.py request` for grammar validation or `scan-report` for local report normalization; npm CLI only installs/updates. |
-| Unknown mode/option or missing argument | Run helper `help` / `help MODE` or `--help`. Use the seven mode names; scan options are not accepted for unrelated helper commands. |
+| Unknown mode/option or missing argument | Run helper `help` / `help MODE` or `--help`. Use the eight mode names; scan options are not accepted for unrelated helper commands. |
 | Invalid target | Use an existing authorized repository directory for scan; no linked roots or parent-scope fallback. Other agent modes need their appropriate evidence/policy path. |
 | Unsupported report/format | Supply documented Security v1, Semgrep results/errors or Gitleaks JSON array. Markdown/SARIF/binary reports are not parser inputs. Agent analysis can use other accessible evidence with explicit limits. |
 | Scanner unavailable | Record Missing/Not Run and continue static work; do not install or fabricate results. PATH availability alone proves neither version nor safe execution. |

@@ -1,0 +1,15 @@
+{
+  "catalogVersion": "fixture-1",
+  "dateReleased": "2026-11-17T08:00:00Z",
+  "count": 1,
+  "vulnerabilities": [
+    {
+      "cveID": "CVE-2099-10001",
+      "vendorProject": "Synthetic",
+      "product": "demo",
+      "vulnerabilityName": "Synthetic test case",
+      "dateAdded": "2026-11-16",
+      "requiredAction": "Review the synthetic fix; no production action."
+    }
+  ]
+}

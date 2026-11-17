@@ -1,0 +1,38 @@
+{
+  "vulns": [
+    {
+      "id": "GHSA-aaaa-bbbb-cccc",
+      "aliases": [
+        "CVE-2099-10001"
+      ],
+      "published": "2026-11-16T08:00:00Z",
+      "modified": "2026-11-17T08:00:00Z",
+      "summary": "Synthetic vulnerability, not a real advisory",
+      "affected": [
+        {
+          "package": {
+            "name": "demo-package",
+            "ecosystem": "npm"
+          },
+          "ranges": [
+            {
+              "type": "SEMVER",
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "1.2.0"
+                }
+              ]
+            }
+          ],
+          "versions": [
+            "1.0.0",
+            "1.1.0"
+          ]
+        }
+      ]
+    }
+  ]
+}
