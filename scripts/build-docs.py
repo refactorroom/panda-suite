@@ -92,7 +92,7 @@ def build():
                  '`$panda-suite:' + slug + '`; for a Claude Code plugin, use '
                  '`/panda-suite:' + slug + '`. See [all invocation formats](usage.html#invoke-a-skill).\n\n')
         add(slug, title, 'docs/usage.md', '# ' + title + '\n\n' + intro + body +
-            f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/main/skills/{slug}/SKILL.md) in the repository.\n')
+            f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/dev/skills/{slug}/SKILL.md) in the repository.\n')
     for slug, title, source in [
         ('routing', 'Workflows and routing', 'docs/routing.md'),
         ('architecture', 'Architecture', 'docs/architecture.md'),
@@ -145,7 +145,7 @@ def build():
             return source_routes[path] + frag
         if path.startswith('images/'):
             return 'assets/' + Path(path).name
-        return REPO + '/blob/main/' + path + frag
+        return REPO + '/blob/dev/' + path + frag
 
     groups = [
         ('Get started', [('index', 'Welcome'), ('installation', 'Installation'), ('skills', 'Skill directory'), ('usage', 'Complete usage guide')]),
@@ -167,7 +167,7 @@ def build():
             nav += '</div>'
         toc = md.toc if len(md.toc_tokens) else ''
         hero = '<figure class="brand-art"><img src="assets/branding.png" alt="Panda Suite cyberpunk panda artwork" width="836" height="471"><figcaption>Think clearly. Build carefully. Ship confidently.</figcaption></figure>' if slug == 'index' else ''
-        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/main/' + source, 'hero': hero, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
+        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/dev/' + source, 'hero': hero, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
         result = template
         for key, value in values.items():
             result = result.replace('{{' + key + '}}', value)
