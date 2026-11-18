@@ -51,7 +51,12 @@ function ask(version) {
 function launch(version, args) {
   const command = process.platform === 'win32' ? 'npx.cmd' : 'npx';
   const result = spawnSync(command, ['--yes', `panda-suite@${version}`, ...args], { stdio: 'inherit', env: { ...process.env, PANDA_SUITE_SKIP_UPDATE_CHECK: '1' } });
-  if (result.error) console.error(`panda-suite: could not run the latest version: ${result.error.message}`);
+  if (result.error) {
+    // The newer version never started (for example, Node on Windows refuses to
+    // spawn npx.cmd without a shell). Fall back so the requested command still runs.
+    console.error(`panda-suite: could not run ${version} (${result.error.message}); continuing with the current version`);
+    return null;
+  }
   return result.status === null ? 1 : result.status;
 }
 

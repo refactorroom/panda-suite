@@ -52,3 +52,32 @@ test('CLI accepts an update and runs the newer package with the same arguments',
     assert.equal(invoked.skip, '1');
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
 });
+
+test('CLI continues with the current version when the newer one cannot start', () => {
+  const fs = require('node:fs');
+  const os = require('node:os');
+  const path = require('node:path');
+  const { spawnSync } = require('node:child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'panda-update-test-'));
+  try {
+    const preload = path.join(tmp, 'preload.js');
+    fs.writeFileSync(preload, `
+      const { EventEmitter } = require('node:events');
+      Object.defineProperty(process.stdin, 'isTTY', { value: true });
+      Object.defineProperty(process.stderr, 'isTTY', { value: true });
+      require('node:https').get = (url, options, callback) => {
+        const req = new EventEmitter(); req.setTimeout = () => {}; req.destroy = error => req.emit('error', error);
+        process.nextTick(() => { const res = new EventEmitter(); res.statusCode = 200; res.setEncoding = () => {}; callback(res); res.emit('data', '{"version":"99.0.0"}'); res.emit('end'); });
+        return req;
+      };
+      // Mimic Node on Windows refusing to spawn npx.cmd without a shell.
+      require('node:child_process').spawnSync = () => ({ status: null, error: Object.assign(Error('spawnSync npx.cmd EINVAL'), { code: 'EINVAL' }) });
+    `);
+    const cli = path.join(__dirname, '../bin/panda-suite.js');
+    const dest = path.join(tmp, 'dest');
+    const result = spawnSync(process.execPath, ['--require', preload, cli, 'install', '--skill', 'panda-lead', '--destination', dest], { input: 'y\n', encoding: 'utf8', env: { ...process.env, CI: '', PANDA_SUITE_SKIP_UPDATE_CHECK: '' } });
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stderr, /continuing with the current version/);
+    assert.ok(fs.existsSync(path.join(dest, 'panda-lead', 'SKILL.md')), 'the requested install ran locally');
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+});
