@@ -14,7 +14,7 @@
     const theme = preference || (system.matches ? 'dark' : 'light');
     root.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#18151f' : '#392c73');
+      ?.setAttribute('content', theme === 'dark' ? '#181818' : '#392c73');
     const toggle = document.querySelector('#theme-toggle');
     if (toggle) {
       // Name the theme the button switches to, so it never reads "Dark mode" on a dark page.

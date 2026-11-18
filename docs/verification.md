@@ -1,4 +1,6 @@
-Current release: [v1.8.0 Recon threat intelligence, checks and limits](v1.8.0.md).
+Current release: [v1.9.0 Red/Blue split, checks and limits](v1.9.0.md).
+
+Previous release: [v1.8.0 Recon threat intelligence, checks and limits](v1.8.0.md).
 
 Recon v0.2.0 source enhancement: [commands, imports, compatibility and checks](panda-recon-v0.2.0.md).
 

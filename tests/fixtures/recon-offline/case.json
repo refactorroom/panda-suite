@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "panda-recon.case/v1",
+  "schemaVersion": "panda-case.case/v1",
   "id": "CASE-001",
   "title": "Synthetic object boundary investigation",
   "mode": "simulate",
@@ -8,7 +8,7 @@
   "engagementId": "ENG-001",
   "assets": [
     {
-      "schemaVersion": "panda-recon.asset/v1",
+      "schemaVersion": "panda-case.asset/v1",
       "id": "A-001",
       "caseId": "CASE-001",
       "type": "api",
@@ -24,7 +24,7 @@
   ],
   "evidence": [
     {
-      "schemaVersion": "panda-recon.evidence/v1",
+      "schemaVersion": "panda-case.evidence/v1",
       "id": "E-001",
       "caseId": "CASE-001",
       "source": "supplied synthetic export",
@@ -44,7 +44,7 @@
   ],
   "findings": [
     {
-      "schemaVersion": "panda-recon.finding/v1",
+      "schemaVersion": "panda-case.finding/v1",
       "id": "F-001",
       "caseId": "CASE-001",
       "title": "Synthetic ownership control rejects another account",

@@ -28,7 +28,8 @@ SKILLS = [
     ('panda-test', 'Panda Test'),
     ('panda-debugger', 'Panda Debugger'),
     ('panda-security', 'Panda Security'),
-    ('panda-recon', 'Panda Recon'),
+    ('panda-red', 'Panda Red'),
+    ('panda-blue', 'Panda Blue'),
     ('panda-perf', 'Panda Perf'),
     ('panda-review', 'Panda Review'),
     ('panda-simplify', 'Panda Simplify'),
@@ -63,7 +64,7 @@ def build():
     install = readme.split('## Install from this checkout\n', 1)[1].split('\n## Examples', 1)[0]
     add('installation', 'Installation', 'README.md', '# Install Panda Suite\n\n' + install)
     add('usage', 'Complete usage guide', 'docs/usage.md')
-    catalog = '# Find your skill\n\nChoose a specialist directly, or let [Panda Lead](panda-lead.html) select the activities your task needs. Each guide includes inputs, a copyable prompt, and expected results.\n\n'
+    catalog = '# Find your skill\n\nChoose a specialist directly, or let [Panda Lead](panda-lead.html) select the activities your task needs. Each guide explains when to use the skill, what to provide, how it works, its authorization boundaries, and many copyable example prompts with the results to expect.\n\n'
     catalog += '| Skill | Use it for |\n| --- | --- |\n'
     table = readme.split('| Skill | Use it for |', 1)[1].split('\n\n', 1)[0]
     for line in table.splitlines():
@@ -75,11 +76,21 @@ def build():
     packaged = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
     assert packaged == {slug for slug, _ in SKILLS}, 'Update the site skill list for the packaged catalog'
     for slug, title in SKILLS:
-        if slug == 'panda-recon':
-            add(slug, title, 'docs/panda-recon/README.md')
+        if slug in ('panda-red', 'panda-blue'):
+            add(slug, title, f'docs/{slug}/README.md')
             continue
         if slug == 'panda-logo':
             add(slug, title, 'docs/panda-logo.md')
+            continue
+        intro = ('Examples use **standalone Codex** names. For a Codex plugin, use '
+                 '`$panda-suite:' + slug + '`; for a Claude Code plugin, use '
+                 '`/panda-suite:' + slug + '`. See [all invocation formats](usage.html#invoke-a-skill).\n\n')
+        guide = ROOT / 'docs/skills' / (slug + '.md')
+        if guide.exists():
+            # In-depth guide: keep its H1, then add the selector note.
+            heading, rest = guide.read_text().split('\n', 1)
+            add(slug, title, guide.relative_to(ROOT).as_posix(), heading + '\n\n' + intro + rest.lstrip('\n') +
+                f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/dev/skills/{slug}/SKILL.md) in the repository.\n')
             continue
         if slug == 'panda-lead':
             body = usage.split('## Choose a workflow\n', 1)[1].split('\n## Product discovery', 1)[0]
@@ -88,11 +99,8 @@ def build():
             if not match:
                 raise ValueError(f'Missing usage section: {title}')
             body = match.group(1)
-        intro = ('Examples use **standalone Codex** names. For a Codex plugin, use '
-                 '`$panda-suite:' + slug + '`; for a Claude Code plugin, use '
-                 '`/panda-suite:' + slug + '`. See [all invocation formats](usage.html#invoke-a-skill).\n\n')
         add(slug, title, 'docs/usage.md', '# ' + title + '\n\n' + intro + body +
-            f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/main/skills/{slug}/SKILL.md) in the repository.\n')
+            f'\n\n## Skill instructions\n\nRead the [full {title} instructions]({REPO}/blob/dev/skills/{slug}/SKILL.md) in the repository.\n')
     for slug, title, source in [
         ('routing', 'Workflows and routing', 'docs/routing.md'),
         ('architecture', 'Architecture', 'docs/architecture.md'),
@@ -102,6 +110,7 @@ def build():
         ('release-v1-1-1', 'Release v1.1.1', 'docs/v1.1.1.md'),
         ('release-v1-2-0', 'Release v1.2.0', 'docs/v1.2.0.md'),
         ('release-v1-6-2', 'Release v1.6.2', 'docs/v1.6.2.md'),
+        ('release-v1-9-0', 'Release v1.9.0', 'docs/v1.9.0.md'),
         ('release-v1-8-0', 'Release v1.8.0', 'docs/v1.8.0.md'),
         ('release-v1-7-2', 'Release v1.7.2', 'docs/v1.7.2.md'),
         ('release-v1-7-1', 'Release v1.7.1', 'docs/v1.7.1.md'),
@@ -118,16 +127,24 @@ def build():
         ('maintaining', 'Maintain this site', 'site/maintaining.md'),
     ]:
         add(slug, title, source)
-    for slug in ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting', 'scheduling']:
-        add('recon-' + slug, 'Recon ' + slug.replace('-', ' '), 'docs/panda-recon/' + slug + '.md')
-    for slug in ['scan-codebase', 'recon-project', 'simulate-local', 'hunt-logs', 'incident-analysis', 'bug-bounty', 'verify-finding', 'intel-cve']:
-        add('recon-example-' + slug, 'Recon example: ' + slug.replace('-', ' '), 'docs/panda-recon/examples/' + slug + '.md')
+    for team, guide_pages, examples in [
+            ('red', ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting'],
+             ['scan-codebase', 'recon-project', 'simulate-local', 'bug-bounty']),
+            ('blue', ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting', 'scheduling'],
+             ['hunt-logs', 'incident-analysis', 'verify-finding', 'intel-cve'])]:
+        for slug in guide_pages:
+            add(team + '-' + slug, team.title() + ' ' + slug.replace('-', ' '), f'docs/panda-{team}/{slug}.md')
+        for slug in examples:
+            add(team + '-example-' + slug, team.title() + ' example: ' + slug.replace('-', ' '), f'docs/panda-{team}/examples/{slug}.md')
     source_routes = {source: slug + '.html' for slug, (_, source, _) in pages.items()
                      if slug not in {s for s, _ in SKILLS} | {'skills', 'installation'}}
     source_routes['README.md'] = 'index.html'
     source_routes['docs/usage.md'] = 'usage.html'
     source_routes['docs/panda-logo.md'] = 'panda-logo.html'
-    source_routes['docs/panda-recon/README.md'] = 'panda-recon.html'
+    source_routes['docs/panda-red/README.md'] = 'panda-red.html'
+    source_routes['docs/panda-blue/README.md'] = 'panda-blue.html'
+    for slug, _ in SKILLS:
+        source_routes[f'docs/skills/{slug}.md'] = slug + '.html'
     # Generated page links stay relative to the project path on GitHub Pages.
     def url_rewrite(url, source):
         if url.startswith(('#', '/', 'https:', 'http:', 'mailto:', 'data:')):
@@ -145,7 +162,7 @@ def build():
             return source_routes[path] + frag
         if path.startswith('images/'):
             return 'assets/' + Path(path).name
-        return REPO + '/blob/main/' + path + frag
+        return REPO + '/blob/dev/' + path + frag
 
     groups = [
         ('Get started', [('index', 'Welcome'), ('installation', 'Installation'), ('skills', 'Skill directory'), ('usage', 'Complete usage guide')]),
@@ -167,7 +184,7 @@ def build():
             nav += '</div>'
         toc = md.toc if len(md.toc_tokens) else ''
         hero = '<figure class="brand-art"><img src="assets/branding.png" alt="Panda Suite cyberpunk panda artwork" width="836" height="471"><figcaption>Think clearly. Build carefully. Ship confidently.</figcaption></figure>' if slug == 'index' else ''
-        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/main/' + source, 'hero': hero, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
+        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/dev/' + source, 'hero': hero, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
         result = template
         for key, value in values.items():
             result = result.replace('{{' + key + '}}', value)

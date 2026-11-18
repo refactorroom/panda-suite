@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "panda-blue.intel-sources/v1",
+  "sources": [
+    {
+      "id": "nvd",
+      "name": "NVD CVE API",
+      "endpoint": "https://services.nvd.nist.gov/rest/json/cves/2.0",
+      "format": "json",
+      "ttlSeconds": 21600,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://nvd.nist.gov/developers/vulnerabilities"
+    },
+    {
+      "id": "kev",
+      "name": "CISA official KEV mirror",
+      "endpoint": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+      "format": "json",
+      "ttlSeconds": 21600,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://github.com/cisagov/kev-data"
+    },
+    {
+      "id": "epss",
+      "name": "FIRST EPSS",
+      "endpoint": "https://api.first.org/data/v1/epss",
+      "format": "json",
+      "ttlSeconds": 86400,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://api.first.org/epss/"
+    },
+    {
+      "id": "osv",
+      "name": "OSV exact package query",
+      "endpoint": "https://api.osv.dev/v1/query",
+      "format": "json",
+      "ttlSeconds": 21600,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://google.github.io/osv.dev/post-v1-query/"
+    },
+    {
+      "id": "owasp-web",
+      "name": "OWASP Web Top 10",
+      "endpoint": "https://owasp.org/projects/top-ten",
+      "format": "html",
+      "ttlSeconds": 604800,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://owasp.org/projects/top-ten"
+    },
+    {
+      "id": "owasp-api",
+      "name": "OWASP API Security",
+      "endpoint": "https://owasp.org/projects/api-security-project",
+      "format": "html",
+      "ttlSeconds": 604800,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://owasp.org/projects/api-security-project"
+    },
+    {
+      "id": "owasp-asvs",
+      "name": "OWASP ASVS",
+      "endpoint": "https://asvs.owasp.org/",
+      "format": "html",
+      "ttlSeconds": 604800,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://asvs.owasp.org/"
+    },
+    {
+      "id": "mitre",
+      "name": "MITRE ATT&CK collection index",
+      "endpoint": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/index.json",
+      "format": "json",
+      "ttlSeconds": 604800,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://attack.mitre.org/resources/versions/"
+    },
+    {
+      "id": "incidents",
+      "name": "CISA advisory leads (not confirmed incidents)",
+      "endpoint": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
+      "format": "xml",
+      "ttlSeconds": 10800,
+      "enabled": true,
+      "tier": "primary",
+      "documentation": "https://www.cisa.gov/news-events/cybersecurity-advisories"
+    }
+  ]
+}

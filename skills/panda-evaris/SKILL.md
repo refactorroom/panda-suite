@@ -34,14 +34,18 @@ skill works independently without Panda Lead or Invaris.
    non-comparable or incomplete comparison does not establish a regression or
    improvement. Separate correctness, evidence, scope and overhead; do not
    claim effectiveness from configuration validity or synthetic controls alone.
-5. Optional Invaris verification requires the documented restricted harness
-   profile, supported evidence schema, an explicit executable and permission to
-   run commands. Check current Evaris compatibility rather than assuming the
-   installed versions work together. The documented integration uses `check`
-   with `invaris.dev/v1alpha2` and `invaris.evidence/v1alpha2`; other Invaris
-   actions are separate. Report native verification and Evaris assessment
-   separately: required REJECT fails; required REFUSE, ERROR or UNAVAILABLE is
-   inconclusive; ACCEPT cannot override failed or missing task criteria.
+5. Optional Invaris verification requires a harness that matches a profile the
+   installed Evaris documents, a supported evidence schema, an explicit
+   executable and permission to run commands. Check the installed Evaris
+   compatibility table rather than assuming the two versions work together.
+   Evaris 0.4.0 documents two actions: `check`, with a restricted
+   `invaris.dev/v1alpha2` harness and `invaris.evidence/v1alpha2` evidence, and
+   `campaign`, with an `invaris.campaign/v1alpha1` file whose harnesses are
+   listed in `files`. Earlier Evaris versions support `check` only. Challenges
+   and mutations reach Evaris only through a campaign. Report native
+   verification and Evaris assessment separately: required REJECT fails;
+   required REFUSE, ERROR or UNAVAILABLE is inconclusive; ACCEPT cannot
+   override failed or missing task criteria.
 
 ## Output
 

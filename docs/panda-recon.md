@@ -1,6 +1,6 @@
 # Panda Recon P0: contract, design and verification
 
-Current workflow: [Recon v0.3.0 command guide](panda-recon/README.md). This page
+Current workflow: Recon is now split into [Panda Red](panda-red/README.md) and [Panda Blue](panda-blue/README.md). This page
 records the earlier P0 foundation and its original validation conditions.
 
 ## Purpose and overlap

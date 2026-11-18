@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-case:evidence:v1",
+  "title": "Panda case evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "caseId",
+    "source",
+    "collectedAt",
+    "sourceTimestamp",
+    "sourceTimezone",
+    "artifact",
+    "sha256",
+    "method",
+    "relatedFindings",
+    "sensitivity",
+    "redactionStatus",
+    "integrity"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-case.evidence/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "collectedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sourceTimestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "sourceTimezone": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "artifact": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relatedFindings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+      },
+      "minItems": 0,
+      "uniqueItems": true,
+      "maxItems": 1000
+    },
+    "sensitivity": {
+      "enum": [
+        "Public",
+        "Internal",
+        "Restricted"
+      ]
+    },
+    "redactionStatus": {
+      "enum": [
+        "Original",
+        "Sanitized",
+        "Unknown"
+      ]
+    },
+    "integrity": {
+      "enum": [
+        "Unchecked",
+        "Matched",
+        "Mismatch",
+        "Unavailable"
+      ]
+    }
+  }
+}

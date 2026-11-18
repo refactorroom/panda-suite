@@ -42,7 +42,7 @@ commands and messages are never acted upon; producer execution remains unverifie
 - Report redaction uses explicit private values, Gitleaks Secret fields and common
   patterns; raw producer messages are omitted. Unknown narrative/paths require
   human review. Markdown escapes untrusted markup rather than creating remote images.
-- [Complete guide](panda-recon/README.md) includes quickstart, actual command
+- [Complete guide](panda-red/README.md) includes quickstart, actual command
   reference, installation, workflows, seven synthetic examples and troubleshooting.
   Client prompt examples are labelled conceptual/Not Run where no model task ran.
 

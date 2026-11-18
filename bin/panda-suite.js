@@ -23,8 +23,15 @@ function parse(args) {
   if (command === 'install' && options.all === (options.names.length > 0)) throw Error('Select exactly one of --all or --skill <name>');
   return options;
 }
-try {
-  const options = parse(process.argv.slice(2));
+async function main() {
+  const args = process.argv.slice(2);
+  const options = parse([...args]);
   if (options.help) console.log('Usage: panda-suite install (--all | --skill <name> ...) [--destination <path>]\n       panda-suite update [--destination <path>]');
-  else require('./operations.js').run(options);
-} catch (error) { console.error(`panda-suite: ${error.message}`); process.exitCode = 1; }
+  else {
+    const update = require('./update-notice.js');
+    const result = await update.checkForUpdate({ interactive: Boolean(process.stdin.isTTY && process.stderr.isTTY && !process.env.CI && !process.env.PANDA_SUITE_SKIP_UPDATE_CHECK), current: require('../package.json').version, args, latest: update.latestVersion, ask: update.ask, launch: update.launch });
+    if (result !== null) process.exitCode = result;
+    else require('./operations.js').run(options);
+  }
+}
+main().catch(error => { console.error(`panda-suite: ${error.message}`); process.exitCode = 1; });

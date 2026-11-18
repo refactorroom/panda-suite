@@ -6,12 +6,13 @@ Start with **Panda Lead** when you want help choosing a workflow. Go straight to
 
 [Get started](installation.html) · [Browse the skills](skills.html)
 
-## Latest release v1.8.0
+## Latest release v1.9.0
 
-Panda Recon adds an `intel` mode for current, dated vulnerability intelligence:
-CVE, CISA KEV, EPSS, OSV, OWASP and ATT&CK, correlated with project components.
-Network use is opt-in and stale data is labeled. The suite contains 28 independent skills.
-Read the [release notes](../docs/v1.8.0.md).
+Panda Recon is now two skills. **Panda Red** covers scanning, surface mapping,
+lab validation and bounty preparation under an engagement. **Panda Blue** covers
+threat hunting, incident reconstruction, fix verification and dated threat
+intelligence, and never contacts targets. The suite contains 29 independent skills.
+Read the [release notes](../docs/v1.9.0.md).
 
 ## Your first request
 
@@ -47,7 +48,8 @@ Using Claude Code or standalone skills? See the [invocation reference](usage.htm
 | Implement an authorized change | [Execute](panda-execute.html) |
 | Investigate unexpected behavior | [Debugger](panda-debugger.html) |
 | Audit code, dependencies, Agent Skills, MCP and harness security | [Security](panda-security.html) |
-| Map assessment surfaces and investigate security evidence | [Recon](panda-recon.html) |
+| Scan, map assessment surfaces, validate in a lab or prepare a bounty case | [Red](panda-red.html) |
+| Hunt threats, reconstruct incidents, verify fixes or check current CVEs | [Blue](panda-blue.html) |
 | Investigate performance and memory cost | [Perf](panda-perf.html) |
 | Check correctness and complexity | [Review](panda-review.html), [Test](panda-test.html), or [Simplify](panda-simplify.html) |
 | Explain the system to others | [Write](panda-write.html) or [Manual](panda-manual.html) |

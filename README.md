@@ -1,6 +1,6 @@
 # Panda Suite
 
-Version **1.8.0** · 28 independent skills
+Version **1.9.0** · 29 independent skills
 
 ![Cyberpunk Panda Suite branding](images/branding.png)
 
@@ -18,7 +18,7 @@ multi-agent execution.
 Start with the [complete usage guide](docs/usage.md): invocation syntax, inputs,
 copyable examples and expected outputs for every skill.
 
-Current release: [v1.8.0](docs/v1.8.0.md).
+Current release: [v1.9.0](docs/v1.9.0.md).
 
 [Panda Craft](docs/panda-craft.md) composes explicitly selected specialists around
 a shared outcome, compact handoffs and acceptance evidence.
@@ -46,7 +46,8 @@ a shared outcome, compact handoffs and acceptance evidence.
 | `panda-execute` | Implement authorized work and report actual verification |
 | `panda-debugger` | Investigate a failure and establish causal confidence; preserved upstream |
 | `panda-security` | Audit code, dependencies, CI/CD, Agent Skills, MCP and verification harness security |
-| `panda-recon` | Scan workflows, authorized surface mapping and security evidence investigation |
+| `panda-red` | Scan workflows, authorized surface mapping, lab validation and bug-bounty preparation |
+| `panda-blue` | Threat hunting, incident reconstruction, fix verification and dated threat intelligence |
 | `panda-perf` | Profile performance and memory; produce verified optimization diffs |
 | `panda-review` | Find material defects in a bounded change |
 | `panda-simplify` | Assess unnecessary complexity while preserving invariants |
@@ -63,11 +64,14 @@ between every activity. Requirements, research, testing, impact, release, and sk
 
 ## Security and performance
 
-`panda-recon` adds offline security reconnaissance and evidence investigation,
-with engagement boundaries, case/evidence records and report templates. Active
-scanner adapters and telemetry automation remain later phases. See
-[v0.2.0 commands and examples](docs/panda-recon/README.md) and
-[earlier P0 design](docs/panda-recon.md).
+`panda-red` covers offensive and assessment work: scan workflows, offline surface
+mapping, approved lab validation and bounty preparation, with engagement boundaries.
+`panda-blue` covers defensive work: hunting, incident reconstruction, fix
+verification and dated threat intelligence; it never contacts targets. Both share
+case/evidence records and were split from the former `panda-recon`. Active scanner
+adapters and telemetry automation remain later phases. See the
+[Red guide](docs/panda-red/README.md), the [Blue guide](docs/panda-blue/README.md)
+and the [earlier P0 design](docs/panda-recon.md).
 
 `panda-security` audits scoped code or diffs and triages dependency reports. Findings
 include severity, confidence, attack conditions, source evidence, mitigations,
@@ -110,7 +114,7 @@ documentation; Spec defines proposed contracts and design.
 Use one method to avoid duplicate skill names. Check out the versioned release:
 
 ```sh
-git clone --branch v1.8.0 https://github.com/refactorroom/panda-suite.git
+git clone --branch v1.9.0 https://github.com/refactorroom/panda-suite.git
 cd panda-suite
 ```
 
@@ -176,7 +180,10 @@ Use `--all` instead of the `--skill` options to install all bundled skills. The
 default destination is `~/.agents/skills`; append `--destination /path/to/skills`
 to both commands to manage a different host or project directory. Restart or
 refresh the host after changes. `@latest` requests the latest published CLI;
-the skill contents come from that package version.
+the skill contents come from that package version. In an interactive terminal, an older
+CLI checks for a newer npm release and asks whether to run the requested command
+with that version. Declining, offline use, and non-interactive runs continue with
+the current version; set `PANDA_SUITE_SKIP_UPDATE_CHECK=1` to skip the check.
 
 The CLI records managed files in `.panda-suite-state.json` in the destination.
 It refuses existing directories and stops the entire update if managed files were

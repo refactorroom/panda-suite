@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:panda-red:engagement:v1",
+  "title": "Panda Red engagement v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "environment",
+    "scope",
+    "authorization",
+    "testing",
+    "safety"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "panda-red.engagement/v1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "enum": [
+        "offline",
+        "laboratory",
+        "staging",
+        "production"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "targets",
+        "exclusions",
+        "excludedAddresses"
+      ],
+      "properties": {
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "url",
+              "allowedAddresses"
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "minLength": 1
+              },
+              "allowedAddresses": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0,
+                "maxItems": 1000
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 1000
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "excludedAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidenceReference",
+        "validFrom",
+        "validUntil"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "required",
+            "approved",
+            "denied"
+          ]
+        },
+        "evidenceReference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "validFrom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "testing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passiveAllowed",
+        "activeAllowed",
+        "techniques",
+        "maxRequestsPerSecond",
+        "maxTotalRequests",
+        "maxDurationSeconds"
+      ],
+      "properties": {
+        "passiveAllowed": {
+          "type": "boolean"
+        },
+        "activeAllowed": {
+          "type": "boolean"
+        },
+        "techniques": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "maxRequestsPerSecond": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxTotalRequests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxDurationSeconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "destructiveTesting",
+        "credentialAttacks",
+        "denialOfService",
+        "persistence",
+        "thirdPartyDataAccess",
+        "automaticRemediation"
+      ],
+      "properties": {
+        "destructiveTesting": {
+          "const": false
+        },
+        "credentialAttacks": {
+          "const": false
+        },
+        "denialOfService": {
+          "const": false
+        },
+        "persistence": {
+          "const": false
+        },
+        "thirdPartyDataAccess": {
+          "const": false
+        },
+        "automaticRemediation": {
+          "const": false
+        }
+      }
+    }
+  }
+}
