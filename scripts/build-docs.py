@@ -110,6 +110,7 @@ def build():
         ('release-v1-1-1', 'Release v1.1.1', 'docs/v1.1.1.md'),
         ('release-v1-2-0', 'Release v1.2.0', 'docs/v1.2.0.md'),
         ('release-v1-6-2', 'Release v1.6.2', 'docs/v1.6.2.md'),
+        ('release-v1-9-0', 'Release v1.9.0', 'docs/v1.9.0.md'),
         ('release-v1-8-0', 'Release v1.8.0', 'docs/v1.8.0.md'),
         ('release-v1-7-2', 'Release v1.7.2', 'docs/v1.7.2.md'),
         ('release-v1-7-1', 'Release v1.7.1', 'docs/v1.7.1.md'),

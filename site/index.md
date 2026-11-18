@@ -6,12 +6,13 @@ Start with **Panda Lead** when you want help choosing a workflow. Go straight to
 
 [Get started](installation.html) · [Browse the skills](skills.html)
 
-## Latest release v1.8.0
+## Latest release v1.9.0
 
-Panda Recon adds an `intel` mode for current, dated vulnerability intelligence:
-CVE, CISA KEV, EPSS, OSV, OWASP and ATT&CK, correlated with project components.
-Network use is opt-in and stale data is labeled. The suite contains 29 independent skills; Recon is now split into Red and Blue.
-Read the [release notes](../docs/v1.8.0.md).
+Panda Recon is now two skills. **Panda Red** covers scanning, surface mapping,
+lab validation and bounty preparation under an engagement. **Panda Blue** covers
+threat hunting, incident reconstruction, fix verification and dated threat
+intelligence, and never contacts targets. The suite contains 29 independent skills.
+Read the [release notes](../docs/v1.9.0.md).
 
 ## Your first request
 
