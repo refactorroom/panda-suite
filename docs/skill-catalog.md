@@ -44,6 +44,7 @@ Review owns changed-code defects. Craft, Refactor and Execute load Git guidance
 when their authorized task reaches Git, with a standalone fallback if absent.
 See [Git design and trials](panda-git.md).
 
-Recon owns security surface/evidence investigation and current threat intelligence
+Red owns scanning, surface mapping, lab validation and bounty preparation; Blue owns
+hunting, incident reconstruction, fix verification and current threat intelligence
 (`intel`); Security keeps source audits and dependency triage inside an audit.
-See [Recon P0 contract and phase limits](panda-recon.md).
+Both were split from Recon; see the [Recon P0 contract and phase limits](panda-recon.md).

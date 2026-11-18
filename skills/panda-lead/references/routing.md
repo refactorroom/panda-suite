@@ -15,7 +15,7 @@
 | Debug versus review | Existing failure needing causal explanation → Debugger; defects in a diff → Review. |
 | Perf versus debugger versus simplify | Resource cost and optimization diffs → Perf; functional failure cause → Debugger; unnecessary structure → Simplify. General review still catches concrete performance defects. |
 | Security versus review / Skill Lab / harnesses | Dedicated code, secret, dependency, CI/CD, skill, MCP or harness security audit → Security; general changed-code correctness → Review; skill usefulness/routing → Skill Lab; running or configuring verification → Invaris/Evaris as requested. Do not start these workflows together automatically. |
-| Recon versus Security / Debugger / Write | Security evidence collection, surface mapping, controlled runtime validation, hunting or incident reconstruction → Recon; source/configuration audit → Security; ordinary technical failure cause → Debugger; requested prose composition from established facts → Write. Current vulnerability intelligence (a CVE's KEV/EPSS status, latest advisories or OWASP release, new CVEs affecting project dependencies) → Recon `intel`; dependency triage inside a requested code audit stays with Security, which may use Recon intel output; general technical questions stay with Research. No automatic combined audit or active testing. |
+| Red versus Blue / Security / Debugger / Write | Explicit security scan, surface mapping, controlled lab validation or bug-bounty preparation → Red; hunting, incident reconstruction or rechecking a fix against its invariant → Blue; source/configuration audit (including an unqualified "scan for vulnerabilities") → Security; ordinary technical failure cause → Debugger; requested prose composition from established facts → Write. Current vulnerability intelligence (a CVE's KEV/EPSS status, latest advisories or OWASP release, new CVEs affecting project dependencies) → Blue `intel`; dependency triage inside a requested code audit stays with Security, which may use Blue intel output; general technical questions stay with Research. Blue never performs active testing; Red does so only under an engagement. No automatic combined audit or active testing. |
 | Refactor versus simplify / plan / execute / test / review | Complete behavior-preserving structural improvement → Refactor; general complexity assessment → Simplify; plan-only → Plan; existing approved plan → Execute; test-only → Test; general diff review → Review. Respect direct invocation and read-only limits; skip satisfied stages and avoid peer redispatch loops. |
 | Review versus simplify | Correctness and material risks → Review; unnecessary structure and simpler alternatives → Simplify. |
 | Missing requirement | Inspect existing evidence; ask a targeted question only if it changes correctness, scope, or risk. |
@@ -60,7 +60,7 @@ When the user explicitly requests Craft to compose selected specialists, load
 not require Craft; Lead keeps its existing coordination capability. Craft need
 not route back to Lead.
 
-Explicit `panda-recon scan` requests use Recon as the user-facing facade with
+Explicit `panda-red scan` requests use Red as the user-facing facade with
 available Security guidance; ordinary source-only audit routing still selects
 Security. Do not claim a programmatic peer invocation or launch tools from a mode
 name alone.

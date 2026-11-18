@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "panda-blue.commands/v1",
+  "skillVersion": "0.4.0",
+  "modes": [
+    {
+      "name": "hunt",
+      "purpose": "Analyze supplied telemetry and benign alternatives",
+      "input": "Local logs or evidence path",
+      "outputs": "THREAT_HUNT_REPORT.md, timeline.json, detection-findings.json"
+    },
+    {
+      "name": "incident",
+      "purpose": "Reconstruct supported suspicious or compromised activity",
+      "input": "Case or evidence package",
+      "outputs": "INCIDENT_REPORT.md, INCIDENT_TIMELINE.md, incident.json"
+    },
+    {
+      "name": "verify",
+      "purpose": "Recheck an existing finding against its invariant",
+      "input": "Finding/case record or case directory",
+      "outputs": "VERIFICATION_REPORT.md, verification-results.json"
+    },
+    {
+      "name": "intel",
+      "purpose": "Retrieve dated authoritative public intelligence and correlate supplied components",
+      "input": "Topic and optional CVE identifier; no filesystem target required",
+      "outputs": "THREAT_INTELLIGENCE.md or topic report (CVE_ANALYSIS.md, OWASP_UPDATES.md, INCIDENT_INTELLIGENCE.md), intelligence.json, source-status.json, optional PROJECT_EXPOSURE.md"
+    }
+  ],
+  "mechanisms": {
+    "agent": "Mode cues interpreted by the selected skill; not shell commands.",
+    "installer": "panda-suite install/update copies skill definitions; does not execute a mode.",
+    "helper": "help/request validate a contract; intel retrieves dated public intelligence only with explicit network opt-in."
+  },
+  "intelTopics": [
+    "latest",
+    "update",
+    "status",
+    "owasp",
+    "cve",
+    "kev",
+    "incidents"
+  ]
+}

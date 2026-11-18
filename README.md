@@ -1,6 +1,6 @@
 # Panda Suite
 
-Version **1.8.0** · 28 independent skills
+Version **1.8.0** · 29 independent skills
 
 ![Cyberpunk Panda Suite branding](images/branding.png)
 
@@ -46,7 +46,8 @@ a shared outcome, compact handoffs and acceptance evidence.
 | `panda-execute` | Implement authorized work and report actual verification |
 | `panda-debugger` | Investigate a failure and establish causal confidence; preserved upstream |
 | `panda-security` | Audit code, dependencies, CI/CD, Agent Skills, MCP and verification harness security |
-| `panda-recon` | Scan workflows, authorized surface mapping and security evidence investigation |
+| `panda-red` | Scan workflows, authorized surface mapping, lab validation and bug-bounty preparation |
+| `panda-blue` | Threat hunting, incident reconstruction, fix verification and dated threat intelligence |
 | `panda-perf` | Profile performance and memory; produce verified optimization diffs |
 | `panda-review` | Find material defects in a bounded change |
 | `panda-simplify` | Assess unnecessary complexity while preserving invariants |
@@ -63,11 +64,14 @@ between every activity. Requirements, research, testing, impact, release, and sk
 
 ## Security and performance
 
-`panda-recon` adds offline security reconnaissance and evidence investigation,
-with engagement boundaries, case/evidence records and report templates. Active
-scanner adapters and telemetry automation remain later phases. See
-[v0.2.0 commands and examples](docs/panda-recon/README.md) and
-[earlier P0 design](docs/panda-recon.md).
+`panda-red` covers offensive and assessment work: scan workflows, offline surface
+mapping, approved lab validation and bounty preparation, with engagement boundaries.
+`panda-blue` covers defensive work: hunting, incident reconstruction, fix
+verification and dated threat intelligence; it never contacts targets. Both share
+case/evidence records and were split from the former `panda-recon`. Active scanner
+adapters and telemetry automation remain later phases. See the
+[Red guide](docs/panda-red/README.md), the [Blue guide](docs/panda-blue/README.md)
+and the [earlier P0 design](docs/panda-recon.md).
 
 `panda-security` audits scoped code or diffs and triages dependency reports. Findings
 include severity, confidence, attack conditions, source evidence, mitigations,

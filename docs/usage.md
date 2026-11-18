@@ -644,50 +644,50 @@ verdict does not replace the Evaris task assessment.
 
 ## Security evidence investigation
 
-### Panda Recon
+### Panda Red
 
 Supply the assessment question, authorized local roots/evidence, engagement
-constraints, target inventory, time window and prior findings. Recon owns collection,
-surface mapping and investigation; Security owns source/configuration auditing.
+constraints, target inventory and prior findings. Red owns scanning, surface
+mapping, lab validation and bounty preparation; Security owns source/configuration
+auditing.
 
 ```text
-$panda-recon recon ./evidence Map the supplied inventory and trust boundaries.
+$panda-red recon ./evidence Map the supplied inventory and trust boundaries.
 Offline only: do not resolve hosts, contact targets or launch scanners. Separate
 configured exposure, observed facts and hypotheses. Save reports under the
-ignored .panda-suite/recon/case-001/ directory.
+ignored .panda-suite/red/case-001/ directory.
 
-$panda-recon incident ./evidence Review the alert and logs. Preserve original
+$panda-red scan ./project --depth quick --offline --no-tools Inspect source and
+supplied reports; trace guards before confirming. No scanners, network or fixes.
+```
+
+`$panda-red scan ...` is an agent prompt, not an npm command. A manifest cannot
+grant operator authority; request an approved bounded lab test explicitly before
+execution. See [all Red commands, examples and help](panda-red/README.md).
+
+### Panda Blue
+
+Supply the evidence package, time window, prior findings and constraints. Blue
+owns hunting, incident reconstruction, fix verification and threat intelligence.
+It never contacts assessment targets.
+
+```text
+$panda-blue incident ./evidence Review the alert and logs. Preserve original
 bytes/timestamps, consider benign explanations, and distinguish suspected activity
 from confirmed compromise. Recommend containment only; do not isolate or revoke.
 
-$panda-recon verify ./case.json Recheck the original invariant using available
+$panda-blue verify ./case.json Recheck the original invariant using available
 local evidence. Preserve finding IDs; failed tools or missing environments are
 Not tested/Inconclusive rather than fixed. No source changes or active probes.
-```
 
-Recon v0.3.0 adds `intel` for current, dated vulnerability intelligence (CVE,
-CISA KEV, EPSS, OSV, OWASP, MITRE ATT&CK, CISA advisories). Ask for a live lookup
-when you need current facts; the answer shows each source's date and freshness.
-
-```text
-$panda-recon intel cve CVE-2021-44228 Use live public sources. Show KEV, EPSS
+$panda-blue intel cve CVE-2021-44228 Use live public sources. Show KEV, EPSS
 with its date, and fixed versions. Do not send source code or private paths.
-
-$panda-recon scan ./project --intel live Check npm dependencies against current
-advisories. Report only exact version matches as affected; no upgrades.
 ```
 
-`scan`, `hunt` and `incident` accept `--intel off|cache|live` (default off). KEV
-means exploited somewhere, not that your project was compromised; EPSS is a dated
+`hunt` and `incident` accept `--intel off|cache|live` (default off). KEV means
+exploited somewhere, not that your project was compromised; EPSS is a dated
 probability. Network use is opt-in. See the
-[threat intelligence reference](../skills/panda-recon/references/threat-intelligence.md).
-
-Recon v0.2.0 added `scan` and `help` with structured mode/options validation.
-`$panda-recon scan ./project --depth quick --offline --no-tools` is an agent prompt,
-not an npm command. See [all commands, examples and help](panda-recon/README.md).
-
-The original six modes retain conditional guidance and report templates. P0 implements offline
-record/scope/inventory/integrity/lifecycle/report helpers, not active scanners or an
-automated incident platform. A manifest cannot grant operator authority. Request
-an approved bounded lab test explicitly before execution. Companion skills are
-optional. See [P0 design, demonstration and limits](panda-recon.md).
+[threat intelligence reference](../skills/panda-blue/references/threat-intelligence.md)
+and [all Blue commands, examples and help](panda-blue/README.md). Both skills were
+split from Recon; its [P0 design, demonstration and limits](panda-recon.md) remain
+as history.

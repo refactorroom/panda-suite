@@ -51,10 +51,12 @@ and evidence. Plan readiness describes executable scope, never release readiness
 no mandatory Plan → Release chain is introduced. See the
 [planning refinement](panda-plan-refinement.md#execution-readiness-and-release-gate-refinement-2026-11-14).
 
-Recon handles security evidence collection, surface mapping, controlled validation,
-hunting, incident reconstruction and current threat intelligence (`intel`: dated
-CVE, KEV, EPSS, OSV, OWASP, ATT&CK and advisory lookups correlated with project
-components). Security handles source/configuration auditing and dependency triage
-inside an audit;
-Debugger retains ordinary technical failures. No route authorizes active testing
-or requires a combined workflow. See [Recon P0](panda-recon.md).
+Red handles explicit security scans, surface mapping, controlled lab validation
+and bounty preparation. Blue handles hunting, incident reconstruction, fix
+verification and current threat intelligence (`intel`: dated CVE, KEV, EPSS, OSV,
+OWASP, ATT&CK and advisory lookups correlated with project components). Security
+handles source/configuration auditing (including an unqualified "scan for
+vulnerabilities") and dependency triage inside an audit;
+Debugger retains ordinary technical failures. Blue never performs active testing;
+Red does so only under an engagement. No route requires a combined workflow. Both
+were split from Recon; see [Recon P0](panda-recon.md).

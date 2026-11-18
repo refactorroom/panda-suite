@@ -57,7 +57,8 @@ or when you are not sure which skill fits.
 | Diagnose unexpected behavior | [Debugger](panda-debugger.md) |
 | Performance and memory | [Perf](panda-perf.md) |
 | Dedicated security audit | [Security](panda-security.md) |
-| Surface mapping, telemetry, incidents, threat intelligence | [Recon](../panda-recon/README.md) |
+| Scanning, surface mapping, lab validation, bounty | [Red](../panda-red/README.md) |
+| Telemetry, incidents, fix verification, threat intelligence | [Blue](../panda-blue/README.md) |
 | Defects in a change | [Review](panda-review.md) |
 | Unnecessary complexity | [Simplify](panda-simplify.md) |
 | Behavior-preserving restructuring | [Refactor](panda-refactor.md) |

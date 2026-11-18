@@ -28,7 +28,8 @@ SKILLS = [
     ('panda-test', 'Panda Test'),
     ('panda-debugger', 'Panda Debugger'),
     ('panda-security', 'Panda Security'),
-    ('panda-recon', 'Panda Recon'),
+    ('panda-red', 'Panda Red'),
+    ('panda-blue', 'Panda Blue'),
     ('panda-perf', 'Panda Perf'),
     ('panda-review', 'Panda Review'),
     ('panda-simplify', 'Panda Simplify'),
@@ -75,8 +76,8 @@ def build():
     packaged = {p.parent.name for p in (ROOT / 'skills').glob('*/SKILL.md')}
     assert packaged == {slug for slug, _ in SKILLS}, 'Update the site skill list for the packaged catalog'
     for slug, title in SKILLS:
-        if slug == 'panda-recon':
-            add(slug, title, 'docs/panda-recon/README.md')
+        if slug in ('panda-red', 'panda-blue'):
+            add(slug, title, f'docs/{slug}/README.md')
             continue
         if slug == 'panda-logo':
             add(slug, title, 'docs/panda-logo.md')
@@ -125,16 +126,22 @@ def build():
         ('maintaining', 'Maintain this site', 'site/maintaining.md'),
     ]:
         add(slug, title, source)
-    for slug in ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting', 'scheduling']:
-        add('recon-' + slug, 'Recon ' + slug.replace('-', ' '), 'docs/panda-recon/' + slug + '.md')
-    for slug in ['scan-codebase', 'recon-project', 'simulate-local', 'hunt-logs', 'incident-analysis', 'bug-bounty', 'verify-finding', 'intel-cve']:
-        add('recon-example-' + slug, 'Recon example: ' + slug.replace('-', ' '), 'docs/panda-recon/examples/' + slug + '.md')
+    for team, guide_pages, examples in [
+            ('red', ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting'],
+             ['scan-codebase', 'recon-project', 'simulate-local', 'bug-bounty']),
+            ('blue', ['quickstart', 'command-reference', 'installation', 'workflows', 'troubleshooting', 'scheduling'],
+             ['hunt-logs', 'incident-analysis', 'verify-finding', 'intel-cve'])]:
+        for slug in guide_pages:
+            add(team + '-' + slug, team.title() + ' ' + slug.replace('-', ' '), f'docs/panda-{team}/{slug}.md')
+        for slug in examples:
+            add(team + '-example-' + slug, team.title() + ' example: ' + slug.replace('-', ' '), f'docs/panda-{team}/examples/{slug}.md')
     source_routes = {source: slug + '.html' for slug, (_, source, _) in pages.items()
                      if slug not in {s for s, _ in SKILLS} | {'skills', 'installation'}}
     source_routes['README.md'] = 'index.html'
     source_routes['docs/usage.md'] = 'usage.html'
     source_routes['docs/panda-logo.md'] = 'panda-logo.html'
-    source_routes['docs/panda-recon/README.md'] = 'panda-recon.html'
+    source_routes['docs/panda-red/README.md'] = 'panda-red.html'
+    source_routes['docs/panda-blue/README.md'] = 'panda-blue.html'
     for slug, _ in SKILLS:
         source_routes[f'docs/skills/{slug}.md'] = slug + '.html'
     # Generated page links stay relative to the project path on GitHub Pages.

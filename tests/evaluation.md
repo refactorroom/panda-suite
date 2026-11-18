@@ -317,3 +317,10 @@ failed tools, saved reports, bounty policy and nonactivation/routing. See
 [actual checks](results/recon/validation.md). Baseline/specialist behavior is Not Run.
 The reviewer control stays outside task fixtures; check_recon.py validates the
 green-suite/uncovered-authorization fixture, not model performance.
+
+Recon was later split into panda-red and panda-blue. Its scenarios now use
+`RED-*` IDs (`skill: panda-red`: surface, authorization, redirect, simulate, tool
+failure, report, bounty and the eight v0.2 scan cases) and `BLUE-*` IDs
+(`skill: panda-blue`: hunt, incident, verify and the four intel cases). The Lead
+routing and nonactivation cases keep their `RECON-*` IDs. Fixture folders keep
+their `recon-*` names.

@@ -1,6 +1,6 @@
 [
   {
-    "schemaVersion": "panda-recon.asset/v1",
+    "schemaVersion": "panda-case.asset/v1",
     "id": "A-001",
     "caseId": "CASE-001",
     "type": "api",

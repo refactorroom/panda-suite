@@ -10,7 +10,7 @@ keeps coverage limits visible. It can also verify that earlier findings were fix
 | Topic | Summary |
 | --- | --- |
 | **Use it for** | Dedicated security audits, dependency triage, auditing skills and MCP definitions, verifying remediation |
-| **Not for** | Ordinary diff review ([Review](panda-review.md) still checks security defects in a change), incident response or surface mapping ([Recon](../panda-recon/README.md)), live penetration testing |
+| **Not for** | Ordinary diff review ([Review](panda-review.md) still checks security defects in a change), incident response ([Blue](../panda-blue/README.md)) or surface mapping ([Red](../panda-red/README.md)), live penetration testing |
 | **Edits by default** | None. Saved reports only when requested; repairs only when requested |
 | **Needs a scanner?** | No. Scanner output is optional input |
 | **Main output** | Scope and revision, threat model, severity-ranked findings, checks run, coverage limits, next verification |
@@ -122,11 +122,11 @@ $panda-security Audit .github/workflows for secret exposure, untrusted input in
 run steps, and unpinned third-party actions. Read-only.
 ```
 
-### Use Recon intelligence
+### Use Blue intelligence
 
 ```text
-$panda-security Triage our npm dependencies using the Recon intel output in
-.panda-suite/recon/intel.json. Report only exact resolved-version matches as affected.
+$panda-security Triage our npm dependencies using the Blue intel output in
+.panda-suite/blue/intel.json. Report only exact resolved-version matches as affected.
 ```
 
 ### Audit and fix
@@ -148,7 +148,8 @@ permission. The skill provides instructions, not a sandbox.
 ## Related
 
 - [Migration and evaluation limits](../panda-security.md)
-- [Recon](../panda-recon/README.md) for evidence collection and threat intelligence
+- [Red](../panda-red/README.md) for surface mapping and lab validation
+- [Blue](../panda-blue/README.md) for incidents and threat intelligence
 - References: [audit guide](https://github.com/refactorroom/panda-suite/blob/dev/skills/panda-security/references/audit-guide.md),
   [agent security](https://github.com/refactorroom/panda-suite/blob/dev/skills/panda-security/references/agent-security.md),
   [supply chain](https://github.com/refactorroom/panda-suite/blob/dev/skills/panda-security/references/supply-chain.md),

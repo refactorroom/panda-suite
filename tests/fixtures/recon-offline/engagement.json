@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "panda-recon.engagement/v1",
+  "schemaVersion": "panda-red.engagement/v1",
   "id": "ENG-001",
   "name": "Synthetic offline assessment",
   "environment": "laboratory",
