@@ -206,7 +206,11 @@ and state are consistent, remove `.panda-suite-transaction` and the stale
 removed after confirming no process is running. If rollback reports an error,
 keep the transaction and recover from its backups before retrying.
 
-For maintainers: align `package.json`, `plugin.json`, and
+For maintainers: branch from `dev` and open feature PRs back into `dev`, the
+integration branch. Promote `dev` to `main` through a PR and keep the merge
+commit. `main` is the default production branch and the source for releases.
+
+Align `package.json`, `plugin.json`, and
 `.claude-plugin/plugin.json` versions and run the tests. Use a fresh checkout of
 the release commit for `npm pack --dry-run` and `npm pack`. This keeps local
 test artifacts out of the tarball. Smoke-test the tarball before publishing it

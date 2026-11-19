@@ -3,7 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [dev, main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,6 +29,11 @@ jobs:
   node:
     runs-on: ubuntu-latest
     steps:
+      - name: Require dev as the source of release PRs
+        if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' && (github.head_ref != 'dev' || github.event.pull_request.head.repo.full_name != github.repository) }}
+        run: |
+          echo '::error::Open feature PRs against dev and promote dev to main.'
+          exit 1
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
