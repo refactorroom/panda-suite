@@ -171,7 +171,10 @@ def build():
     ]
     search = []
     template = (ROOT / 'site/template.html').read_text()
+    home_template = (ROOT / 'site/home-template.html').read_text()
     for slug, (title, source, content) in pages.items():
+        if slug == 'index':
+            content = content.replace('{{version}}', html.escape(version)).replace('{{skill_count}}', str(len(SKILLS)))
         md = markdown.Markdown(extensions=['fenced_code', 'tables', 'toc', 'sane_lists'], extension_configs={'toc': {'permalink': False}})
         rendered = md.convert(content)
         rendered = re.sub(r'(href|src)="([^"]+)"', lambda m: m[1] + '="' + html.escape(url_rewrite(html.unescape(m[2]), source), quote=True) + '"', rendered)
@@ -183,9 +186,8 @@ def build():
                 nav += f'<a href="{target}.html"{current}>{label}</a>'
             nav += '</div>'
         toc = md.toc if len(md.toc_tokens) else ''
-        hero = '<figure class="brand-art"><img src="assets/branding.png" alt="Panda Suite cyberpunk panda artwork" width="836" height="471"><figcaption>Think clearly. Build carefully. Ship confidently.</figcaption></figure>' if slug == 'index' else ''
-        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/dev/' + source, 'hero': hero, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
-        result = template
+        values = {'title': html.escape(title), 'nav': nav, 'toc': toc, 'content': rendered, 'version': html.escape(version), 'source': REPO + '/blob/dev/' + source, 'lang': 'th' if slug == 'thai' else 'en', 'page': slug}
+        result = home_template if slug == 'index' else template
         for key, value in values.items():
             result = result.replace('{{' + key + '}}', value)
         (OUT / (slug + '.html')).write_text(result)

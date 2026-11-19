@@ -1,81 +1,72 @@
-# The right skill for the work ahead.
+<section class="home-wrap home-hero" aria-labelledby="home-title">
+  <div>
+    <h1 id="home-title">Engineering skills for your coding agent.</h1>
+    <p class="home-intro">Plan a change, investigate a bug, review a diff, or write a guide. Ask Panda Lead to choose a workflow, or go straight to the specialist you need.</p>
+    <div class="home-ctas">
+      <a class="home-button primary" href="#quick-start">Get started</a>
+      <a class="home-button" href="skills.html">Browse {{skill_count}} skills</a>
+    </div>
+  </div>
+  <figure class="home-terminal" id="your-first-request">
+    <figcaption><span>Codex plugin prompt</span></figcaption>
+    <pre data-copy-label="Copy Codex plugin prompt"><code>$panda-suite:panda-lead Explain how orders are created in this project. Use the source as evidence and keep the repository read-only.</code></pre>
+    <p>Panda Lead can route this request to <a href="panda-learn.html">Panda Learn</a> for a source walkthrough.</p>
+  </figure>
+</section>
 
-Panda Suite gives your coding agent focused instructions for the whole engineering journey. Explore an idea, investigate a bug, review a change, or write the guide your team needs.
+<section id="quick-start" class="home-band home-section" aria-labelledby="quick-heading">
+  <div class="home-wrap">
+    <h2 id="quick-heading">Quick start</h2>
+    <div class="home-grid">
+      <article class="home-card">
+        <h3>Install the plugin</h3>
+        <p>Use the GitHub release for the v{{version}} skill set. Clone it, then follow the instructions for your host.</p>
+        <pre data-copy-label="Copy plugin checkout commands"><code>git clone --branch v{{version}} https://github.com/refactorroom/panda-suite.git
+cd panda-suite</code></pre>
+        <p class="home-links"><a href="installation.html#openai-codex">Install in Codex</a><a href="installation.html#claude-code">Load in Claude Code</a></p>
+      </article>
+      <article class="home-card">
+        <h3>Install a standalone skill</h3>
+        <p>With Node.js 20+, run this from the project where you want Codex to discover the skill.</p>
+        <pre data-copy-label="Copy standalone install command"><code>npx --yes panda-suite@latest install --skill panda-lead --destination .agents/skills</code></pre>
+        <p>Refresh your host, then select <code>panda-lead</code>. The npm package may lag behind the GitHub release.</p>
+        <p><a href="usage.html#invoke-a-skill">See invocation formats for each host</a></p>
+      </article>
+    </div>
+  </div>
+</section>
 
-Start with **Panda Lead** when you want help choosing a workflow. Go straight to a specialist when you know the task.
+<section class="home-wrap home-section" id="choose-the-task-then-the-skill" aria-labelledby="workflow-heading">
+  <div class="home-section-head">
+    <h2 id="workflow-heading">Choose a workflow</h2>
+    <a href="skills.html">View the full skill directory</a>
+  </div>
+  <div class="home-workflows">
+    <a href="panda-lead.html"><strong>Ask Panda Lead</strong><span>Get help choosing the skills and sequence your request needs.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+    <a href="panda-plan.html"><strong>Plan a change</strong><span>Turn an agreed scope into ordered tasks, dependencies, and checks.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+    <a href="panda-execute.html"><strong>Implement agreed work</strong><span>Make scoped changes and verify them against the acceptance criteria.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+    <a href="panda-debugger.html"><strong>Investigate a failure</strong><span>Trace unexpected behavior and verify the cause against the evidence.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+    <a href="panda-review.html"><strong>Review a diff</strong><span>Find material defects and explain their triggers and impact.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+    <a href="panda-write.html"><strong>Write a guide</strong><span>Document setup, workflows, and errors from the implementation and tests.</span><span class="workflow-arrow" aria-hidden="true">↗</span></a>
+  </div>
+</section>
 
-[Get started](installation.html) · [Browse the skills](skills.html)
-
-## Latest release v1.9.0
-
-Panda Recon is now two skills. **Panda Red** covers scanning, surface mapping,
-lab validation and bounty preparation under an engagement. **Panda Blue** covers
-threat hunting, incident reconstruction, fix verification and dated threat
-intelligence, and never contacts targets. The suite contains 29 independent skills.
-Read the [release notes](../docs/v1.9.0.md).
-
-## Your first request
-
-Install the suite, open the project you want to work on, and select a skill in your agent. These examples use the **Codex plugin** names.
-
-```text
-$panda-suite:panda-lead Explain how authentication works in this project.
-Use the source as evidence. Do not change files.
-```
-
-For a focused task, call the specialist directly:
-
-```text
-$panda-suite:panda-review Review the current diff for material defects.
-Explain the trigger, impact, and location of each finding. Do not fix code.
-```
-
-Using Claude Code or standalone skills? See the [invocation reference](usage.html#invoke-a-skill).
-
-## Choose the task, then the skill
-
-| You want to… | Start here |
-| --- | --- |
-| Review commits and perform authorized Git operations | [Git](panda-git.html) |
-| Coordinate explicitly selected specialists | [Craft](panda-craft.html) |
-| Work out what to build | [Brainstorm](panda-brainstorm.html) or [Requirements](panda-requirements.html) |
-| Check a technical claim | [Research](panda-research.html) |
-| Learn an unfamiliar codebase | [Learn](panda-learn.html) |
-| Understand what a change affects | [Impact](panda-impact.html) |
-| Turn agreed work into tasks | [Plan](panda-plan.html) |
-| Define a technical contract | [Spec](panda-spec.html) |
-| Restructure code while preserving behavior | [Refactor](panda-refactor.html) |
-| Implement an authorized change | [Execute](panda-execute.html) |
-| Investigate unexpected behavior | [Debugger](panda-debugger.html) |
-| Audit code, dependencies, Agent Skills, MCP and harness security | [Security](panda-security.html) |
-| Scan, map assessment surfaces, validate in a lab or prepare a bounty case | [Red](panda-red.html) |
-| Hunt threats, reconstruct incidents, verify fixes or check current CVEs | [Blue](panda-blue.html) |
-| Investigate performance and memory cost | [Perf](panda-perf.html) |
-| Check correctness and complexity | [Review](panda-review.html), [Test](panda-test.html), or [Simplify](panda-simplify.html) |
-| Explain the system to others | [Write](panda-write.html) or [Manual](panda-manual.html) |
-| Prepare a release handoff | [Release](panda-release.html) |
-| Create or improve a skill | [Skill Lab](panda-skill-lab.html) |
-
-## Give the agent a useful brief
-
-Include the outcome, relevant files or URLs, constraints, and whether edits are allowed. Replace example paths with files in your own project.
-
-```text
-$panda-suite:panda-write Write docs/approvals-guide.md for new developers.
-Use src/approvals and its tests. Include setup, one example, and actual errors.
-Separate implemented behavior from proposals. You may edit documentation.
-```
-
-## Independent by design
-
-Each specialist works on its own. Panda Lead selects the necessary activities and carries context between them; every task does not need every stage. Skills are Markdown instructions, not an agent service, and do not require multiple agents.
-
-Investigation and review preserve application source unless you ask for changes. An implementation request authorizes relevant edits. Publication, deployment, destructive actions, and production changes need authorization covering those actions.
-
-## Read in your language
-
-The guides use English, and Write, Spec, and Manual support English or Thai requests. A [Thai project overview](thai.html) is also available.
-
-## What has been verified?
-
-The repository records host discovery and tooling checks separately from interactive invocation and behavioral evaluation. Read the [verification record](verification.html) and the [source and license notices](notices.html) for their scope and remaining gaps.
+<section class="home-band home-section" id="reference" aria-labelledby="reference-heading">
+  <div class="home-wrap home-grid">
+    <div>
+      <h2 id="reference-heading">Find a guide</h2>
+      <p>Look up a skill, task, or command across the docs.</p>
+      <form role="search" id="search-form">
+        <label for="search">Search the docs</label>
+        <div class="search-box"><input id="search" type="search" placeholder="Try panda-write or compare" autocomplete="off" aria-controls="search-results"></div>
+      </form>
+      <div id="search-status" class="sr-only" role="status"></div>
+      <div id="search-results" hidden></div>
+    </div>
+    <div class="home-resources">
+      <div><h3>Use an existing skill</h3><p><a href="usage.html">Complete usage guide</a> · <a href="routing.html">Routing rules</a></p></div>
+      <div><h3>Verify an outcome</h3><p><a href="panda-invaris.html">Invaris checks and campaigns</a> · <a href="panda-evaris.html">Evaris evaluations</a></p></div>
+      <div id="latest-release-v1-9-0"><h3>GitHub release v{{version}}</h3><p><a href="https://github.com/refactorroom/panda-suite/releases/tag/v{{version}}">Release notes</a> · <a href="verification.html">Verification record</a></p></div>
+    </div>
+  </div>
+</section>

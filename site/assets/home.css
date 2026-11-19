@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+
+.home {
+  --home-console: #211a38;
+  --home-console-bar: #302549;
+  --home-console-text: #e2d9fa;
+  --home-signal: #9ee7d2;
+  --home-button: #51378b;
+  background: var(--paper);
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.55;
+}
+.home-wrap { width: min(100% - 3rem, 72rem); margin-inline: auto; }
+.home main { padding: 0; }
+.home h1, .home h2, .home h3, .home p { margin: 0; }
+.home h1, .home h2, .home h3 { color: var(--ink); }
+.home h2 { padding: 0; font-size: clamp(1.95rem, 4vw, 3rem); line-height: 1.08; letter-spacing: -.045em; }
+.home h3 { font-size: 1.15rem; }
+.home p { color: var(--intro); }
+.home h2, .home section { scroll-margin-top: 1rem; }
+
+.home-header { border-bottom: 1px solid var(--line); }
+.home-header .home-wrap, .home-footer .home-wrap {
+  min-height: 4.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: .7rem 1.25rem;
+}
+.home-header nav, .home-actions, .home-footer nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .55rem 1.25rem;
+  font-size: .88rem;
+  font-weight: 700;
+}
+.home-header nav a, .home-actions a, .home-footer a { color: var(--ink); text-decoration: none; }
+.home-header nav a:hover, .home-actions a:hover, .home-footer a:hover { text-decoration: underline; }
+.home-actions { gap: .7rem; }
+.home-actions button { font-size: .79rem; }
+
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+  gap: clamp(1.5rem, 6vw, 6rem);
+  align-items: center;
+  padding-block: clamp(3rem, 7.5vw, 6.5rem);
+}
+.home .home-hero h1 {
+  font-size: clamp(2.65rem, 5.2vw, 4.7rem);
+  letter-spacing: -.06em;
+  line-height: 1.01;
+  max-width: 15ch;
+}
+.home .home-intro { margin-top: 1.2rem; max-width: 42ch; font-size: clamp(1.02rem, 1.65vw, 1.18rem); }
+.home-ctas { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.45rem; }
+.home-button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .55rem .9rem; border: 1px solid var(--border); border-radius: .45rem; color: var(--ink); text-decoration: none; font-size: .91rem; font-weight: 700; }
+.home-button:hover { background: var(--hover); }
+.home-button.primary { color: #fff; background: var(--home-button); border-color: var(--home-button); }
+.home-button.primary:hover { background: #3f296f; }
+
+.home-terminal {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--home-console);
+  border: 1px solid var(--home-console-bar);
+  border-radius: .82rem;
+  box-shadow: 0 20px 48px var(--shadow);
+}
+.home-terminal figcaption {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .85rem 1.15rem;
+  background: var(--home-console-bar);
+  color: var(--home-console-text);
+  font: 600 .82rem ui-monospace, monospace;
+}
+.home-terminal figcaption::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--home-signal); }
+.home-terminal pre { background: transparent; border: 0; }
+.home-terminal pre code { color: var(--home-console-text); }
+.home-terminal .copy { border-color: #675783; background: var(--home-console-bar); color: #fff; }
+.home .home-terminal p { padding: .85rem 1.15rem; border-top: 1px solid var(--home-console-bar); color: var(--home-console-text); font-size: .86rem; }
+.home-terminal a { color: var(--home-signal); }
+
+.home-section { padding-block: clamp(2.75rem, 5.5vw, 4.8rem); }
+.home-band { background: var(--wash); border-block: 1px solid var(--line); }
+.home-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; }
+.home-band h2 + .home-grid { margin-top: 1.45rem; }
+.home-card { padding: clamp(1rem, 2.8vw, 1.55rem); border: 1px solid var(--line); border-radius: .68rem; background: var(--paper); min-width: 0; }
+.home-card p { margin-top: .55rem; }
+.home pre { margin: .95rem 0; padding: 2.1rem 1rem .9rem; overflow: visible; line-height: 1.65; }
+.home pre code { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+.home .home-terminal pre { margin: 0; padding: 2.55rem 1.15rem 1.15rem; }
+.home-links { display: flex; flex-wrap: wrap; gap: .4rem 1.35rem; }
+.home-section-head { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: .65rem 1rem; margin-bottom: 1.45rem; }
+
+.home-workflows { border-top: 1px solid var(--line); }
+.home-workflows a {
+  display: grid;
+  grid-template-columns: minmax(9rem, .65fr) minmax(0, 1.45fr) auto;
+  align-items: center;
+  gap: .4rem 1.35rem;
+  padding: .95rem .15rem;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+.home-workflows a:hover { background: var(--hover); }
+.home-workflows strong { font-size: 1.12rem; }
+.home-workflows span:not(.workflow-arrow) { color: var(--intro); }
+.home-resources { display: grid; align-content: start; gap: .8rem; padding-left: clamp(0rem, 3vw, 3rem); }
+.home-resources > div { padding-top: .75rem; border-top: 1px solid var(--line); }
+.home-resources p, #reference h2 + p { margin-top: .35rem; }
+.home #search-form { margin-top: 1rem; }
+.home #search-form label { font-weight: 700; }
+.home .search-box { padding-block: .6rem; }
+.home #search { font-size: .98rem; }
+.home-footer { margin: 0; padding: 0; border: 0; display: block; }
+
+@media (max-width: 49rem) {
+  .home-hero, .home-grid { grid-template-columns: minmax(0, 1fr); }
+  .home-hero .home-terminal { width: min(100%, 39rem); }
+  .home-resources { padding-left: 0; margin-top: .65rem; }
+}
+@media (max-width: 41rem) {
+  .home-wrap { width: calc(100% - 2rem); }
+  .home-header .home-wrap, .home-footer .home-wrap { padding-block: .75rem; }
+  .home-header nav { order: 3; width: 100%; }
+  .home-workflows a { grid-template-columns: minmax(0, 1fr) auto; }
+  .home-workflows span:not(.workflow-arrow) { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 23rem) {
+  .home-header .brand { font-size: 1.02rem; gap: .3rem; }
+  .home-header .brand img { width: 28px; height: 28px; }
+  .home-actions { gap: .42rem; }
+}
