@@ -207,12 +207,12 @@ removed after confirming no process is running. If rollback reports an error,
 keep the transaction and recover from its backups before retrying.
 
 For maintainers: align `package.json`, `plugin.json`, and
-`.claude-plugin/plugin.json` versions, run the tests, inspect `npm pack --dry-run`
-and the actual tarball, and smoke-test that tarball before publishing a new
-version. Verify package name ownership and all bundled redistribution rights;
-see `SOURCE_NOTICES.md`. Build and publish the tarball manually from the release
-checkout. GitHub Actions runs source tests on Linux and deploys the documentation
-from `dev`.
+`.claude-plugin/plugin.json` versions and run the tests. Use a fresh checkout of
+the release commit for `npm pack --dry-run` and `npm pack`. This keeps local
+test artifacts out of the tarball. Smoke-test the tarball before publishing it
+manually. Verify package name ownership and all bundled redistribution rights
+in `SOURCE_NOTICES.md`. GitHub Actions runs source tests on Linux and deploys
+the documentation from `dev`.
 
 ### Standalone skills and compatible hosts
 
