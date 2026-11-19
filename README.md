@@ -210,7 +210,9 @@ For maintainers: align `package.json`, `plugin.json`, and
 `.claude-plugin/plugin.json` versions, run the tests, inspect `npm pack --dry-run`
 and the actual tarball, and smoke-test that tarball before publishing a new
 version. Verify package name ownership and all bundled redistribution rights;
-see `SOURCE_NOTICES.md`. Publishing requires separate authorization.
+see `SOURCE_NOTICES.md`. Build and publish the tarball manually from the release
+checkout. GitHub Actions runs source tests on Linux and deploys the documentation
+from `dev`.
 
 ### Standalone skills and compatible hosts
 
