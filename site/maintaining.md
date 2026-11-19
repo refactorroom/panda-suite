@@ -21,7 +21,7 @@ Open `http://localhost:8000`. The build creates `dist/`, which is ignored by Git
 - Edit `docs/skills/<skill>.md` to update a skill's in-depth page (when to use it, inputs, workflow, boundaries, and example prompts). When this file exists, the builder publishes it as the skill page and adds the invocation note and a link to the skill's `SKILL.md`.
 - Edit `docs/usage.md` to update the complete usage guide. For a skill without a `docs/skills/` guide, the builder extracts its section from this file instead.
 - Edit `README.md` to update installation instructions. The builder extracts its installation section.
-- Edit `site/index.md` for the home page and `site/assets/` for styles and behavior.
+- Edit `site/index.md` for home content, `site/home-template.html` for its layout, and `site/assets/home.css` for home styles. The guide pages use `site/template.html`.
 - Update the page list in `scripts/build-docs.py` when adding a guide. Add new skills to the usage guide and the builder's skill list together.
 - Keep commands grounded in actual host and installer behavior. Discovery checks do not prove interactive invocation.
 

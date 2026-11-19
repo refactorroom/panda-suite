@@ -1,12 +1,12 @@
 const menu = document.querySelector('#menu');
 const sidebar = document.querySelector('#sidebar');
-menu.addEventListener('click', () => {
+menu?.addEventListener('click', () => {
   const open = menu.getAttribute('aria-expanded') !== 'true';
   menu.setAttribute('aria-expanded', String(open));
   sidebar.classList.toggle('open', open);
 });
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && sidebar.classList.contains('open')) {
+  if (event.key === 'Escape' && sidebar?.classList.contains('open')) {
     menu.click();
     menu.focus();
   }
@@ -17,7 +17,7 @@ document.querySelectorAll('pre').forEach(pre => {
   const button = document.createElement('button');
   button.className = 'copy';
   button.textContent = 'Copy';
-  button.setAttribute('aria-label', 'Copy code example');
+  button.setAttribute('aria-label', pre.dataset.copyLabel || 'Copy code example');
   button.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(code.textContent);
@@ -37,7 +37,7 @@ document.querySelectorAll('pre').forEach(pre => {
 const input = document.querySelector('#search');
 const results = document.querySelector('#search-results');
 const status = document.querySelector('#search-status');
-const nav = document.querySelector('nav');
+const nav = sidebar?.querySelector('nav');
 let indexPromise;
 let sequence = 0;
 document.querySelector('#search-form').addEventListener('submit', event => event.preventDefault());
@@ -46,7 +46,7 @@ input.addEventListener('input', async () => {
   const query = input.value.trim().toLowerCase();
   results.replaceChildren();
   results.hidden = !query;
-  nav.hidden = Boolean(query);
+  if (nav) nav.hidden = Boolean(query);
   if (!query) { status.textContent = ''; return; }
   try {
     indexPromise ||= fetch('search.json').then(response => {
