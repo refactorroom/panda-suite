@@ -5,8 +5,7 @@ description: Create, explore, refine, and audit logos and brand identity assets.
 
 # Panda Logo
 
-Translate a product brief into a recognizable identity and deliver the requested
-assets or review. Work directly from this skill and its local references.
+Develop the requested brand assets or review an existing identity.
 
 ## Establish the brief
 

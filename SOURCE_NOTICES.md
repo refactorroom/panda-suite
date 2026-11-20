@@ -29,7 +29,8 @@ The original project is [nai0om/buddhist-method](https://github.com/nai0om/buddh
 Revision: `525a52fffa9db11fddfd3e4cb10c58c9efaa4e24`.
 
 The [original MIT license](skills/buddhist-method/LICENSE) credits Udomsak as
-the copyright holder. Skill and references: `skills/buddhist-method/`. Original
+the copyright holder. Pristine skill: `vendor/buddhist-method/SKILL.md`. Active
+Suite adaptation and references: `skills/buddhist-method/`. Original
 English/Thai READMEs and pressure-test report: `skills/buddhist-method/`.
 Preserve its attribution, terminology, and license when copying the skill.
 The README's `nai0om/buddhist-method` installation examples remain unchanged as

@@ -60,4 +60,4 @@ dependency graph service.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Anāgataṃsa-ñāṇa: When a contract changes, inspect immediate consumers and stored-data compatibility.
+Anāgataṃsa-ñāṇa: When a contract changes, inspect immediate consumers and stored-data compatibility.

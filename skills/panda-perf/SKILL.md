@@ -83,8 +83,3 @@ An analysis is complete when the bottleneck and patch can be assessed against
 evidence and invariants. An applied optimization is complete when the scoped
 change is verified or its unresolved limits are explicit. Handoffs carry workload,
 measurements, assumptions, patch status, unrun checks, and authorization.
-
-## Success discipline
-
-Vīmaṃsā: Measure the relevant cost, challenge the first bottleneck hypothesis,
-and preserve behavior before claiming improvement. A faster wrong result fails.

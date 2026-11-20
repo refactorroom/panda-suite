@@ -62,7 +62,6 @@ carries the question, evidence, versions, unresolved claims, and authorization.
 
 ## Success discipline
 
-The work is complete when the user can assess the answer and its evidence limits.
 Kalāma: Investigate the premise, retain contradictory evidence, and name what
 would change a material conclusion. Confidence follows evidence quality and
 coverage, not the number of sources collected.

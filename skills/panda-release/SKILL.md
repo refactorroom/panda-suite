@@ -61,4 +61,4 @@ evidence freshness, unresolved gates, ownership unknowns, and actual authorizati
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Sati-Sampajañña: Match verification evidence to the release revision and environment.
+Sati-Sampajañña: Match verification evidence to the release revision and environment.

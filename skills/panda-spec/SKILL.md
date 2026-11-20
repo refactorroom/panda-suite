@@ -70,4 +70,4 @@ the actual permission to implement, if any.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Kalāma: Connect claims about current contracts to sources and label proposed behavior.
+Kalāma: Connect claims about current contracts to sources and label proposed behavior.

@@ -52,4 +52,4 @@ and authorization.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Sati-Sampajañña: Confirm the visible state and evidence source before describing each step.
+Sati-Sampajañña: Confirm the visible state and evidence source before describing each step.

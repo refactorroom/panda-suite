@@ -77,37 +77,9 @@ from routine reversible engineering choices.
    Stop when the requested objective is met, including a justified no-change
    conclusion. Report unverified boundaries without claiming universal equivalence.
 
-For a persisted plan, default to `.panda-suite/plans/YYYY-MM-DD-<topic>.md` using
-the current local date; honor an explicit destination or chat-only request.
-Preserve existing files and ensure root `.gitignore` covers `/.panda-suite/`;
-verify with `git check-ignore`. Report already tracked plan artifacts and leave
-the index unchanged. Scope a planning-only request to its plan and this ignore
-configuration; source and tests remain unchanged.
+When saving a refactor plan, follow [saved plan rules](references/saved-plan.md).
 
-## Conditional specialist knowledge
-
-Use available peer instructions through the host's documented discovery/loading
-mechanism only when deeper help is useful for the current activity:
-
-- `panda-simplify`: substantial or disputed complexity assessment and alternatives.
-- `panda-plan`: multi-component dependencies and a durable implementation plan.
-- `panda-execute`: complex implementation and acceptance tracking.
-- `panda-test`: coverage gaps, boundary selection and test effectiveness.
-- `panda-impact`: deeper dependency and compatibility assessment.
-- `panda-review`: requested diff review or a required completion review.
-
-Load relevant guidance, not every peer as a mandatory chain. Carry objective,
-invariants, evidence, artifacts, decisions, unknowns and authorization between
-activities. Missing peers do not block the core workflow or require installation.
-Reading instructions is not a programmatic skill invocation. Peers need not
-redispatch through Lead or restart Refactor.
-
-A general complexity assessment belongs with Simplify; a plan-only deliverable
-with Plan; an existing approved implementation plan with Execute; test-only work
-with Test; general diff review with Review. Respect direct Refactor invocation
-within its requested scope. Causal defects and measured performance optimization
-belong with Debugger and Perf respectively; structural changes alone establish
-neither a diagnosis nor a speed improvement.
+When choosing or loading optional specialist guidance, use [specialist routing](references/specialist-routing.md). Refactor can run independently.
 
 ## Limits and report
 

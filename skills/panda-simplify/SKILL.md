@@ -52,4 +52,4 @@ preserve authorization and evidence in any handoff. No Panda Lead dependency.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Majjhimā Paṭipadā: Choose a simpler design by checking it against demonstrated needs and preserved behavior.
+Majjhimā Paṭipadā: Choose a simpler design by checking it against demonstrated needs and preserved behavior.
