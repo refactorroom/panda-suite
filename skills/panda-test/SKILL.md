@@ -61,4 +61,4 @@ or repeated failures materially affect the next decision.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Vīmaṃsā: Check whether assertions would detect a plausible violation of the required behavior.
+Vīmaṃsā: Check whether assertions would detect a plausible violation of the required behavior.

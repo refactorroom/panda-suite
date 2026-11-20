@@ -10,11 +10,8 @@ metadata:
 Turn authorized assessment inputs into traceable assets, hypotheses, observations
 and findings. A requested `scan` is a facade using available `panda-security`
 analysis; direct source/configuration audits still belong with `panda-security`;
-ordinary application failures with Debugger. Hunting, incident reconstruction,
-fix verification and threat intelligence belong with `panda-blue`. A focused
-explanation needs no case. Never equate a potential weakness, verified
-vulnerability, simulation or confirmed incident. This skill works without
-companion skills or an external service.
+Send defensive work to `panda-blue`. Distinguish weaknesses, verified
+vulnerabilities, simulations and incidents. This skill runs independently.
 
 ## Select the outcome
 

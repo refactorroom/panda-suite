@@ -35,13 +35,9 @@ subagent-driven run is available.
 - **Native:** run the execution loop below for each task in this session, then
   review the whole diff against the plan, using a fresh reviewer when the host
   can delegate.
-- **Subagent-driven:** for each task, give a fresh implementer only that task's
-  text, its interfaces note, the plan's constraints, and the relevant paths.
-  Re-run the task's checks yourself; a subagent's report is not evidence. Then
-  give a fresh reviewer the task, the plan's acceptance criteria, and the diff;
-  fix material findings before the next task. Run tasks that touch the same
-  files one at a time. Finish with one whole-change review. If the host cannot
-  delegate, say so and run native.
+- **Subagent-driven:** when selected and the host can delegate, follow
+  [subagent execution](references/subagent-execution.md). Otherwise disclose the
+  limitation and run native.
 
 ## Execution loop
 
@@ -101,4 +97,4 @@ authorize commits, pushes, or published-history rewrites.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Appamāda: Under pressure, recheck remaining acceptance criteria and the completeness of deliverables.
+Appamāda: Under pressure, recheck remaining acceptance criteria and the completeness of deliverables.

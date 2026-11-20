@@ -40,4 +40,4 @@ For a frontend issue with an accessible application, read [the browser investiga
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Yoniso Manasikāra: When multiple causes fit, choose an observation that distinguishes them and state the expected outcomes.
+Yoniso Manasikāra: When multiple causes fit, choose an observation that distinguishes them and state the expected outcomes.

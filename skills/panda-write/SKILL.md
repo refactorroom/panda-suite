@@ -5,11 +5,9 @@ description: Create, review, or update evidence-based engineering documentation 
 
 # Panda Write
 
-Produce documentation engineers can use to understand, operate, and verify the
-current system. Review and repair existing documents as well as write new ones.
-Use a specification workflow for proposed contracts and design, or a manual
-workflow for observed user journeys. A focused code explanation needs no document
-workflow; general prose and marketing copy are outside this skill's purpose.
+Document current engineering behavior for readers who need to understand,
+operate or verify it. Use specifications for proposed contracts and manuals
+for observed user journeys. Review existing docs when requested.
 
 ## Inputs and workflow
 
@@ -18,27 +16,7 @@ source material, and project conventions. Preserve the existing document's forma
 and language unless asked to change them; explicit user instructions take
 precedence. Inspect available evidence before asking for missing facts.
 
-When the user names or supplies a DOCX template or example, inspect it before
-drafting and use it as the formatting reference. Match its page layout and
-document styles, including font family, size, color, weight, heading hierarchy,
-paragraph spacing, tables, headers, and footers where present. Apply the template's
-styles consistently to the new content; do not treat example wording as factual
-source material unless the user identifies it as such. If the template cannot be
-read or its formatting cannot be carried into the requested output, explain that
-constraint and use only formatting the available tools can verify. In authored
-prose, do not use the em dash character (—); use punctuation such as commas,
-parentheses, colons, or a period instead.
-
-For DOCX documents, assign consistent built-in heading styles and levels to the
-title and section headings. Do not add a table of contents unless the user
-requests one. When the user requests a diagram, draft its Mermaid source first,
-check it against the traced evidence, render it to an image with an available
-tool, then insert that image into the DOCX. Keep the Mermaid source beside the
-Markdown and DOCX deliverables. If no renderer is available, do not install one;
-deliver the source and report that the embedded image was not produced. For Thai
-documents, indent each body prose paragraph by one tab stop. Apply this as
-first-line paragraph formatting in DOCX; headings, list items, table cells, and
-code are not prose paragraphs.
+For DOCX, a supplied formatting template, or Thai paragraph formatting, read [document formatting](references/document-formatting.md) before drafting. In authored prose, avoid em dashes.
 
 **Ask before guessing.** Each section needs a named source of truth: current
 code, a document or system the user references, or the user's answer. Before
@@ -64,25 +42,8 @@ sections, examples, features, recommendations, or background beyond them.
    B2-level English. For Thai, use professional Thai with established technical
    terms and exact identifiers. Separate implementation, configuration, deployed
    state, external-system contracts, confirmed requirements, and proposals.
-   Write in the register of a product manager, project manager, or technical
-   lead: state the decision or status, supporting evidence, impact, dependencies,
-   and next action in terms the intended reader can use. Keep the reasoning
-   academically careful by defining relevant terms, connecting conclusions to
-   evidence, and distinguishing fact from interpretation. Prefer concrete verbs
-   and familiar wording. Remove generic introductions, repeated summaries,
-   inflated claims, canned transitions, and vague recommendations. Use role
-   language only when the document's purpose calls for it; do not add a persona,
-   management framework, or decision section that the request and sources do not
-   support. Avoid AI-generated-sounding filler and slogans. When a source
-   explicitly names a set of models or tables and gives its count, state the set
-   name and count before listing every exact identifier. For Thai, use a concise
-   construction such as `สำหรับ <ชื่อระบบ> ประกอบด้วยตาราง <จำนวน> ตาราง ดังนี้`
-   and then enumerate the names. Keep models and database tables distinct; do
-   not label models as tables or supply names absent from the source.
-   For Thai documents, turn source fragments into complete, natural sentences
-   and organize them by meaning. Preserve the source's factual boundaries: make
-   arithmetic only from confirmed values, and do not infer causes, functionality,
-   statistical significance, or recommendations that the source does not support.
+   Write direct, evidence-based prose suited to the audience. For Thai prose or
+   source-defined model/table inventories, read [prose and inventories](references/prose-and-inventories.md).
    Current code establishes implemented paths, not production state or a remote
    system's guarantees. Record contradictions and prefer current implementation
    for claims about implemented behavior. Keep required/actual differences visible.
@@ -121,25 +82,7 @@ ask the precise question needed to resolve it; omit or label it `Pending
 Confirmation` only when continuing with gaps is authorized.
 The document is ready when a reader can follow it and assess its limits.
 
-**Saved output.** Save a new document under
-`.panda-suite/docs/<story-slug>/YYYY-MM-DD-<topic>.<ext>` in the active project
-root. Create one folder per documentation story, named from the requested
-document's subject or purpose as a short lowercase hyphenated slug (for example,
-`integrations` for a guide about integrations); keep artifacts for the same story
-together. Infer the story from the request and its source context only when they
-identify it clearly. If the story is unclear or multiple stories fit, ask the user
-to select a story before saving; do not create a guessed or generic folder. Use the
-current local date and a short lowercase hyphenated topic for the file name. Use
-Markdown unless
-the user asks for another format such as `.docx` or `.pdf`; then keep the Markdown
-source beside the exported file. Convert with tools already available; if none
-can produce the format, save the Markdown, state that the export was not created,
-and ask before installing anything. An explicit path or file name, an existing
-document named for update, or a chat-only request takes precedence. In a workspace
-with several projects, use the one the request or its sources identify; ask when
-several still fit. Do not overwrite another document; choose a distinct name.
-After writing or updating a document, keep its story folder and all existing
-contents under `.panda-suite/docs/`; do not remove them as cleanup.
+When saving or exporting a document, follow [saved documents](references/saved-documents.md) for story folders, filenames, format and preservation. Explicit destinations and chat-only requests take precedence.
 
 Do not stage or commit `.panda-suite/` output, and do not edit ignore files
 unasked. If Git would track `.panda-suite/`, say so in the delivery message.
@@ -157,4 +100,4 @@ authorization.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Kalāma: Check material commands and behavioral claims against available evidence.
+Kalāma: Check material commands and behavioral claims against available evidence.

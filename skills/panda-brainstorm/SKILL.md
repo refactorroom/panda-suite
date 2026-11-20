@@ -51,4 +51,4 @@ Panda Lead or another installed skill.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Kalāma: When a recommendation depends on an assumption, identify the evidence that would change it.
+Kalāma: When a recommendation depends on an assumption, identify the evidence that would change it.

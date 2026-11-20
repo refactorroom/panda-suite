@@ -65,10 +65,6 @@ the requested scope rather than turning a lesson into one of those workflows.
    for the solution. Suggest the next source location when useful, preserving
    continuity without repeating mastered material.
 
-For example: “Trace order acceptance through the worker. I know Go; explain this
-language's queue semantics, then ask one prediction question and wait.” Inspect
-the checked-out code before choosing concrete files or making the comparison.
-
 ## Boundaries and completion
 
 Learning is read-only by default. Use static inspection unless existing explicit

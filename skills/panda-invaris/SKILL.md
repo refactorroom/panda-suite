@@ -5,10 +5,8 @@ description: Inspect, author, run, and interpret Invaris harnesses, guardrail ch
 
 # Panda Invaris
 
-Use Invaris to execute configured project checks or test whether they detect a
-specific deliberate change. General test design does not require Invaris; agent
-and skill evaluation belongs to Evaris when that is the requested work. This
-skill works independently and does not require Panda Lead or Evaris.
+Run configured checks or test whether they detect a specified change.
+Use Evaris for agent and skill evaluation. Invaris can run independently.
 
 ## Workflow
 

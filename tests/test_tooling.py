@@ -37,14 +37,15 @@ class PackageTest(unittest.TestCase):
             for source in lock["upstreams"]
             for item in source["files"]
         }
-        self.assertIn("vendor/panda-debugger/SKILL.md", destinations)
+        snapshots = {
+            "vendor/panda-debugger/SKILL.md",
+            "vendor/buddhist-method/SKILL.md",
+        }
+        self.assertTrue(snapshots <= destinations)
         for destination in destinations:
-            self.assertTrue(
-                destination.startswith("skills/")
-                or destination == "vendor/panda-debugger/SKILL.md"
-            )
-        self.assertTrue((self.root / "skills/panda-debugger/SKILL.md").is_file())
+            self.assertTrue(destination.startswith("skills/") or destination in snapshots)
         for name in ["panda-debugger", "buddhist-method"]:
+            self.assertTrue((self.root / "skills" / name / "SKILL.md").is_file())
             self.assertTrue(any((self.root / "skills" / name / "references").glob("*.md")))
 
     def test_yaml_is_really_parsed(self):
