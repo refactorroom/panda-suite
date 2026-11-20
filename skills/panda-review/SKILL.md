@@ -59,4 +59,4 @@ baseline, evidence, unresolved risks, proposed corrections, and permission statu
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Upekkhā: Under pressure to approve, inspect the relevant guards and report supported findings.
+Upekkhā: Under pressure to approve, inspect the relevant guards and report supported findings.

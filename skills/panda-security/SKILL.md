@@ -5,20 +5,10 @@ description: Audit application code, dependencies, CI/CD, Agent Skills, MCP inte
 
 # Panda Security
 
-Perform a bounded security audit of systems the user owns or is authorized to assess.
-General changed-code correctness belongs with review; incident response, live
-penetration testing, and implementing repairs are separate activities. A security
-keyword in a focused explanation does not require an audit.
-
-When available, `panda-red` owns attack-surface evidence collection, controlled
-runtime validation and bounty preparation, and `panda-blue` owns telemetry
-investigation, incident reconstruction and dated threat-intelligence retrieval
-(`intel`: CVE, KEV, EPSS, OSV, OWASP, ATT&CK). Keep source/configuration audits and
-dependency triage within an audit here, using Blue intel output when supplied; do not start active testing or an incident workflow automatically.
-
-Skill effectiveness belongs with Skill Lab; configuring or running verification
-belongs with the relevant harness workflow. Security review does not require
-either workflow or an external scanner.
+Audit authorized source, configuration, dependencies, agent tooling or harnesses.
+Use Review for general correctness and Blue for defensive telemetry and public
+threat intelligence. Keep audits separate from repairs and active testing.
+Use Skill Lab for skill effectiveness. No companion or scanner is required.
 
 ## Scope and modes
 

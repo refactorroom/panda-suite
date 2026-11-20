@@ -7,12 +7,10 @@ metadata:
 
 # Panda Blue
 
-Turn supplied evidence into traceable observations, timelines, findings and
-verified fix outcomes. Source/configuration audits belong with `panda-security`;
-scanning, surface mapping, lab validation and bounty preparation with `panda-red`;
-ordinary application failures with Debugger. A focused explanation needs no case.
-Never equate a potential weakness, verified vulnerability, simulation or confirmed
-incident. This skill works without companion skills or an external service.
+Investigate supplied telemetry, verify remediation, or retrieve dated public
+threat intelligence. Source and configuration audits belong with Panda Security.
+Distinguish weaknesses, verified vulnerabilities, simulations and incidents.
+This workflow runs independently.
 
 ## Select the outcome
 

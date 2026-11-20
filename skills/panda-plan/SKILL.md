@@ -5,9 +5,10 @@ description: Create engineering implementation plans from requirements and exist
 
 # Panda Plan
 
-Convert agreed requirements into work an engineer can execute. Exploration of an
-unclear product need belongs before planning; a technical contract alone is a
-specification, not an execution plan.
+Turn agreed requirements into executable work. Explore unclear needs before
+planning. For saved plan review or archival, follow [processed plans](references/processed-plans.md)
+instead of drafting a new plan. A read-only review moves nothing; archive only
+verified or explicitly superseded plans.
 
 ## Inputs and workflow
 
@@ -15,61 +16,38 @@ Use the requirements, repository, constraints, and requested scope. An existing
 design or spec is optional. If source is unavailable, identify the affected
 unknowns and label any proposed file layout as provisional.
 
-1. **Understand requirements.** Extract intended behavior, non-goals,
-   compatibility promises, and mandatory acceptance conditions. Keep supplied
-   requirement IDs; assign concise IDs where needed for cross-references. Resolve
-   ambiguities that materially change correctness or scope; label confirmed
-   facts with sources, proposed choices, assumptions, and unresolved decisions.
-2. **Inspect the system.** Read relevant source, callers, test assertions,
-   configuration, and project instructions. Cite paths for current behavior.
-   Reuse existing capabilities and the simplest architecture meeting the need.
-3. **Define scope and contracts.** Identify affected interfaces, source of truth,
-   data ownership, invariants, module/dependency direction, and failure/recovery
-   behavior where relevant. For changed public boundaries, state compatibility
-   promises and their checks, including error semantics and version/migration
-   constraints. Include rollback feasibility and observability where needed.
-   For independent subsystems, propose separate plans with testable deliverables;
-   keep shared contracts and prerequisites explicit.
-4. **Order coherent tasks.** Follow real dependencies. Give each task a stable
-   ID, action title, outcome, requirement references, affected files/components,
-   prerequisites, observable acceptance conditions, and verification. State
-   preserved versus changed behavior and exclusions where they affect execution.
-   Each dependent task states what it consumes and produces, with exact names,
-   types/signatures and compatibility constraints, so its implementer can act
-   from that task and the plan's constraints alone. Label new interfaces proposed;
-   established interfaces must match source. Fold setup, tests and documentation
-   into the useful behavior they support. Split when parts can be accepted
-   independently; a task need not equal one commit or one test.
-5. **Plan discriminating verification.** For each critical behavior, identify a
-   plausible incorrect implementation and the assertion or check that rejects it.
-   Specify test level, relevant normal/failure inputs, expected results, needed
-   fixtures/dependencies and existing regressions. Prioritize authorization,
-   state, invalid inputs, duplicates, concurrency, rollback, dependency failure
-   or idempotency only when relevant. Inspect assertions: a green suite may
-   leave acceptance conditions untested. Confirm commands from repository tooling;
-   label proposed commands and unavailable environments. Checks remain planned
-   until executed; planning observations do not prove future implementation.
-   Test-first sequencing is optional; choose it only when useful.
-6. **Check the plan.** Trace every mandatory requirement to a task and every
-   acceptance condition to a check and expected evidence, or an explicit evidence
-   gap. For complex work, use a compact Requirement → Task → Check → Evidence
-   table; for a small change, put those links in its single task. Check prerequisite
-   IDs exist, order has no cycles, and cross-task names, types and error outcomes
-   agree. Resolve placeholders with concrete decisions or explicit blockers;
-   specify signatures and exact required values, leaving ordinary implementation
-   bodies to the implementer. Check relevant regressions and material risks have
-   checks, mitigations or open decisions.
-   Where omission, null, empty, and invalid values have different outcomes,
-   specify them separately. Check that the proposed language or framework can
-   actually deliver the promised error at the stated boundary; leave unresolved
-   policy explicit rather than assigning an accidental runtime behavior.
-   When an authoritative scope decision changes an existing proposal, apply it
-   throughout the artifact. Reconcile the goal, scope, constraints, file map,
-   review focus, tasks, dependencies, risks, traceability, release gates, acceptance
-   checklist, verification, and handoff; remove stale work and checks. Keep a brief decision note only
-   when future readers need to know why scope changed. Before delivery, search
-   for names and terms from the removed scope and resolve every remaining
-   reference, including references that imply the work is still required.
+1. **Requirements.** Capture intended behavior, non-goals, compatibility and
+   mandatory acceptance conditions. Preserve requirement IDs or assign short IDs.
+   Cite confirmed facts and label proposals, assumptions and open decisions.
+   Resolve ambiguities that materially affect correctness or scope.
+2. **Current system.** Inspect relevant source, callers, assertions, config and
+   project instructions. Cite paths. Reuse existing capabilities and prefer the
+   smallest design that meets the need.
+3. **Contracts.** Identify affected interfaces, source of truth, ownership,
+   invariants, dependencies and failure recovery. For public changes, specify
+   compatibility checks, error semantics, versions and migrations. Include
+   rollback and observability where warranted. Split independent subsystem plans
+   while naming shared contracts and prerequisites.
+4. **Tasks.** Order by actual dependencies. Each task has an ID, action title,
+   outcome, requirement IDs, files/components, prerequisites, acceptance and checks.
+   State changed/preserved behavior and relevant exclusions. Specify each consumed
+   and produced interface with exact names, signatures, required values and
+   compatibility rules. Match existing interfaces to source. Label new ones as
+   proposed. Group setup, tests and docs with the behavior they support.
+5. **Verification.** For each critical behavior, name a plausible wrong
+   implementation and the assertion that detects it. Give test level, inputs,
+   expected outcomes, fixtures, dependencies and relevant regressions. Inspect
+   existing assertions for gaps. Confirm commands from repo tooling and label
+   proposed commands or unavailable environments. Use test-first sequencing when
+   helpful. Checks stay planned until run.
+6. **Reconcile.** Trace each requirement through task, acceptance, check and
+   expected evidence or explicit gap. Use a matrix only for complex work.
+   Check for cycles, missing prerequisites and inconsistent interfaces or errors.
+   Resolve placeholders or mark blockers. Specify omitted, null, empty and invalid
+   inputs separately when semantics differ. Verify the framework can emit each
+   promised error at that boundary. Give material risks checks, mitigations or
+   open decisions. Apply scope changes across the entire artifact, including
+   evidence, release gates and handoff. Search for and remove stale references.
 
 ## Output and completion
 
@@ -80,14 +58,7 @@ overwriting an unrelated existing plan; choose a distinct descriptive filename.
 When the user requests an answer only in chat, honor that format. If the workspace
 cannot be written, provide the plan in the response and explain the limitation.
 
-When saving a plan inside `.panda-suite` in a Git repository, ensure the
-repository root `.gitignore` ignores `/.panda-suite/`. Create the file if needed,
-preserve existing entries, and avoid adding a duplicate when an existing rule
-already covers the directory. Verify the intended plan path with `git check-ignore`.
-Ignore rules do not remove files already tracked by Git; report any tracked
-`.panda-suite` files and leave the index unchanged. If the ignore rule cannot be
-updated or verified, report that limitation. Respect an explicit request to track
-the plan or a repository instruction requiring it.
+When saving under `.panda-suite` in Git, follow [saving plans](references/saving-plans.md) to verify ignore coverage and preserve tracked files and the index.
 
 Start with title, goal, scope, source/specification and constraints, carrying
 project-wide constraints with exact required values. Map affected files and
@@ -120,60 +91,5 @@ A task checkbox records completion only after its required acceptance checks
 produce evidence. Link the saved plan and identify unresolved decisions/checks.
 Saving a plan requires no commit.
 
-## Processed plans
-
-When asked to process or tidy existing plans, inspect the target and current
-completion evidence. A saved plan, checked boxes, or a prior green suite alone
-does not establish completion: check every in-scope task and its acceptance
-conditions against current source and relevant checks. Keep unfinished, blocked,
-or unverifiable plans active and report what remains; do not implement missing
-work under planning-only authorization. A read-only review moves no files.
-An explicit user or authoritative repository decision that a plan is superseded
-also permits archiving it, even with unchecked tasks. Confirm which plan the
-decision replaces; a newer filename or overlapping proposal alone is insufficient.
-Preserve unfinished checkboxes and distinguish supersession from verified
-completion in the report, naming the decision and replacement when supplied.
-
-Move a completed and verified or explicitly superseded plan into an `archive/`
-directory beside its active file (`.panda-suite/plans/archive/` for the default
-location). Preserve the whole
-document, including decisions, deviations and evidence. Respect explicit archive
-destinations and repository conventions. Create the directory if needed; preserve
-existing archives and choose a distinct descriptive filename on collision. Verify
-the destination content and that the active source is gone before reporting the
-move, then link the archived path. If the move fails, preserve the original and
-report the actual limitation. Do not archive unrelated plans, mark pending work
-done, change the Git index, or create a replacement plan just to perform cleanup.
-
-## Execution handoff
-
-When a plan is saved and implementation is a relevant next step, end the
-user-facing response with a request to review the plan and, unless already chosen,
-a choice of how `panda-execute` should run it. Put the review/mode request in the
-response, not only inside the saved plan:
-
-- **Subagent-driven:** a fresh agent implements each task and a fresh reviewer
-  checks it before the next starts, then one whole-change review. Most thorough;
-  costs a fresh context per task and review. Offer only when the host can delegate.
-- **Native:** this session implements every task, then one review of the whole
-  change (by a fresh reviewer when the host can delegate). Cheapest and fastest;
-  no independent review until the end.
-
-Recommend one in a sentence grounded in the plan: how many tasks, how much they
-depend on each other's interfaces, and what a shipped mistake would cost. Give a
-ready-to-use request such as “Use panda-execute (native) to implement
-`.panda-suite/plans/<filename>.md`.” When the user already named a mode, keep it
-and ask only for the review. When the user asked for a chat-only answer or no
-execution, mention the handoff without the menu. Wait for the user's answer:
-saving a plan, or choosing a mode in advance, does not by itself authorize
-starting implementation unless the user's request already did.
-
-Do not estimate duration without evidence. Planning authorizes the requested plan
-artifact, not application implementation. Do not edit source or tests. Do not
-require Panda Lead. A handoff to execution preserves acceptance criteria, current
-artifacts, decisions, unknowns, and the user's actual authorization; a generated
-plan alone is not approval to execute it.
-
-## Success discipline
-
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Vīmaṃsā: Before finishing, map each acceptance condition to a task and a check.
+When implementation is a relevant next step, follow [execution handoff](references/execution-handoff.md)
+for the review request and mode choice. Planning alone authorizes no implementation.

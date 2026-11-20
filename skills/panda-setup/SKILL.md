@@ -72,18 +72,7 @@ and continue independent work meanwhile.
    actual install, build/check, type check, lint, tests, and a smoke request or
    page load. Only a project that passes every applicable check is "ready".
 
-## Stack notes (optional)
-
-Setup never depends on a note existing. For several applications in one
-repository, also read [combined projects](references/combined-projects.md).
-Notes record pitfalls already observed for some stacks; load one only when it
-matches, and still verify current facts:
-[Go + Fiber](references/stacks/go-fiber.md),
-[Node.js + Fastify](references/stacks/node-fastify.md),
-[Python + FastAPI](references/stacks/python-fastapi.md),
-[React + Vite](references/stacks/react-vite.md),
-[Vue + Vite](references/stacks/vue-vite.md),
-[Next.js](references/stacks/nextjs.md).
+For a matching stack or several applications in one repository, consult [stack notes](references/stack-notes.md) alongside current official sources.
 
 ## Repeatability and failure
 
@@ -106,4 +95,4 @@ other Panda skills are optional follow-ups for later work.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Sacca: Call the project ready only when its documented commands were run and behaved as stated.
+Sacca: Call the project ready only when its documented commands were run and behaved as stated.

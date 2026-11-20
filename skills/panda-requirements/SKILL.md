@@ -58,4 +58,4 @@ works independently; no master or peer skill is required.
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Kalāma: When requirements conflict, preserve their sources and identify the decision needed.
+Kalāma: When requirements conflict, preserve their sources and identify the decision needed.

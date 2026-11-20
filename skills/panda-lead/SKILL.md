@@ -75,4 +75,4 @@ Skip satisfied activities. Requirements define what; Plan orders work; Impact tr
 
 ## Success discipline
 
-Identify the requested outcome and evidence of completion. Continue useful authorized work, keep attention on current evidence, and compare the result with the outcome before reporting completion. State any remaining uncertainty or blocker. Chanda: When the request changes, identify the current outcome and carry forward evidence and authorization.
+Chanda: When the request changes, identify the current outcome and carry forward evidence and authorization.

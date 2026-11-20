@@ -147,7 +147,7 @@
         },
         {
           "source": "SKILL.md",
-          "destination": "skills/buddhist-method/SKILL.md",
+          "destination": "vendor/buddhist-method/SKILL.md",
           "sha256": "5a161ebc793ae081710056e3ed92ee71c168e30704eb2a1ac1949be7875954bc"
         },
         {

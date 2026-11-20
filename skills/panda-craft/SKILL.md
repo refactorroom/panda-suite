@@ -5,22 +5,9 @@ description: Compose explicitly selected Agent Skills toward a shared outcome wh
 
 # Panda Craft
 
-Compose the expertise. Preserve the discipline. Verify the outcome.
-
-Coordinate the user's selected specialists while they retain their domain methods.
-Craft owns the shared outcome contract and evidence across activities. It is an
-optional instruction workflow, not a runtime, separate agent, or prerequisite for
-other skills. General workflow selection belongs with Panda Lead when available;
-focused tasks can use their specialist directly.
-
-Example request (standalone Codex names; use the host's discovered selectors):
-
-```text
-$panda-craft $impeccable
-Refine this dashboard's hierarchy, responsiveness and keyboard navigation.
-Local UI edits are allowed. Preserve business logic and API contracts.
-Inspect the rendered result within Impeccable's verification budget.
-```
+Coordinate explicitly selected specialists. Own shared deliverables and
+acceptance evidence while each specialist retains its methods. For general
+routing use Panda Lead when available. Focused tasks can use a specialist directly.
 
 ## Establish intent — Chanda (ฉันทะ)
 
